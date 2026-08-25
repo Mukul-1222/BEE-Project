@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/auth.css">
+
+</head>
+
+<body>
+
+<section class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-logo">
+
+            <div class="auth-logo-icon">
+                T
+            </div>
+
+            Trade<span>Hub</span>
+
+        </div>
+
+
+        <h1>
+            Welcome back
+        </h1>
+
+        <p class="auth-subtitle">
+            Login to continue to TradeHub
+        </p>
+
+
+        <div class="auth-error"
+             id="loginError">
+        </div>
+
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="auth-btn">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <div class="divider">
+            OR
+        </div>
+
+
+        <button
+            class="google-btn"
+            id="googleLogin">
+
+            🔵 Continue with Google
+
+        </button>
+
+
+        <p class="auth-switch">
+
+            Don't have an account?
+
+            <a href="register.html">
+                Create Account
+            </a>
+
+        </p>
+
+
+        <a href="../index.html"
+           class="back-home">
+
+            ← Back to TradeHub
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<script src="../js/auth.js"></script>
+
+</body>
+
+</html>
