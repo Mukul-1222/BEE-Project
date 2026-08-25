@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders | TradeHub</title>
+
+
+    <!-- GLOBAL CSS -->
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <!-- PRODUCT / ORDER CSS -->
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+        /* =====================================================
+           C2C PURCHASE DETAILS
+        ====================================================== */
+
+        .c2c-purchase-details {
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .c2c-purchase-badge {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 5px 8px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--accent);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+
+        .c2c-seller-info {
+            display: grid;
+            gap: 5px;
+            color: #888;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .c2c-seller-info strong {
+            color: #ccc;
+        }
+
+        .c2c-contact-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <!-- TRADEHUB LOGO -->
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="wishlist.html">
+            Wishlist
+        </a>
+
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="nav-actions">
+
+
+        <!-- CART -->
+
+        <button
+            class="icon-btn cart-nav-btn"
+            id="cartButton"
+            onclick="goToCart()"
+            aria-label="Shopping Cart">
+
+            🛒
+
+            <span class="cart-count">
+                0
+            </span>
+
+        </button>
+
+
+
+        <!-- ACCOUNT -->
+
+        <button
+            class="login-btn"
+            id="accountButton">
+
+            Account
+
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="product-page">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="page-header">
+
+        <span class="section-label">
+            ACCOUNT
+        </span>
+
+
+        <h1>
+
+            My <span>Orders</span>
+
+        </h1>
+
+
+        <p>
+
+            View your purchases and open any order
+            to see complete tracking and delivery details.
+
+        </p>
+
+
+        <div
+            id="accountTypeLabel"
+            style="
+                margin-top:12px;
+                color:#777;
+                font-size:9px;
+            ">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ORDERS CONTAINER
+    ================================================== -->
+
+    <div
+        style="
+            margin:-5px 0 18px;
+            color:#777;
+            font-size:9px;
+            line-height:1.5;
+        ">
+
+        Order status, delivery timeline and tracking details
+        are available inside each order.
+
+    </div>
+
+
+    <div
+        id="ordersContainer">
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/orders.js"></script>
+
+<script src="../js/cart.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+
+/* =====================================================
+   CHECK BUYER LOGIN
+===================================================== */
+
+if (
+    !currentUser ||
+    (
+        currentUser.type !== "customer" &&
+        currentUser.type !== "business"
+    )
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   ACCOUNT TYPE LABEL
+===================================================== */
+
+const accountTypeLabel =
+    document.getElementById(
+        "accountTypeLabel"
+    );
+
+
+accountTypeLabel.textContent =
+    currentUser.type === "business"
+    ? "🏢 Business Purchases"
+    : "👤 Customer Purchases";
+
+
+
+/* =====================================================
+   ACCOUNT BUTTON
+===================================================== */
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+
+accountButton.textContent =
+    `👤 ${
+        currentUser.businessName ||
+        currentUser.name ||
+        "Account"
+    }`;
+
+
+accountButton.onclick =
+    function() {
+
+        if (
+            currentUser.type ===
+            "business"
+        ) {
+
+            window.location.href =
+                "business-dashboard.html";
+
+        }
+
+        else {
+
+            window.location.href =
+                "customer-dashboard.html";
+
+        }
+
+    };
+
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+function goToCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+        ? ""
+        : String(
+            value
+        );
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   CHECK C2C ITEM
+===================================================== */
+
+function isCustomerOrderItem(
+    item
+) {
+
+    return (
+
+        item.sourceType ===
+            "customer"
+
+        ||
+
+        item.isUsed ===
+            true
+
+        ||
+
+        item.isCustomerProduct ===
+            true
+
+    );
+
+}
+
+
+
+/* =====================================================
+   CONTACT SELLER
+===================================================== */
+
+function contactSeller(
+    sellerId,
+    sellerName
+) {
+
+    if (
+        !sellerId
+    ) {
+
+        alert(
+            "Seller contact information is not available for this order."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        `messages.html?userId=${encodeURIComponent(
+            sellerId
+        )}&userName=${encodeURIComponent(
+            sellerName ||
+            "Customer"
+        )}`;
+
+}
+
+
+
+/* =====================================================
+   GET C2C SELLER DETAILS
+===================================================== */
+
+function getC2CSellerDetails(
+    order,
+    item
+) {
+
+    if (
+        item &&
+        item.sellerId
+    ) {
+
+        return {
+
+            sellerId:
+                item.sellerId,
+
+            sellerName:
+                item.sellerName ||
+                "Customer"
+
+        };
+
+    }
+
+
+    if (
+        typeof getSellerDetailsForPurchase ===
+        "function"
+    ) {
+
+        return (
+            getSellerDetailsForPurchase(
+                currentUser.id,
+                item.productId
+            )
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =====================================================
+   C2C ITEM DETAILS
+===================================================== */
+
+function getC2CDetailsHTML(
+    order,
+    item
+) {
+
+    if (
+        !isCustomerOrderItem(
+            item
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    const seller =
+        getC2CSellerDetails(
+            order,
+            item
+        );
+
+
+    const sellerName =
+        seller &&
+        seller.sellerName
+        ?
+        seller.sellerName
+        :
+        "Customer Seller";
+
+
+    const sellerId =
+        seller &&
+        seller.sellerId
+        ?
+        seller.sellerId
+        :
+        "";
+
+
+    const condition =
+        item.condition ||
+        "Not specified";
+
+
+    const age =
+        item.productAge !==
+        null &&
+        item.productAge !==
+        undefined &&
+        item.productAge !==
+        ""
+        ?
+
+        `${escapeHTML(
+            item.productAge
+        )} ${escapeHTML(
+            item.productAgeUnit ||
+            "years"
+        )}`
+
+        :
+
+        "Not specified";
+
+
+    return `
+
+        <div
+            class="c2c-purchase-details">
+
+            <span
+                class="c2c-purchase-badge">
+
+                ♻️ PRE-OWNED • CUSTOMER LISTING
+
+            </span>
+
+
+            <div
+                class="c2c-seller-info">
+
+                <div>
+
+                    Seller:
+
+                    <strong>
+
+                        ${escapeHTML(
+                            sellerName
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Condition:
+
+                    <strong>
+
+                        ${escapeHTML(
+                            condition
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    Product Age:
+
+                    <strong>
+
+                        ${age}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            ${
+                sellerId
+
+                ?
+
+                `
+
+                    <button
+                        type="button"
+                        class="secondary-btn c2c-contact-btn"
+                        onclick="
+                            contactSeller(
+                                '${String(
+                                    sellerId
+                                ).replace(
+                                    /'/g,
+                                    "\\'"
+                                )}',
+                                '${String(
+                                    sellerName
+                                ).replace(
+                                    /'/g,
+                                    "\\'"
+                                )}'
+                            )
+                        ">
+
+                        💬 Contact Seller
+
+                    </button>
+
+                `
+
+                :
+
+                `
+
+                    <div
+                        style="
+                            margin-top:10px;
+                            color:#666;
+                            font-size:8px;
+                        ">
+
+                        Seller contact is not available
+                        for this older order.
+
+                    </div>
+
+                `
+
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+
+
+/* =====================================================
+   GET ORDERS
+===================================================== */
+
+const orders =
+    getCustomerOrders(
+        currentUser.id
+    );
+
+
+
+/* =====================================================
+   ORDERS CONTAINER
+===================================================== */
+
+const container =
+    document.getElementById(
+        "ordersContainer"
+    );
+
+
+
+/* =====================================================
+   DISPLAY EMPTY STATE
+===================================================== */
+
+if (
+    orders.length === 0
+) {
+
+    container.innerHTML = `
+
+        <div
+            class="empty-products">
+
+            <div
+                style="
+                    font-size:50px;
+                    margin-bottom:15px;
+                ">
+
+                📦
+
+            </div>
+
+
+            <h2>
+
+                No orders yet
+
+            </h2>
+
+
+            <p>
+
+                Your purchases will appear here.
+
+            </p>
+
+
+            <br>
+
+
+            <button
+                class="primary-btn"
+                onclick="
+                    window.location.href='products.html'
+                ">
+
+                Start Shopping →
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   DISPLAY ORDERS
+===================================================== */
+
+else {
+
+
+    /*
+     * Create a copy before sorting.
+     *
+     * This prevents us from modifying the
+     * original orders array.
+     */
+
+    const sortedOrders =
+        [...orders].sort(
+            function(a, b) {
+
+                return new Date(
+                    b.createdAt
+                ) - new Date(
+                    a.createdAt
+                );
+
+            }
+        );
+
+
+
+    sortedOrders.forEach(
+        function(order) {
+
+
+            /* =========================================
+               ORDER CARD
+            ========================================== */
+
+            const orderCard =
+                document.createElement(
+                    "div"
+                );
+
+
+            orderCard.className =
+                "order-card";
+
+
+
+            /* =========================================
+               SAFE VALUES
+            ========================================== */
+
+            const orderId =
+                order.id ||
+                "Unknown";const paymentMethod =
+                order.paymentMethod ||
+                "Not specified";
+
+
+            const orderTotal =
+                Number(
+                    order.total
+                ) || 0;
+
+
+            const createdDate =
+                order.createdAt
+                    ? new Date(
+                        order.createdAt
+                    ).toLocaleDateString(
+                        "en-IN",
+                        {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                        }
+                    )
+                    : "Unknown";
+
+
+
+            /* =========================================
+               ORDER ITEMS
+            ========================================== */
+
+            const items =
+                Array.isArray(
+                    order.items
+                )
+                    ? order.items
+                    : [];
+
+
+
+            const itemsHTML =
+                items.length > 0
+
+                ?
+
+                items.map(
+                    function(item) {
+
+
+                        const itemName =
+                            item.name ||
+                            "Product";
+
+
+                        const itemBrand =
+                            item.brand ||
+                            (
+                                isCustomerOrderItem(item)
+                                ?
+                                "Customer Listing"
+                                :
+                                "TradeHub"
+                            );
+
+
+                        const quantity =
+                            Number(
+                                item.quantity
+                            ) || 1;
+
+
+                        const itemPrice =
+                            Number(
+                                item.price
+                            ) || 0;
+
+
+                        const itemTotal =
+                            itemPrice *
+                            quantity;
+
+
+                        return `
+
+                            <div
+                                class="order-item">
+
+
+                                <!-- PRODUCT IMAGE -->
+
+                                <div
+                                    class="order-item-image">
+
+                                    ${
+                                        item.image
+
+                                        ?
+
+                                        `
+
+                                        <img
+                                            src="${item.image}"
+                                            alt="${itemName}"
+                                        >
+
+                                        `
+
+                                        :
+
+                                        `📦`
+
+                                    }
+
+                                </div>
+
+
+
+                                <!-- PRODUCT INFORMATION -->
+
+                                <div>
+
+                                    <strong>
+
+                                        ${itemName}
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        ${itemBrand}
+
+                                    </span>
+
+
+                                    <small>
+
+                                        Qty:
+                                        ${quantity}
+
+                                    </small>
+
+
+                                    ${
+                                        getC2CDetailsHTML(
+                                            order,
+                                            item
+                                        )
+                                    }
+
+                                </div>
+
+
+
+                                <!-- PRICE -->
+
+                                <strong>
+
+                                    ₹${itemTotal}
+
+                                </strong>
+
+
+                            </div>
+
+                        `;
+
+                    }
+                ).join("")
+
+
+                :
+
+                `
+
+                    <div
+                        style="
+                            padding:20px;
+                            color:#777;
+                        ">
+
+                        No product information
+                        available.
+
+                    </div>
+
+                `;
+
+
+
+            /* =========================================
+               COMPLETE ORDER CARD
+            ========================================== */
+
+            orderCard.innerHTML = `
+
+                <!-- =================================
+                     ORDER HEADER
+                ================================== -->
+
+                <div
+                    class="order-header">
+
+
+                    <div>
+
+                        <span>
+                            ORDER ID
+                        </span>
+
+
+                        <strong>
+
+                            ${orderId}
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <span>
+                            DATE
+                        </span>
+
+
+                        <strong>
+
+                            ${createdDate}
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     ORDER ITEMS
+                ================================== -->
+
+                <div
+                    class="order-items">
+
+                    ${itemsHTML}
+
+                </div>
+<!-- =================================
+                     ORDER FOOTER
+                ================================== -->
+
+                <div
+                    class="order-footer">
+
+
+                    <div>
+
+                        <span>
+                            Payment
+                        </span>
+
+
+                        <strong>
+
+                            ${paymentMethod}
+
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Payment Status
+                        </span>
+
+
+                        <strong>
+
+                            ${
+                                order.paymentStatus ||
+                                (
+                                    paymentMethod ===
+                                    "COD"
+                                    ?
+                                    "Pending"
+                                    :
+                                    "Paid"
+                                )
+                            }
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <span>
+                            Total
+                        </span>
+
+
+                        <strong>
+
+                            ₹${orderTotal}
+
+                        </strong>
+
+                    </div>
+
+
+
+                    ${
+                        items.some(
+                            function(item) {
+
+                                return isCustomerOrderItem(
+                                    item
+                                );
+
+                            }
+                        )
+
+                        ?
+
+                        `
+
+                            <div
+                                style="
+                                    width:100%;
+                                    margin-bottom:12px;
+                                    padding:10px;
+                                    border:1px solid var(--border);
+                                    border-radius:8px;
+                                    font-size:8px;
+                                    color:#777;
+                                ">
+
+                                ♻️ This order contains
+                                a pre-owned customer listing.
+
+                            </div>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="
+                            viewOrder('${orderId}')
+                        ">
+
+                        View Order →
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+
+            container.appendChild(
+                orderCard
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   VIEW / TRACK ORDER
+===================================================== */
+
+function viewOrder(
+    orderId
+) {
+
+    window.location.href =
+        `order-details.html?id=${encodeURIComponent(
+            orderId
+        )}`;
+
+}
+
+
+
+/* =====================================================
+   UPDATE CART COUNT
+===================================================== */
+
+if (
+    typeof updateCartCount ===
+    "function"
+) {
+
+    updateCartCount();
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

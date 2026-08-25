@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Business Orders | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="business-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="inventory.html">
+            Inventory
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='business-dashboard.html'">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+        <span class="section-label">
+            BUSINESS MANAGEMENT
+        </span>
+
+        <h1>
+            Customer <span>Orders</span>
+        </h1>
+
+        <p>
+            Manage orders containing your products.
+        </p>
+
+    </div>
+
+
+
+    <!-- FILTER -->
+
+    <div class="order-filter">
+
+        <button
+            class="order-filter-btn active"
+            data-status="All">
+
+            All
+
+        </button>
+
+
+        <button
+            class="order-filter-btn"
+            data-status="Order Placed">
+
+            New
+
+        </button>
+
+
+        <button
+            class="order-filter-btn"
+            data-status="Processing">
+
+            Processing
+
+        </button>
+
+
+        <button
+            class="order-filter-btn"
+            data-status="Shipped">
+
+            Shipped
+
+        </button>
+
+
+        <button
+            class="order-filter-btn"
+            data-status="Out for Delivery">
+
+            Out for Delivery
+
+        </button>
+
+
+        <button
+            class="order-filter-btn"
+            data-status="Delivered">
+
+            Delivered
+
+        </button>
+
+    </div>
+
+
+
+    <div id="businessOrdersContainer">
+
+    </div>
+
+
+</main>
+
+
+
+<script src="../js/orders.js"></script>
+
+
+<script>
+
+
+// =====================================================
+// CURRENT USER
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+if (
+    !currentUser ||
+    currentUser.type !== "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// CONTAINER
+// =====================================================
+
+const container =
+    document.getElementById(
+        "businessOrdersContainer"
+    );
+
+
+// =====================================================
+// BUSINESS ORDERS
+// =====================================================
+
+const businessOrders =
+    getBusinessOrders(
+        currentUser.id
+    );
+
+
+// =====================================================
+// DISPLAY ORDERS
+// =====================================================
+
+function displayBusinessOrders(
+    status = "All"
+) {
+
+    container.innerHTML = "";
+
+
+    let filteredOrders =
+        businessOrders;
+
+
+    if (status !== "All") {
+
+        filteredOrders =
+            businessOrders.filter(
+                order =>
+                    order.status ===
+                    status
+            );
+
+    }
+
+
+    if (filteredOrders.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-products">
+
+                <div style="font-size:50px;">
+                    📦
+                </div>
+
+                <h2>
+                    No orders found
+                </h2>
+
+                <p>
+                    Orders containing your
+                    products will appear here.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    filteredOrders
+        .slice()
+        .reverse()
+        .forEach(
+            order => {
+
+                // --------------------------------------
+                // ONLY THIS BUSINESS'S ITEMS
+                // --------------------------------------
+
+                const businessItems =
+                    order.items.filter(
+                        item =>
+                            item.businessId ===
+                            currentUser.id
+                    );
+
+
+                const orderTotal =
+                    businessItems.reduce(
+                        (
+                            total,
+                            item
+                        ) =>
+                            total +
+                            (
+                                item.price *
+                                item.quantity
+                            ),
+                        0
+                    );
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "business-order-card";
+
+
+                card.innerHTML = `
+
+                    <div class="business-order-header">
+
+                        <div>
+
+                            <span>
+                                ORDER ID
+                            </span>
+
+                            <strong>
+                                ${order.id}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                CUSTOMER
+                            </span>
+
+                            <strong>
+                                ${order.customerName}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                DATE
+                            </span>
+
+                            <strong>
+                                ${new Date(
+                                    order.createdAt
+                                ).toLocaleDateString()}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                STATUS
+                            </span>
+
+                            <strong
+                                class="order-status">
+
+                                ${order.status}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="business-order-body">
+
+
+                        <h3>
+                            Products
+                        </h3>
+
+
+                        <div class="business-order-items">
+
+                            ${
+                                businessItems
+                                    .map(
+                                        item => `
+
+                                            <div
+                                                class="business-order-item">
+
+                                                <div>
+
+                                                    <strong>
+                                                        ${item.name}
+                                                    </strong>
+
+                                                    <span>
+                                                        ${item.brand}
+                                                    </span>
+
+                                                </div>
+
+
+                                                <span>
+                                                    Qty:
+                                                    ${item.quantity}
+                                                </span>
+
+
+                                                <strong>
+                                                    ₹${item.price *
+                                                    item.quantity}
+                                                </strong>
+
+                                            </div>
+
+                                        `
+                                    )
+                                    .join("")
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="business-order-total">
+
+                            Your Revenue:
+
+                            <strong>
+                                ₹${orderTotal}
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="business-order-actions">
+
+                            <button
+                                class="secondary-btn"
+                                onclick="viewCustomerOrder('${order.id}')">
+
+                                View Details
+
+                            </button>
+
+
+                            ${
+                                getNextStatus(
+                                    order.status
+                                )
+                                ?
+
+                                `<button
+                                    class="primary-btn"
+                                    onclick="changeOrderStatus(
+                                        '${order.id}'
+                                    )">
+
+                                    ${getNextStatus(
+                                        order.status
+                                    )}
+
+                                </button>`
+
+                                :
+
+                                `<span
+                                    class="order-completed">
+
+                                    ✓ Order Completed
+
+                                </span>`
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+}
+
+
+// =====================================================
+// NEXT STATUS
+// =====================================================
+
+function getNextStatus(
+    currentStatus
+) {
+
+    const statusFlow = {
+
+        "Order Placed":
+            "Confirm Order",
+
+        "Confirmed":
+            "Start Processing",
+
+        "Processing":
+            "Mark as Shipped",
+
+        "Shipped":
+            "Out for Delivery",
+
+        "Out for Delivery":
+            "Mark Delivered",
+
+        "Delivered":
+            null
+
+    };
+
+
+    return statusFlow[
+        currentStatus
+    ];
+
+}
+
+
+// =====================================================
+// CHANGE STATUS
+// =====================================================
+
+function changeOrderStatus(
+    orderId
+) {
+
+    const order =
+        getOrderById(
+            orderId
+        );
+
+
+    if (!order) {
+        return;
+    }
+
+
+    const statusMap = {
+
+        "Order Placed":
+            "Confirmed",
+
+        "Confirmed":
+            "Processing",
+
+        "Processing":
+            "Shipped",
+
+        "Shipped":
+            "Out for Delivery",
+
+        "Out for Delivery":
+            "Delivered"
+
+    };
+
+
+    const nextStatus =
+        statusMap[
+            order.status
+        ];
+
+
+    if (!nextStatus) {
+        return;
+    }
+
+
+    updateOrderStatus(
+        orderId,
+        nextStatus
+    );
+
+
+    // Refresh
+
+    location.reload();
+
+}
+
+
+// =====================================================
+// VIEW ORDER
+// =====================================================
+
+function viewCustomerOrder(
+    orderId
+) {
+
+    window.location.href =
+        `order-details.html?id=${orderId}`;
+
+}
+
+
+// =====================================================
+// FILTERS
+// =====================================================
+
+document
+    .querySelectorAll(
+        ".order-filter-btn"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    document
+                        .querySelectorAll(
+                            ".order-filter-btn"
+                        )
+                        .forEach(
+                            btn =>
+                                btn.classList.remove(
+                                    "active"
+                                )
+                        );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+
+                    displayBusinessOrders(
+                        this.dataset.status
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+// =====================================================
+// INITIAL DISPLAY
+// =====================================================
+
+displayBusinessOrders();
+
+</script>
+
+
+</body>
+
+</html>

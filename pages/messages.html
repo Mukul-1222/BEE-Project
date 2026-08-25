@@ -1,0 +1,2703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Messages | TradeHub</title>
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <!-- =====================================================
+         PRODUCT / COMPONENT CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+
+
+        /* =====================================================
+           BUSINESS CHAT BUTTON
+        ====================================================== */
+
+        .new-business-chat-btn {
+
+            width: calc(100% - 30px);
+
+            margin: 15px;
+
+            padding: 10px 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: var(--accent);
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .new-business-chat-btn:hover {
+
+            background:
+                rgba(0, 230, 118, 0.08);
+
+            border-color:
+                var(--accent);
+
+        }
+
+
+        /* =====================================================
+           BUSINESS DIRECTORY
+        ====================================================== */
+
+        .business-directory {
+
+            display: none;
+
+            position: absolute;
+
+            left: 20px;
+
+            right: 20px;
+
+            top: 70px;
+
+            z-index: 20;
+
+            max-height: 350px;
+
+            overflow-y: auto;
+
+            padding: 10px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: #111;
+
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.5);
+
+        }
+
+
+        .business-directory.show {
+
+            display: block;
+
+        }
+
+
+        .business-directory-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 8px 5px 12px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .business-directory-header strong {
+
+            font-size: 12px;
+
+        }
+
+
+        .close-directory {
+
+            border: none;
+
+            background: transparent;
+
+            color: #777;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+        }
+
+
+        .business-search {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            margin-bottom: 10px;
+
+            padding: 10px 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: #181818;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 11px;
+
+        }
+
+
+        .business-search:focus {
+
+            border-color:
+                var(--accent);
+
+        }
+
+
+        .business-directory-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .business-directory-item:hover {
+
+            background: #1b1b1b;
+
+        }
+
+
+        .business-directory-avatar {
+
+            width: 36px;
+
+            height: 36px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #1c1c1c;
+
+        }
+
+
+        .business-directory-info {
+
+            min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+        }
+
+
+        .business-directory-info strong {
+
+            font-size: 11px;
+
+        }
+
+
+        .business-directory-info span {
+
+            color: #666;
+
+            font-size: 9px;
+
+        }
+
+
+        /* =====================================================
+           CHAT PRODUCT INFO
+        ====================================================== */
+
+        .chat-product {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-left: auto;
+
+            padding-left: 15px;
+
+        }
+
+
+        .chat-product-image {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 7px;
+
+            background: #1b1b1b;
+
+        }
+
+
+        .chat-product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+        .chat-product-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+        }
+
+
+        .chat-product-info span {
+
+            color: #666;
+
+            font-size: 8px;
+
+        }
+
+
+        .chat-product-info strong {
+
+            max-width: 150px;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION TYPE
+        ====================================================== */
+
+        .conversation-type {
+
+            display: inline-block;
+
+            width: fit-content;
+
+            padding: 2px 5px;
+
+            border-radius: 4px;
+
+            background: #1b1b1b;
+
+            color: #666;
+
+            font-size: 7px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE CHAT HEADER
+        ====================================================== */
+
+        @media (max-width: 700px) {
+
+            .chat-product {
+
+                display: none;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <!-- =================================================
+         LOGO
+    ================================================== -->
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================== -->
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+
+    <!-- =================================================
+         NAV ACTIONS
+    ================================================== -->
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="goBack()">
+
+            ← Back
+
+        </button>
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="messages-page">
+
+
+    <div class="messages-layout">
+
+
+        <!-- =================================================
+             CONVERSATION SIDEBAR
+        ================================================== -->
+
+        <aside
+            class="conversation-sidebar">
+
+
+            <!-- SIDEBAR HEADER -->
+
+            <div
+                class="conversation-sidebar-header">
+
+                <span class="section-label">
+
+                    COMMUNICATION
+
+                </span>
+
+
+                <h2>
+
+                    Messages
+
+                </h2>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUSINESS ONLY: NEW BUSINESS CHAT
+            ================================================== -->
+
+            <button
+                id="newBusinessChatBtn"
+                class="new-business-chat-btn"
+                style="display:none;">
+
+                🏢 New Business Chat
+
+            </button>
+
+
+
+            <!-- =================================================
+                 CONVERSATIONS
+            ================================================== -->
+
+            <div
+                id="conversationList"
+                class="conversation-list">
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             CHAT
+        ================================================== -->
+
+        <section
+            class="chat-section">
+
+
+            <!-- =================================================
+                 CHAT HEADER
+            ================================================== -->
+
+            <div
+                id="chatHeader"
+                class="chat-header">
+
+
+                <div
+                    class="chat-empty">
+
+                    💬
+
+                    <span>
+
+                        Select a conversation
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MESSAGES
+            ================================================== -->
+
+            <div
+                id="messageContainer"
+                class="message-container">
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MESSAGE INPUT
+            ================================================== -->
+
+            <form
+                id="messageForm"
+                class="message-input-area">
+
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                    disabled
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    disabled>
+
+                    Send
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         BUSINESS DIRECTORY
+    ================================================== -->
+
+    <div
+        id="businessDirectory"
+        class="business-directory">
+
+
+        <div
+            class="business-directory-header">
+
+            <strong>
+
+                Select a Business
+
+            </strong>
+
+
+            <button
+                type="button"
+                class="close-directory"
+                onclick="closeBusinessDirectory()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <input
+            type="text"
+            id="businessSearch"
+            class="business-search"
+            placeholder="Search businesses...">
+
+
+        <div
+            id="businessList">
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     MESSAGING JAVASCRIPT
+===================================================== -->
+
+<script src="../js/messages.js"></script>
+
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
+
+if (!currentUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const conversationList =
+    document.getElementById(
+        "conversationList"
+    );
+
+
+const chatHeader =
+    document.getElementById(
+        "chatHeader"
+    );
+
+
+const messageContainer =
+    document.getElementById(
+        "messageContainer"
+    );
+
+
+const messageForm =
+    document.getElementById(
+        "messageForm"
+    );
+
+
+const messageInput =
+    document.getElementById(
+        "messageInput"
+    );
+
+
+const sendButton =
+    messageForm.querySelector(
+        "button"
+    );
+
+
+const newBusinessChatBtn =
+    document.getElementById(
+        "newBusinessChatBtn"
+    );
+
+
+const businessDirectory =
+    document.getElementById(
+        "businessDirectory"
+    );
+
+
+const businessSearch =
+    document.getElementById(
+        "businessSearch"
+    );
+
+
+const businessList =
+    document.getElementById(
+        "businessList"
+    );
+
+
+
+/* =====================================================
+   ACTIVE CONVERSATION
+===================================================== */
+
+let activeConversationId =
+    null;
+
+
+
+/* =====================================================
+   GET MY CONVERSATIONS
+===================================================== */
+
+function getMyConversations() {
+
+
+    if (
+        currentUser.type ===
+        "business"
+    ) {
+
+        return getBusinessConversations(
+            currentUser.id
+        );
+
+    }
+
+
+    return getCustomerConversations(
+        currentUser.id
+    );
+
+}
+
+
+
+/* =====================================================
+   DISPLAY CONVERSATIONS
+===================================================== */
+
+function displayConversations() {
+
+
+    const conversations =
+        getMyConversations()
+            .sort(
+                function(a, b) {
+
+                    return new Date(
+                        b.updatedAt
+                    ) -
+                    new Date(
+                        a.updatedAt
+                    );
+
+                }
+            );
+
+
+    conversationList.innerHTML =
+        "";
+
+
+
+    /* =================================================
+       EMPTY STATE
+    ================================================== */
+
+    if (
+        conversations.length ===
+        0
+    ) {
+
+        conversationList.innerHTML = `
+
+            <div
+                class="no-conversations">
+
+                💬
+
+                <p>
+
+                    No conversations yet.
+
+                </p>
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       CREATE CONVERSATION ITEMS
+    ================================================== */
+
+    conversations.forEach(
+        function(conversation) {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "conversation-item";
+
+
+
+            /* ACTIVE */
+
+            if (
+                conversation.id ===
+                activeConversationId
+            ) {
+
+                item.classList.add(
+                    "active"
+                );
+
+            }
+
+
+
+            /* =================================================
+               DETERMINE CONVERSATION TYPE
+            ================================================== */
+            const isBusinessToBusiness =
+                conversation.type ===
+                "business-business";
+
+
+            const isCustomerToCustomer =
+                conversation.type ===
+                "customer-customer";
+
+
+            /* =================================================
+               OTHER PERSON / BUSINESS
+            ================================================== */
+
+            let otherName =
+                "Unknown";
+
+
+            let avatar =
+                "💬";
+
+
+            let subtitle =
+                "";
+
+
+            if (
+                isBusinessToBusiness
+            ) {
+
+                if (
+                    String(
+                        conversation.senderBusinessId
+                    ) ===
+                    String(
+                        currentUser.id
+                    )
+                ) {
+
+                    otherName =
+                        conversation.targetBusinessName ||
+                        conversation.businessName ||
+                        "Business";
+
+                }
+
+                else {
+
+                    otherName =
+                        conversation.senderBusinessName ||
+                        conversation.businessName ||
+                        "Business";
+
+                }
+
+
+                avatar =
+                    "🏢";
+
+
+                subtitle =
+                    "Business conversation";
+
+            }
+
+
+            else if (
+                isCustomerToCustomer
+            ) {
+
+                if (
+                    String(
+                        conversation.sellerCustomerId
+                    ) ===
+                    String(
+                        currentUser.id
+                    )
+                ) {
+
+                    otherName =
+                        conversation.buyerCustomerName ||
+                        "Customer";
+
+                    subtitle =
+                        "Customer Buyer";
+
+                }
+
+                else {
+
+                    otherName =
+                        conversation.sellerCustomerName ||
+                        "Customer";
+
+                    subtitle =
+                        "Customer Seller";
+
+                }
+
+
+                avatar =
+                    "👤";
+
+            }
+
+
+            else if (
+                currentUser.type ===
+                "customer"
+            ) {
+
+                otherName =
+                    conversation.businessName ||
+                    "Business";
+
+
+                avatar =
+                    "🏢";
+
+
+                subtitle =
+                    conversation.productName ||
+                    "Product conversation";
+
+            }
+
+
+            else {
+
+                otherName =
+                    conversation.customerName ||
+                    "Customer";
+
+
+                avatar =
+                    "👤";
+
+
+                subtitle =
+                    conversation.productName ||
+                    "Customer conversation";
+
+            }
+
+
+            /* =================================================
+               LAST MESSAGE
+            ================================================== */
+
+            const lastMessage =
+                conversation.messages &&
+                conversation.messages.length > 0
+
+                    ?
+
+                conversation.messages[
+                    conversation.messages.length - 1
+                ].text
+
+                    :
+
+                "No messages yet";
+
+
+
+            /* =================================================
+               CONVERSATION ITEM
+            ================================================== */
+
+            item.innerHTML = `
+
+                <div
+                    class="conversation-avatar">
+
+                    ${avatar}
+
+                </div>
+
+
+                <div
+                    class="conversation-info">
+
+
+                    <strong>
+
+                        ${escapeHTML(
+                            otherName
+                        )}
+
+                    </strong>
+
+
+                    <span>
+
+                        ${escapeHTML(
+                            subtitle
+                        )}
+
+                    </span>
+
+
+                    ${
+                        isBusinessToBusiness
+
+                        ?
+
+                        `
+
+                        <span
+                            class="conversation-type">
+
+                            B2B
+
+                        </span>
+
+                        `
+
+                        :
+
+                        isCustomerToCustomer
+
+                        ?
+
+                        `
+
+                        <span
+                            class="conversation-type">
+
+                            C2C
+
+                        </span>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    <small>
+
+                        ${escapeHTML(
+                            lastMessage
+                        )}
+
+                    </small>
+
+
+                </div>
+
+            `;
+
+
+
+            /* =================================================
+               OPEN CONVERSATION
+            ================================================== */
+
+            item.addEventListener(
+                "click",
+                function() {
+
+                    openConversation(
+                        conversation.id
+                    );
+
+                }
+            );
+
+
+            conversationList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   OPEN CONVERSATION
+===================================================== */
+
+function openConversation(
+    conversationId
+) {
+
+
+    const conversation =
+        getConversation(
+            conversationId
+        );
+
+
+    /* =================================================
+       CONVERSATION NOT FOUND
+    ================================================== */
+
+    if (!conversation) {
+
+        showNoConversation();
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       PARTICIPANT SECURITY CHECK
+    ================================================== */
+
+    if (
+        !isConversationParticipant(
+            conversation,
+            currentUser.id,
+            currentUser.type
+        )
+    ) {
+
+        alert(
+            "You do not have access to this conversation."
+        );
+
+
+        activeConversationId =
+            null;
+
+
+        showNoConversation();
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       SET ACTIVE
+    ================================================== */
+
+    activeConversationId =
+        conversationId;
+
+
+    displayConversations();
+
+
+
+    /* =================================================
+       DETERMINE HEADER INFORMATION
+    ================================================== */
+
+    let otherName =
+        "Unknown";
+
+
+    let avatar =
+        "💬";
+
+
+    let subtitle =
+        "";
+    if (
+        conversation.type ===
+        "business-business"
+    ) {
+
+        if (
+            String(
+                conversation.senderBusinessId
+            ) ===
+            String(
+                currentUser.id
+            )
+        ) {
+
+            otherName =
+                conversation.targetBusinessName ||
+                conversation.businessName ||
+                "Business";
+
+        }
+
+        else {
+
+            otherName =
+                conversation.senderBusinessName ||
+                conversation.businessName ||
+                "Business";
+
+        }
+
+
+        avatar =
+            "🏢";
+
+
+        subtitle =
+            "Business-to-Business";
+
+    }
+
+
+    else if (
+        conversation.type ===
+        "customer-customer"
+    ) {
+
+        if (
+            String(
+                conversation.sellerCustomerId
+            ) ===
+            String(
+                currentUser.id
+            )
+        ) {
+
+            otherName =
+                conversation.buyerCustomerName ||
+                "Customer";
+
+            subtitle =
+                "Customer Buyer";
+
+        }
+
+        else {
+
+            otherName =
+                conversation.sellerCustomerName ||
+                "Customer";
+
+            subtitle =
+                "Customer Seller";
+
+        }
+
+
+        avatar =
+            "👤";
+
+    }
+
+
+    else if (
+        currentUser.type ===
+        "customer"
+    ) {
+
+        otherName =
+            conversation.businessName ||
+            "Business";
+
+
+        avatar =
+            "🏢";
+
+
+        subtitle =
+            "Business";
+
+    }
+
+
+    else {
+
+        otherName =
+            conversation.customerName ||
+            "Customer";
+
+
+        avatar =
+            "👤";
+
+
+        subtitle =
+            "Customer";
+
+    }
+
+
+    /* =================================================
+       PRODUCT INFORMATION
+    ================================================== */
+
+    let productHTML =
+        "";
+
+
+    if (
+        conversation.productName
+    ) {
+
+
+        productHTML = `
+
+            <div
+                class="chat-product">
+
+
+                <div
+                    class="chat-product-image">
+
+
+                    ${
+                        conversation.productImage
+
+                        ?
+
+                        `
+
+                        <img
+                            src="${conversation.productImage}"
+                            alt="${escapeHTML(
+                                conversation.productName
+                            )}"
+                        >
+
+                        `
+
+                        :
+
+                        `📦`
+
+                    }
+
+
+                </div>
+
+
+                <div
+                    class="chat-product-info">
+
+                    <span>
+                        ${
+                            conversation.type ===
+                            "customer-customer"
+
+                            ?
+
+                            "♻️ PRE-OWNED · CUSTOMER LISTING"
+
+                            :
+
+                            "PRODUCT"
+                        }
+                    </span>
+
+
+                    <strong>
+
+                        ${escapeHTML(
+                            conversation.productName
+                        )}
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* =================================================
+       HEADER
+    ================================================== */
+
+    chatHeader.innerHTML = `
+
+        <div
+            class="chat-business-avatar">
+
+            ${avatar}
+
+        </div>
+
+
+        <div
+            class="chat-header-info">
+
+
+            <strong>
+
+                ${escapeHTML(
+                    otherName
+                )}
+
+            </strong>
+
+
+            <span>
+
+                ${subtitle}
+
+            </span>
+
+
+        </div>
+
+
+        ${productHTML}
+
+    `;
+
+
+
+    /* =================================================
+       ENABLE INPUT
+    ================================================== */
+
+    messageInput.disabled =
+        false;
+
+
+    sendButton.disabled =
+        false;
+
+
+    messageInput.focus();
+
+
+
+    /* =================================================
+       DISPLAY MESSAGES
+    ================================================== */
+
+    displayMessages(
+        conversation
+    );
+
+
+
+    /* =================================================
+       UPDATE URL
+    ================================================== */
+
+    const url =
+        new URL(
+            window.location.href
+        );
+
+
+    url.searchParams.set(
+        "id",
+        conversationId
+    );
+
+
+    window.history.replaceState(
+        {},
+        "",
+        url
+    );
+
+}
+
+
+
+/* =====================================================
+   SHOW NO CONVERSATION
+===================================================== */
+
+function showNoConversation() {
+
+
+    activeConversationId =
+        null;
+
+
+    chatHeader.innerHTML = `
+
+        <div
+            class="chat-empty">
+
+            💬
+
+            <span>
+
+                Select a conversation
+
+            </span>
+
+        </div>
+
+    `;
+
+
+    messageContainer.innerHTML =
+        "";
+
+
+    messageInput.value =
+        "";
+
+
+    messageInput.disabled =
+        true;
+
+
+    sendButton.disabled =
+        true;
+
+}
+
+
+
+/* =====================================================
+   DISPLAY MESSAGES
+===================================================== */
+
+function displayMessages(
+    conversation
+) {
+
+
+    messageContainer.innerHTML =
+        "";
+
+
+    if (
+        !conversation ||
+        !conversation.messages
+    ) {
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       EMPTY CHAT
+    ================================================== */
+
+    if (
+        conversation.messages.length ===
+        0
+    ) {
+
+
+        messageContainer.innerHTML = `
+
+            <div
+                class="empty-chat">
+
+
+                <div>
+                    💬
+                </div>
+
+
+                <h3>
+
+                    Start the conversation
+
+                </h3>
+
+
+                <p>
+
+                    Ask about pricing,
+                    availability, bulk orders,
+                    delivery, or anything else.
+
+                </p>
+
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       DISPLAY EACH MESSAGE
+    ================================================== */
+
+    conversation.messages.forEach(
+        function(message) {
+
+
+            const messageElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            messageElement.className =
+                "chat-message";
+
+
+
+            /* =================================================
+               SENT / RECEIVED
+            ================================================== */
+
+            if (
+                message.senderId ===
+                currentUser.id
+            ) {
+
+                messageElement.classList.add(
+                    "sent"
+                );
+
+            }
+
+            else {
+
+                messageElement.classList.add(
+                    "received"
+                );
+
+            }
+
+
+
+            /* =================================================
+               TIME
+            ================================================== */
+
+            const messageDate =
+                new Date(
+                    message.createdAt
+                );
+
+
+            const messageTime =
+                messageDate.toLocaleTimeString(
+                    "en-IN",
+                    {
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit"
+                    }
+                );
+
+
+
+            /* =================================================
+               MESSAGE
+            ================================================== */
+
+            messageElement.innerHTML = `
+
+                <div
+                    class="message-bubble">
+
+
+                    <p>
+
+                        ${escapeHTML(
+                            message.text
+                        )}
+
+                    </p>
+
+
+                    <small>
+
+                        ${messageTime}
+
+                    </small>
+
+
+                </div>
+
+            `;
+
+
+            messageContainer.appendChild(
+                messageElement
+            );
+
+        }
+    );
+
+
+
+    /* =================================================
+       SCROLL TO BOTTOM
+    ================================================== */
+
+    messageContainer.scrollTop =
+        messageContainer.scrollHeight;
+
+}
+
+
+
+/* =====================================================
+   SEND MESSAGE
+===================================================== */
+
+messageForm.addEventListener(
+    "submit",
+    function(event) {
+
+
+        event.preventDefault();
+
+
+
+        /* =============================================
+           CONVERSATION CHECK
+        ============================================== */
+
+        if (
+            !activeConversationId
+        ) {
+
+            alert(
+                "Please select a conversation."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           MESSAGE
+        ============================================== */
+
+        const text =
+            messageInput.value.trim();
+
+
+        if (!text) {
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           GET CONVERSATION
+        ============================================== */
+
+        const conversation =
+            getConversation(
+                activeConversationId
+            );
+
+
+        if (!conversation) {
+
+            alert(
+                "Conversation could not be found."
+            );
+
+
+            showNoConversation();
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           PARTICIPANT CHECK
+        ============================================== */
+
+        if (
+            !isConversationParticipant(
+                conversation,
+                currentUser.id,
+                currentUser.type
+            )
+        ) {
+
+            alert(
+                "You do not have permission to send messages in this conversation."
+            );
+
+
+            showNoConversation();
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           SEND
+        ============================================== */
+
+        const sent =
+            sendMessage(
+
+                activeConversationId,
+
+                currentUser.id,
+
+                currentUser.type,
+
+                currentUser.name,
+
+                text
+
+            );
+
+
+        if (!sent) {
+
+            alert(
+                "Message could not be sent."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           CLEAR INPUT
+        ============================================== */
+
+        messageInput.value =
+            "";
+
+
+
+        /* =============================================
+           REFRESH
+        ============================================== */
+
+        const updatedConversation =
+            getConversation(
+                activeConversationId
+            );
+
+
+        displayMessages(
+            updatedConversation
+        );
+
+
+        displayConversations();
+
+
+        messageInput.focus();
+
+    }
+);
+
+
+
+/* =====================================================
+   BUSINESS DIRECTORY
+===================================================== */
+
+function openBusinessDirectory() {
+
+
+    if (
+        currentUser.type !==
+        "business"
+    ) {
+
+        return;
+
+    }
+
+
+    businessDirectory.classList.add(
+        "show"
+    );
+
+
+    businessSearch.value =
+        "";
+
+
+    displayBusinessList();
+
+
+    businessSearch.focus();
+
+}
+
+
+
+/* =====================================================
+   CLOSE BUSINESS DIRECTORY
+===================================================== */
+
+function closeBusinessDirectory() {
+
+    businessDirectory.classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =====================================================
+   GET ALL BUSINESSES
+===================================================== */
+
+function getBusinesses() {
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem(
+                "tradehub_users"
+            )
+        ) || [];
+
+
+    return users.filter(
+        function(user) {
+
+            return (
+                user.type ===
+                "business" &&
+
+                user.id !==
+                currentUser.id
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   DISPLAY BUSINESS LIST
+===================================================== */
+
+function displayBusinessList(
+    searchText = ""
+) {
+
+
+    const businesses =
+        getBusinesses();
+
+
+    const search =
+        searchText
+            .trim()
+            .toLowerCase();
+
+
+    const filteredBusinesses =
+        businesses.filter(
+            function(business) {
+
+
+                const name =
+                    (
+                        business.businessName ||
+                        business.name ||
+                        ""
+                    ).toLowerCase();
+
+
+                return name.includes(
+                    search
+                );
+
+            }
+        );
+
+
+    businessList.innerHTML =
+        "";
+
+
+
+    /* =================================================
+       NO BUSINESSES
+    ================================================== */
+
+    if (
+        filteredBusinesses.length ===
+        0
+    ) {
+
+        businessList.innerHTML = `
+
+            <div
+                style="
+                    padding:20px;
+                    text-align:center;
+                    color:#666;
+                    font-size:10px;
+                ">
+
+                No other businesses found.
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       BUSINESSES
+    ================================================== */
+
+    filteredBusinesses.forEach(
+        function(business) {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "business-directory-item";
+
+
+            const businessName =
+                business.businessName ||
+                business.name ||
+                "Business";
+
+
+            item.innerHTML = `
+
+                <div
+                    class="business-directory-avatar">
+
+                    🏢
+
+                </div>
+
+
+                <div
+                    class="business-directory-info">
+
+
+                    <strong>
+
+                        ${escapeHTML(
+                            businessName
+                        )}
+
+                    </strong>
+
+
+                    <span>
+
+                        Business account
+
+                    </span>
+
+
+                </div>
+
+            `;
+
+
+            item.addEventListener(
+                "click",
+                function() {
+
+                    startBusinessConversation(
+                        business
+                    );
+
+                }
+            );
+
+
+            businessList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   START BUSINESS CONVERSATION
+===================================================== */
+
+function startBusinessConversation(
+    targetBusiness
+) {
+
+
+    if (
+        currentUser.type !==
+        "business"
+    ) {
+
+        return;
+
+    }
+
+
+
+    /* =============================================
+       SELF CHECK
+    ============================================== */
+
+    if (
+        currentUser.id ===
+        targetBusiness.id
+    ) {
+
+        alert(
+            "You cannot message your own business."
+        );
+
+
+        return;
+
+    }
+
+
+
+    /* =============================================
+       PERMISSION CHECK
+    ============================================== */
+
+    if (
+        typeof canBusinessContactBusiness ===
+        "function"
+    ) {
+
+
+        if (
+            !canBusinessContactBusiness(
+                currentUser,
+                targetBusiness
+            )
+        ) {
+
+            alert(
+                "You cannot contact this business."
+            );
+
+
+            return;
+
+        }
+
+    }
+
+
+
+    /* =============================================
+       CREATE CONVERSATION
+    ============================================== */
+
+    const conversation =
+        createBusinessConversation(
+            currentUser,
+            targetBusiness
+        );
+
+
+    if (!conversation) {
+
+        alert(
+            "Unable to start the business conversation."
+        );
+
+
+        return;
+
+    }
+
+
+
+    /* =============================================
+       CLOSE DIRECTORY
+    ============================================== */
+
+    closeBusinessDirectory();
+
+
+
+    /* =============================================
+       OPEN CHAT
+    ============================================== */
+
+    openConversation(
+        conversation.id
+    );
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+function goBack() {
+
+
+    if (
+        currentUser.type ===
+        "business"
+    ) {
+
+        window.location.href =
+            "business-dashboard.html";
+
+    }
+
+    else {
+
+        window.location.href =
+            "customer-dashboard.html";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BUSINESS UI
+===================================================== */
+
+if (
+    currentUser.type ===
+    "business"
+) {
+
+
+    newBusinessChatBtn.style.display =
+        "block";
+
+
+    newBusinessChatBtn.addEventListener(
+        "click",
+        function() {
+
+            openBusinessDirectory();
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   BUSINESS SEARCH
+===================================================== */
+
+businessSearch.addEventListener(
+    "input",
+    function() {
+
+        displayBusinessList(
+            businessSearch.value
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   URL CONVERSATION
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const conversationId =
+    params.get("id");
+
+
+const targetUserId =
+    params.get("user");
+
+
+
+/* =====================================================
+   OPEN DIRECT USER CONVERSATION
+===================================================== */
+
+function openDirectUserConversation(
+    targetUserId
+) {
+
+    if (!targetUserId) {
+        return;
+    }
+
+
+    if (
+        String(targetUserId) ===
+        String(currentUser.id)
+    ) {
+
+        alert(
+            "You cannot message your own account."
+        );
+
+        return;
+
+    }
+
+
+    const conversations =
+        getMyConversations();
+
+
+    const existingConversation =
+        conversations.find(
+            function(conversation) {
+
+                if (
+                    conversation.type ===
+                    "business-business"
+                ) {
+
+                    return (
+                        String(
+                            conversation.senderBusinessId
+                        ) ===
+                        String(targetUserId)
+                        ||
+                        String(
+                            conversation.targetBusinessId
+                        ) ===
+                        String(targetUserId)
+                    );
+
+                }
+
+
+                if (
+                    conversation.type ===
+                    "customer-customer"
+                ) {
+
+                    return (
+                        String(
+                            conversation.sellerCustomerId
+                        ) ===
+                        String(targetUserId)
+                        ||
+                        String(
+                            conversation.buyerCustomerId
+                        ) ===
+                        String(targetUserId)
+                    );
+
+                }
+
+
+                return (
+                    String(
+                        conversation.businessId
+                    ) ===
+                    String(targetUserId)
+                    ||
+                    String(
+                        conversation.customerId
+                    ) ===
+                    String(targetUserId)
+                );
+
+            }
+        );
+
+
+    if (existingConversation) {
+
+        openConversation(
+            existingConversation.id
+        );
+
+        return;
+
+    }
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem(
+                "tradehub_users"
+            )
+        ) || [];
+
+
+    const targetUser =
+        users.find(
+            function(user) {
+
+                return (
+                    String(user.id) ===
+                    String(targetUserId)
+                );
+
+            }
+        );
+
+
+    if (!targetUser) {
+
+        alert(
+            "The user could not be found."
+        );
+
+        return;
+
+    }
+
+
+    let newConversation =
+        null;
+
+
+    if (
+        currentUser.type ===
+        "business" &&
+        targetUser.type ===
+        "business"
+    ) {
+
+        if (
+            typeof canBusinessContactBusiness ===
+            "function" &&
+            !canBusinessContactBusiness(
+                currentUser,
+                targetUser
+            )
+        ) {
+
+            alert(
+                "You cannot contact this business."
+            );
+
+            return;
+
+        }
+
+
+        newConversation =
+            createBusinessConversation(
+                currentUser,
+                targetUser
+            );
+
+    }
+    else if (
+        typeof createCustomerBusinessConversation ===
+        "function"
+    ) {
+
+        newConversation =
+            createCustomerBusinessConversation(
+                currentUser,
+                targetUser
+            );
+
+    }
+
+
+    if (!newConversation) {
+
+        alert(
+            "A conversation with this user could not be started yet."
+        );
+
+        return;
+
+    }
+
+
+    displayConversations();
+
+
+    openConversation(
+        newConversation.id
+    );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displayConversations();
+
+
+if (
+    conversationId
+) {
+
+    openConversation(
+        conversationId
+    );
+
+}
+else if (
+    targetUserId
+) {
+
+    openDirectUserConversation(
+        targetUserId
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

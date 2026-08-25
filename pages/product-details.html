@@ -1,0 +1,2438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | TradeHub</title>
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <!-- =====================================================
+         PRODUCT CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <!-- =====================================================
+         REVIEW CSS
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+           REVIEWS SECTION
+        ====================================================== */
+
+        .product-reviews-section {
+
+            max-width: 1200px;
+
+            margin: 50px auto 80px;
+
+            padding: 0 5%;
+
+        }
+
+
+        .reviews-title {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .reviews-title h2 {
+
+            margin: 5px 0;
+
+            font-size: 28px;
+
+        }
+
+
+        .reviews-title p {
+
+            color: #777;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           REVIEW SUMMARY
+        ====================================================== */
+
+        .reviews-summary {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .reviews-score {
+
+            min-width: 150px;
+
+            text-align: center;
+
+        }
+
+
+        .reviews-score strong {
+
+            display: block;
+
+            font-size: 42px;
+
+            line-height: 1;
+
+        }
+
+
+        .review-stars {
+
+            margin-top: 5px;
+
+            color: var(--accent);
+
+            letter-spacing: 2px;
+
+            font-size: 14px;
+
+        }
+
+
+        .review-stars.large {
+
+            margin: 10px 0;
+
+            font-size: 20px;
+
+        }
+
+
+        .reviews-score span {
+
+            color: #777;
+
+            font-size: 10px;
+
+        }
+
+
+        .reviews-summary-text {
+
+            color: #888;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           WRITE REVIEW
+        ====================================================== */
+
+        .write-review-section {
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .review-form {
+
+            padding: 25px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .review-form h3 {
+
+            margin: 0;
+
+            font-size: 18px;
+
+        }
+
+
+        .review-form-subtitle {
+
+            margin: 7px 0 25px;
+
+            color: #777;
+
+            font-size: 10px;
+
+        }
+
+
+        .rating-input {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .rating-input label,
+
+        .review-field label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .rating-stars-input {
+
+            display: flex;
+
+            gap: 3px;
+
+        }
+
+
+        .rating-stars-input button {
+
+            padding: 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--accent);
+
+            cursor: pointer;
+
+            font-size: 30px;
+
+            line-height: 1;
+
+            transition: 0.15s;
+
+        }
+
+
+        .rating-stars-input button:hover {
+
+            transform: scale(1.1);
+
+        }
+
+
+        .review-field {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .review-field textarea {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            resize: vertical;
+
+            padding: 12px;
+
+            background: #151515;
+
+            color: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+        }
+
+
+        .review-field textarea:focus {
+
+            border-color: var(--accent);
+
+        }
+
+
+        .review-field input[type="file"] {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 10px;
+
+            background: #151515;
+
+            color: #aaa;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            font-size: 10px;
+
+        }
+
+
+        .review-field small {
+
+            display: block;
+
+            margin-top: 6px;
+
+            color: #666;
+
+            font-size: 9px;
+
+        }
+
+
+        .review-photo-preview {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 12px;
+
+        }
+
+
+        .review-photo {
+
+            width: 85px;
+
+            height: 85px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border: 1px solid var(--border);
+
+        }
+
+
+        .review-form-message {
+
+            margin-top: 12px;
+
+            color: #777;
+
+            font-size: 10px;
+
+        }
+
+
+        .review-form-message.success {
+
+            color: var(--accent);
+
+        }
+
+
+        .review-login-box {
+
+            padding: 25px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .review-login-box h3 {
+
+            margin: 0 0 7px;
+
+            font-size: 16px;
+
+        }
+
+
+        .review-login-box p {
+
+            margin: 0 0 15px;
+
+            color: #777;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           REVIEW LIST
+        ====================================================== */
+
+        .reviews-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+
+        }
+
+
+        .review-item {
+
+            padding: 22px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .review-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+        }
+
+
+        .review-user {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .review-avatar {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #1b1b1b;
+
+        }
+
+
+        .review-user strong {
+
+            font-size: 11px;
+
+        }
+
+
+        .review-header time {
+
+            color: #666;
+
+            font-size: 9px;
+
+        }
+
+
+        .review-text {
+
+            margin: 15px 0;
+
+            color: #ccc;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .review-photos {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+
+        .review-photos .review-photo {
+
+            width: 100px;
+
+            height: 100px;
+
+        }
+
+
+        /* =====================================================
+           NO REVIEWS
+        ====================================================== */
+
+        .no-reviews {
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+        }
+
+
+        .no-reviews > div {
+
+            margin-bottom: 10px;
+
+            font-size: 35px;
+
+        }
+
+
+        .no-reviews h3 {
+
+            margin: 0 0 6px;
+
+            font-size: 15px;
+
+        }
+
+
+        .no-reviews p {
+
+            margin: 0;
+
+            color: #666;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 700px) {
+
+            .reviews-summary {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .reviews-score {
+
+                text-align: left;
+
+            }
+
+
+            .review-header {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    
+        .c2c-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            width: fit-content;
+            margin: 0 0 14px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .c2c-details-box {
+            margin: 20px 0;
+            padding: 18px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .c2c-details-title {
+            margin: 0 0 14px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .c2c-detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 10px;
+        }
+
+        .c2c-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .c2c-detail-row span:first-child {
+            color: #777;
+        }
+
+        .c2c-detail-row strong {
+            text-align: right;
+            color: #ddd;
+        }
+
+        .seller-type-label {
+            display: block;
+            margin-top: 5px;
+            color: #777;
+            font-size: 9px;
+            font-weight: 400;
+        }
+
+        .own-listing-message,
+        .sold-listing-message {
+            margin-top: 15px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: #888;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .own-listing-message {
+            color: var(--accent);
+        }
+
+    
+
+        /* =====================================================
+           PRODUCT ACTIONS LAYOUT
+        ====================================================== */
+
+        .product-actions {
+
+            display: flex;
+
+            width: 100%;
+
+            gap: 12px;
+
+            align-items: stretch;
+
+        }
+
+
+        .product-actions > button {
+
+            flex: 1 1 0;
+
+            width: 0;
+
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            min-height: 60px;
+
+            padding: 0 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+        }
+
+
+        /* =====================================================
+           WISHLIST BUTTON
+        ====================================================== */
+
+        .product-actions .wishlist-btn {
+
+            flex: 1.08 1 0;
+
+            min-width: 0;
+
+            min-height: 60px;
+
+            width: 0;
+
+            padding: 0 10px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            box-sizing: border-box;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: transparent;
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .product-actions .wishlist-btn:hover {
+
+            border-color: #00e676;
+
+            color: #00e676;
+
+            background:
+                rgba(0, 230, 118, 0.07);
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .product-actions .wishlist-btn.wishlisted {
+
+            border-color: #00e676;
+
+            color: #00e676;
+
+            background:
+                rgba(0, 230, 118, 0.08);
+
+        }
+
+
+        .product-actions .wishlist-btn.wishlisted:hover {
+
+            background:
+                rgba(0, 230, 118, 0.13);
+
+        }
+
+
+        @media (max-width: 1050px) {
+
+            .product-actions > button {
+
+                font-size: 13px;
+
+                padding-left: 8px;
+
+                padding-right: 8px;
+
+            }
+
+
+            .product-actions .wishlist-btn {
+
+                font-size: 12px;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .product-actions {
+
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .product-actions > button,
+
+            .product-actions .wishlist-btn {
+
+                width: 100%;
+
+                min-width: 0;
+
+            }
+
+
+            .product-actions .wishlist-btn {
+
+                grid-column: 1 / -1;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .product-actions {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .product-actions .wishlist-btn {
+
+                grid-column: auto;
+
+            }
+
+        }
+
+
+        </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+
+        <button
+            class="icon-btn cart-nav-btn"
+            id="cartButton"
+            onclick="goToCart()"
+            aria-label="Shopping Cart">
+
+            🛒
+
+            <span class="cart-count">
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            class="login-btn"
+            id="accountButton">
+
+            Account
+
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     PRODUCT DETAILS
+===================================================== -->
+
+<main class="product-details-page">
+
+
+    <div id="productDetails">
+
+        <!-- Product inserted by JavaScript -->
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     REVIEWS
+===================================================== -->
+
+<section
+    class="product-reviews-section">
+
+
+    <div
+        class="reviews-title">
+
+
+        <span class="section-label">
+
+            CUSTOMER FEEDBACK
+
+        </span>
+
+
+        <h2>
+
+            Product Reviews
+
+        </h2>
+
+
+        <p>
+
+            See what customers think about this product.
+
+        </p>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         REVIEW SUMMARY
+    ================================================== -->
+
+    <div
+        id="productReviews">
+
+    </div>
+
+
+
+    <!-- =================================================
+         WRITE REVIEW
+    ================================================== -->
+
+    <div
+        id="writeReviewSection"
+        class="write-review-section">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/products.js"></script>
+
+<script src="../js/wishlist.js"></script>
+
+<script src="../js/cart.js"></script>
+
+<script src="../js/messages.js"></script>
+
+<script src="../js/reviews.js"></script>
+
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+
+/* =====================================================
+   ACCOUNT BUTTON
+===================================================== */
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+
+if (currentUser) {
+
+
+    accountButton.textContent =
+        `👤 ${currentUser.name}`;
+
+
+    accountButton.onclick =
+        function() {
+
+
+            if (
+                currentUser.type ===
+                "business"
+            ) {
+
+                window.location.href =
+                    "business-dashboard.html";
+
+            }
+
+            else {
+
+                window.location.href =
+                    "customer-dashboard.html";
+
+            }
+
+        };
+
+}
+
+else {
+
+
+    accountButton.textContent =
+        "Login";
+
+
+    accountButton.onclick =
+        function() {
+
+            window.location.href =
+                "login.html";
+
+        };
+
+}
+
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+function goToCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+
+/* =====================================================
+   PRODUCT ID
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const productId =
+    params.get("id");
+
+
+
+/* =====================================================
+   PRODUCT
+===================================================== */
+
+const product =
+    getProductById(
+        productId
+    );
+
+
+const productDetails =
+    document.getElementById(
+        "productDetails"
+    );
+
+
+
+/* =====================================================
+   PRODUCT NOT FOUND
+===================================================== */
+
+if (!product) {
+
+
+    productDetails.innerHTML = `
+
+        <div class="empty-products">
+
+            <h2>
+                Product Not Found
+            </h2>
+
+
+            <p>
+                This product may have been removed.
+            </p>
+
+
+            <br>
+
+
+            <button
+                class="primary-btn"
+                onclick="
+                    window.location.href='products.html'
+                ">
+
+                Back to Products
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    /*
+     * Hide review section if product
+     * doesn't exist.
+     */
+
+    document.querySelector(
+        ".product-reviews-section"
+    ).style.display =
+        "none";
+
+}
+
+else {
+
+
+    /* =================================================
+       PRICE
+    ================================================== */
+
+    let price =
+        Number(
+            product.retailPrice
+        );
+
+
+    let priceType =
+        "Retail Price";
+    /* =================================================
+       C2C / CUSTOMER LISTING
+    ================================================== */
+
+    const isCustomerProduct =
+        product.sourceType === "customer" ||
+        product.isUsed === true ||
+        product.isCustomerProduct === true;
+
+
+    const isProductSold =
+        product.status === "sold" ||
+        product.sold === true ||
+        (
+            isCustomerProduct &&
+            Number(product.stock) <= 0
+        );
+
+
+    const isOwnCustomerProduct =
+        isCustomerProduct &&
+        currentUser &&
+        currentUser.type === "customer" &&
+        String(product.sellerId) ===
+        String(currentUser.id);
+
+
+    let customerSeller = null;
+
+
+    if (
+        isCustomerProduct &&
+        product.sellerId
+    ) {
+
+        const users =
+            JSON.parse(
+                localStorage.getItem(
+                    "tradehub_users"
+                )
+            ) || [];
+
+
+        customerSeller =
+            users.find(
+                function(user) {
+
+                    return (
+                        String(user.id) ===
+                        String(product.sellerId) &&
+
+                        user.type ===
+                        "customer"
+                    );
+
+                }
+            ) || null;
+
+    }
+
+
+
+
+
+    /* =================================================
+       VERIFIED BUSINESS PRICE
+    ================================================== */
+
+    if (
+
+        currentUser &&
+
+        currentUser.type ===
+            "business" &&
+
+        currentUser.verificationStatus ===
+            "verified"
+
+    ) {
+
+
+        price =
+            Number(
+                product.wholesalePrice
+            );
+
+
+        priceType =
+            "Verified Business Price";
+
+    }
+
+
+
+    /* =================================================
+       PRODUCT HTML
+    ================================================= */
+
+    productDetails.innerHTML = `
+
+        <div class="product-detail-container">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="product-detail-image">
+
+                ${
+                    product.image
+
+                    ?
+
+                    `
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                    >
+                    `
+
+                    :
+
+                    `
+                    <span>
+                        📦
+                    </span>
+                    `
+                }
+
+            </div>
+
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-detail-info">
+
+
+                <span class="product-category">
+
+                    ${product.category}
+
+                </span>
+
+                ${
+                    isCustomerProduct
+                    ?
+
+                    `
+
+                    <div class="c2c-badge">
+
+                        ♻️ PRE-OWNED · CUSTOMER LISTING
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+
+
+                <h1>
+
+                    ${product.name}
+
+                </h1>
+
+
+
+                <p class="detail-brand">
+
+                    Brand:
+
+                    <strong>
+
+                        ${product.brand}
+
+                    </strong>
+
+                </p>
+
+
+
+                <p class="detail-description">
+
+                    ${product.description}
+
+                </p>
+
+                ${
+                    isCustomerProduct
+                    ?
+
+                    `
+
+                    <div class="c2c-details-box">
+
+                        <h3 class="c2c-details-title">
+                            ♻️ Pre-Owned Product Details
+                        </h3>
+
+                        <div class="c2c-detail-row">
+                            <span>Condition</span>
+                            <strong>
+                                ${product.condition || "Not specified"}
+                            </strong>
+                        </div>
+
+                        <div class="c2c-detail-row">
+                            <span>Product Age</span>
+                            <strong>
+                                ${
+                                    product.productAge
+                                    ?
+                                    `${product.productAge} ${
+                                        product.productAgeUnit || "years"
+                                    }`
+                                    :
+                                    "Not specified"
+                                }
+                            </strong>
+                        </div>
+
+                        <div class="c2c-detail-row">
+                            <span>Reason for Selling</span>
+                            <strong>
+                                ${product.sellingReason || "Not specified"}
+                            </strong>
+                        </div>
+
+                        <div class="c2c-detail-row">
+                            <span>Seller Location</span>
+                            <strong>
+                                ${product.sellerLocation || "Not specified"}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    `
+                    :
+                    ""
+                }
+
+
+
+
+                <div class="detail-price">
+
+                    ₹${price}
+
+                    <span>
+
+                        ${priceType}
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- BUSINESS PRICING -->
+
+                ${
+                    currentUser &&
+                    currentUser.type === "business"
+
+                    ?
+
+                    `
+
+                    <div class="business-price-box">
+
+                        ${
+                            currentUser.verificationStatus ===
+                            "verified"
+
+                            ?
+
+                            `
+
+                            <div>
+
+                                🏢
+
+                                <span>
+                                    Verified business pricing
+                                </span>
+
+                            </div>
+
+
+                            <strong>
+
+                                ₹${product.wholesalePrice}
+
+                            </strong>
+
+                            `
+
+                            :
+
+                            `
+
+                            <div>
+
+                                ⚠️
+
+                                <span>
+
+                                    Verify your business to
+                                    unlock wholesale pricing.
+
+                                </span>
+
+                            </div>
+
+                            `
+                        }
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+
+                <!-- STOCK -->
+
+                <div class="detail-stock">
+
+                    
+
+                    ${
+                        isProductSold
+
+                        ?
+
+                        `
+
+                        <span>
+                            ●
+                        </span>
+
+                        ${
+                            isCustomerProduct
+                            ? "Sold"
+                            : "Out of stock"
+                        }
+
+                        `
+
+                        :
+
+                        `
+
+                        <span>
+                            ●
+                        </span>
+
+                        ${product.stock}
+                        units available
+
+                        `
+
+                    }
+
+
+                </div>
+
+
+
+                <!-- QUANTITY -->
+
+                <div class="quantity-section">
+
+                    <label>
+                        Quantity
+                    </label>
+
+
+                    <div class="quantity-control">
+
+
+                        <button
+                            type="button"
+                            id="decreaseQuantity">
+
+                            −
+
+                        </button>
+
+
+                        <span
+                            id="quantity">
+
+                            1
+
+                        </span>
+
+
+                        <button
+                            type="button"
+                            id="increaseQuantity">
+
+                            +
+
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="product-actions">
+
+
+                    ${
+                        isOwnCustomerProduct
+
+                        ?
+
+                        `
+
+                        <button
+                            type="button"
+                            class="primary-btn"
+                            id="addCartBtn"
+                            disabled>
+
+                            Your Listing
+
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+                            type="button"
+                            class="primary-btn"
+                            id="addCartBtn"
+                        ${
+                            isProductSold
+                            ? "disabled"
+                            : ""
+                        }>
+
+                            🛒 Add to Cart
+
+                        </button>
+
+                        `
+
+                    }
+
+
+
+                    <button
+                        type="button"
+                        class="secondary-btn contact-seller-btn">
+
+                        ${
+                            isCustomerProduct
+                            ? "💬 Contact Seller"
+                            : "💬 Contact Business"
+                        }
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        id="wishlistBtn"
+                        class="wishlist-btn"
+                        data-id="${product.id}"
+                        aria-label="Add to wishlist">
+
+                        ♡ Add to Wishlist
+
+                    </button>
+
+
+                </div>
+
+
+                ${
+                    isOwnCustomerProduct
+
+                    ?
+
+                    `
+
+                    <div class="own-listing-message">
+
+                        ♻️ <strong>This is your listing.</strong>
+
+                        You cannot purchase your own product.
+
+                        You can manage this product from your
+                        customer dashboard.
+
+                    </div>
+
+                    `
+
+                    :
+
+                    isProductSold
+
+                    ?
+
+                    `
+
+                    <div class="sold-listing-message">
+
+                        This product has already been sold
+                        and is no longer available for purchase.
+
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+                <!-- SELLER -->
+
+                <div class="seller-box">
+
+
+                    <span>
+                        SOLD BY
+                    </span>
+
+
+                    <strong>
+
+                        ${
+                            isCustomerProduct
+
+                            ?
+
+                            (
+                                product.sellerName ||
+                                (
+                                    customerSeller &&
+                                    customerSeller.name
+                                ) ||
+                                "Customer Seller"
+                            )
+
+                            :
+
+                            (
+                                product.businessName ||
+                                "TradeHub Business"
+                            )
+                        }
+
+                    </strong>
+
+
+                    <span class="seller-type-label">
+
+                        ${
+                            isCustomerProduct
+                            ? "👤 Customer Seller"
+                            : "🏢 Business Seller"
+                        }
+
+                    </span>
+
+
+                    
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+
+    /* =====================================================
+       QUANTITY
+    ====================================================== */
+
+    let quantity = 1;
+
+
+    const quantityDisplay =
+        document.getElementById(
+            "quantity"
+        );
+
+
+    const increaseButton =
+        document.getElementById(
+            "increaseQuantity"
+        );
+
+
+    const decreaseButton =
+        document.getElementById(
+            "decreaseQuantity"
+        );
+
+
+    increaseButton.addEventListener(
+        "click",
+        function() {
+
+
+            if (
+                quantity <
+                Number(product.stock)
+            ) {
+
+                quantity++;
+
+
+                quantityDisplay.textContent =
+                    quantity;
+
+            }
+
+        }
+    );
+
+
+    decreaseButton.addEventListener(
+        "click",
+        function() {
+
+
+            if (
+                quantity > 1
+            ) {
+
+                quantity--;
+
+
+                quantityDisplay.textContent =
+                    quantity;
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       ADD TO CART
+    ====================================================== */
+
+    const addCartButton =
+        document.getElementById(
+            "addCartBtn"
+        );
+
+
+    addCartButton.addEventListener(
+        "click",
+        function() {
+
+
+            
+            if (
+                isOwnCustomerProduct
+            ) {
+
+                alert(
+                    "You cannot purchase your own product."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                isProductSold
+            ) {
+
+                alert(
+                    "This product has already been sold."
+                );
+
+                return;
+
+            }
+
+if (
+                Number(product.stock) <= 0
+            ) {
+
+                alert(
+                    "This product is out of stock."
+                );
+
+
+                return;
+
+            }
+
+
+            const added =
+                addToCart(
+                    product,
+                    quantity,
+                    price
+                );
+
+
+            if (added) {
+
+
+                alert(
+                    "Product added to cart!"
+                );
+
+
+                if (
+                    typeof updateCartCount ===
+                    "function"
+                ) {
+
+                    updateCartCount();
+
+                }
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       WISHLIST
+    ====================================================== */
+
+    const wishlistButton =
+        document.getElementById(
+            "wishlistBtn"
+        );
+
+
+    wishlistButton.dataset.id =
+        product.id;
+
+
+    wishlistButton.onclick =
+        function() {
+
+            toggleWishlist(
+                product.id
+            );
+
+        };
+
+
+    updateWishlistButtons();
+
+
+
+    /* =====================================================
+       CONTACT SELLER / BUSINESS
+    ====================================================== */
+
+    const contactSellerButtons =
+        document.querySelectorAll(
+            ".contact-seller-btn"
+        );
+
+
+    contactSellerButtons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    if (!currentUser) {
+
+                        alert(
+                            isCustomerProduct
+                            ? "Please login to contact the seller."
+                            : "Please login to contact the business."
+                        );
+
+                        window.location.href =
+                            "login.html";
+
+                        return;
+
+                    }
+
+
+                    /* =================================
+                       CUSTOMER LISTING
+                    ================================= */
+
+                    if (
+                        isCustomerProduct
+                    ) {
+
+                        if (
+                            currentUser.type !==
+                            "customer"
+                        ) {
+
+                            alert(
+                                "Business accounts cannot contact customer sellers."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (
+                            !product.sellerId
+                        ) {
+
+                            alert(
+                                "Seller information is not available for this product."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (
+                            String(currentUser.id) ===
+                            String(product.sellerId)
+                        ) {
+
+                            alert(
+                                "This is your own listing. You cannot contact yourself."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (
+                            isProductSold
+                        ) {
+
+                            alert(
+                                "This product has already been sold."
+                            );
+
+                            return;
+
+                        }
+
+
+                        const users =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    "tradehub_users"
+                                )
+                            ) || [];
+
+
+                        const seller =
+                            users.find(
+                                function(user) {
+
+                                    return (
+                                        String(user.id) ===
+                                        String(product.sellerId) &&
+
+                                        user.type ===
+                                        "customer"
+                                    );
+
+                                }
+                            );
+
+
+                        if (!seller) {
+
+                            alert(
+                                "Seller information could not be found."
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (
+                            typeof canCustomerContactCustomer ===
+                            "function" &&
+
+                            !canCustomerContactCustomer(
+                                currentUser,
+                                seller,
+                                product
+                            )
+                        ) {
+
+                            alert(
+                                "You cannot contact this seller through this product."
+                            );
+
+                            return;
+
+                        }
+
+
+                        const conversation =
+                            createCustomerConversation(
+                                seller,
+                                currentUser,
+                                product
+                            );
+
+
+                        if (!conversation) {
+
+                            alert(
+                                "Unable to start the conversation."
+                            );
+
+                            return;
+
+                        }
+
+
+                        window.location.href =
+                            `messages.html?id=${encodeURIComponent(
+                                conversation.id
+                            )}`;
+
+                        return;
+
+                    }
+
+
+                    /* =================================
+                       BUSINESS PRODUCT
+                    ================================= */
+
+                    if (
+                        currentUser.type !==
+                        "customer"
+                    ) {
+
+                        alert(
+                            "Business accounts cannot use this button. Use Messages to contact another business."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        !product.businessId
+                    ) {
+
+                        alert(
+                            "Business information is not available for this product."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const users =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "tradehub_users"
+                            )
+                        ) || [];
+
+
+                    const business =
+                        users.find(
+                            function(user) {
+
+                                return (
+                                    String(user.id) ===
+                                    String(product.businessId) &&
+
+                                    user.type ===
+                                    "business"
+                                );
+
+                            }
+                        );
+
+
+                    if (!business) {
+
+                        alert(
+                            "Business information could not be found."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        String(currentUser.id) ===
+                        String(business.id)
+                    ) {
+
+                        alert(
+                            "You cannot contact your own business."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (
+                        typeof canCustomerContactBusiness ===
+                        "function" &&
+
+                        !canCustomerContactBusiness(
+                            currentUser,
+                            business,
+                            product
+                        )
+                    ) {
+
+                        alert(
+                            "You cannot contact this business through this product."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const conversation =
+                        createConversation(
+                            currentUser,
+                            business,
+                            product
+                        );
+
+
+                    if (!conversation) {
+
+                        alert(
+                            "Unable to start the conversation."
+                        );
+
+                        return;
+
+                    }
+
+
+                    window.location.href =
+                        `messages.html?id=${encodeURIComponent(
+                            conversation.id
+                        )}`;
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       INITIALIZE REVIEWS
+    ====================================================== */
+
+    const reviewsContainer =
+        document.getElementById(
+            "productReviews"
+        );
+
+
+    const writeReviewContainer =
+        document.getElementById(
+            "writeReviewSection"
+        );
+
+
+    renderProductReviews(
+        product.id,
+        reviewsContainer
+    );
+
+
+    createReviewForm(
+        product,
+        currentUser,
+        writeReviewContainer
+    );
+
+}
+
+
+
+/* =====================================================
+   CART COUNT
+===================================================== */
+
+if (
+    typeof updateCartCount ===
+    "function"
+) {
+
+    updateCartCount();
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

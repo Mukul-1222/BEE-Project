@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | TradeHub</title>
+
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+
+        /* =====================================================
+           COUPON
+        ====================================================== */
+
+        .coupon-box {
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.02);
+
+        }
+
+
+        .coupon-box h3 {
+
+            margin-top: 0;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .coupon-box p {
+
+            color: #777;
+
+            font-size: 9px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .coupon-input-row {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .coupon-input-row input {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .coupon-input-row button {
+
+            padding:
+                0 14px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 7px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color:
+                var(--accent);
+
+            cursor: pointer;
+
+        }
+
+
+        .coupon-message {
+
+            margin-top: 10px;
+
+            font-size: 9px;
+
+        }
+
+
+        .coupon-success {
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .coupon-error {
+
+            color:
+                #ff7777;
+
+        }
+
+
+        .applied-coupon {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap: 10px;
+
+            margin-top: 10px;
+
+            padding: 8px 10px;
+
+            border-radius: 6px;
+
+            background:
+                rgba(0,230,118,0.05);
+
+            border:
+                1px solid
+                rgba(0,230,118,0.15);
+
+            font-size: 9px;
+
+        }
+
+
+        .remove-coupon {
+
+            border: none;
+
+            background: transparent;
+
+            color: #ff7777;
+
+            cursor: pointer;
+
+            font-size: 9px;
+
+        }
+
+
+        /* =====================================================
+           WHOLESALE NOTICE
+        ====================================================== */
+
+        .checkout-business-banner {
+
+            margin-bottom: 20px;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            border:
+                1px solid
+                rgba(0,230,118,0.18);
+
+            background:
+                rgba(0,230,118,0.04);
+
+            color: #888;
+
+            font-size: 9px;
+
+        }
+
+
+        .checkout-business-banner strong {
+
+            color:
+                var(--accent);
+
+        }
+
+
+        /* =====================================================
+           VALIDATION
+        ====================================================== */
+
+        .checkout-error {
+
+            margin-bottom: 20px;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            border:
+                1px solid
+                rgba(255,80,80,0.2);
+
+            background:
+                rgba(255,80,80,0.05);
+
+            color:
+                #ff8585;
+
+            font-size: 9px;
+
+        }
+
+
+        .checkout-error ul {
+
+            margin:
+                7px 0 0 18px;
+
+            padding: 0;
+
+        }
+
+
+        .checkout-error li {
+
+            margin-bottom: 4px;
+
+        }
+
+
+        /* =====================================================
+           DISCOUNT
+        ====================================================== */
+
+        .discount-row {
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .discount-row strong {
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .checkout-summary-note {
+
+            margin-top: 10px;
+
+            color: #666;
+
+            font-size: 8px;
+
+            line-height: 1.5;
+
+        }
+
+    
+        /* =====================================================
+           DEMO PAYMENT MODAL
+        ====================================================== */
+
+        .demo-payment-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.78);
+            z-index: 9999;
+        }
+
+        .demo-payment-modal {
+            width: 100%;
+            max-width: 430px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #111;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+        }
+
+        .demo-payment-badge {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 6px 9px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .demo-payment-modal h2 {
+            margin: 0 0 7px;
+        }
+
+        .demo-payment-modal p {
+            color: #777;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .demo-payment-amount {
+            margin: 18px 0;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .demo-payment-method {
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: rgba(255,255,255,0.02);
+            color: #ccc;
+            font-size: 10px;
+        }
+
+        .demo-payment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .demo-payment-actions button {
+            flex: 1;
+        }
+
+        .demo-payment-test-note {
+            margin-top: 14px;
+            color: #666;
+            font-size: 8px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+
+    </nav>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="checkout-page">
+
+
+    <div class="page-header">
+
+
+        <span class="section-label">
+            CHECKOUT
+        </span>
+
+
+        <h1>
+
+            Complete Your <span>Order</span>
+
+        </h1>
+
+
+        <p>
+
+            Enter your delivery information
+            and confirm your order.
+
+        </p>
+
+
+    </div>
+
+
+
+    <div
+        class="checkout-layout">
+
+
+        <!-- =================================================
+             DELIVERY
+        ================================================== -->
+
+        <section
+            class="checkout-card">
+
+
+            <h2>
+                Delivery Details
+            </h2>
+
+
+            <form
+                id="checkoutForm">
+
+
+                <!-- NAME -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="deliveryName"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+
+                    <input
+                        type="tel"
+                        id="deliveryPhone"
+                        placeholder="10 digit mobile number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- ADDRESS -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Address
+                    </label>
+
+
+                    <textarea
+                        id="deliveryAddress"
+                        rows="4"
+                        placeholder="House number, street, area"
+                        required></textarea>
+
+                </div>
+
+
+
+                <!-- CITY / PIN -->
+
+                <div
+                    class="checkout-row">
+
+
+                    <div
+                        class="form-group">
+
+                        <label>
+                            City
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="deliveryCity"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div
+                        class="form-group">
+
+                        <label>
+                            PIN Code
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="deliveryPin"
+                            maxlength="6"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     COUPON
+                ================================================== -->
+
+                <div
+                    class="coupon-box">
+
+
+                    <h3>
+                        🎟️ Apply Coupon
+                    </h3>
+
+
+                    <p>
+                        Have a coupon from a TradeHub business?
+                    </p>
+
+
+                    <div
+                        class="coupon-input-row">
+
+
+                        <input
+                            type="text"
+                            id="couponCode"
+                            placeholder="Enter coupon code"
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            type="button"
+                            onclick="applyCoupon()">
+
+                            Apply
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        id="couponMessage"
+                        class="coupon-message">
+
+                    </div>
+
+
+                    <div
+                        id="appliedCoupon"
+                        style="display:none;"
+                        class="applied-coupon">
+
+
+                        <span
+                            id="appliedCouponText">
+
+                        </span>
+
+
+                        <button
+                            type="button"
+                            class="remove-coupon"
+                            onclick="removeCoupon()">
+
+                            Remove
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PAYMENT
+                ================================================== -->
+
+                <h2
+                    class="payment-heading">
+
+                    Payment Method
+
+                </h2>
+
+
+                <div
+                    class="payment-options">
+
+
+                    <!-- UPI -->
+
+                    <label
+                        class="payment-option">
+
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="UPI"
+                            checked
+                        >
+
+
+                        <div>
+
+                            <strong>
+                                UPI
+                            </strong>
+
+
+                            <span>
+                                Google Pay / PhonePe / Paytm
+                            </span>
+
+                        </div>
+
+
+                    </label>
+
+
+
+                    <!-- CARD -->
+
+                    <label
+                        class="payment-option">
+
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="CARD"
+                        >
+
+
+                        <div>
+
+                            <strong>
+                                Debit / Credit Card
+                            </strong>
+
+
+                            <span>
+                                Secure online payment
+                            </span>
+
+                        </div>
+
+
+                    </label>
+
+
+
+                    <!-- COD -->
+
+                    <label
+                        class="payment-option">
+
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="COD"
+                        >
+
+
+                        <div>
+
+                            <strong>
+                                Cash on Delivery
+                            </strong>
+
+
+                            <span>
+                                Pay when your order arrives
+                            </span>
+
+                        </div>
+
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="auth-btn">
+
+                    Place Order →
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUMMARY
+        ================================================== -->
+
+        <aside
+            class="checkout-summary"
+            id="checkoutSummary">
+
+        </aside>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         DEMO PAYMENT MODAL
+    ====================================================== -->
+
+    <div
+        id="demoPaymentOverlay"
+        class="demo-payment-overlay">
+
+        <div class="demo-payment-modal">
+
+            <span class="demo-payment-badge">
+                TRADEHUB DEMO PAYMENT
+            </span>
+
+            <h2>
+                Complete Payment
+            </h2>
+
+            <p>
+                This is a frontend-only payment simulation
+                for the first evaluation. No real money
+                will be charged.
+            </p>
+
+            <div
+                id="demoPaymentAmount"
+                class="demo-payment-amount">
+                ₹0
+            </div>
+
+            <div
+                id="demoPaymentMethod"
+                class="demo-payment-method">
+                Payment Method
+            </div>
+
+            <div class="demo-payment-actions">
+
+                <button
+                    type="button"
+                    id="demoPaymentCancel"
+                    class="secondary-btn">
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    id="demoPaymentConfirm"
+                    class="auth-btn">
+                    ✓ Pay Now
+                </button>
+
+            </div>
+
+            <div class="demo-payment-test-note">
+                Demo mode • No Razorpay account or backend required
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
+
+<script src="../js/products.js"></script>
+
+<script src="../js/cart.js"></script>
+
+<script src="../js/orders.js"></script>
+
+<script src="../js/coupons.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+if (
+    !currentUser
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+let cart =
+    getCart();
+
+
+if (
+    cart.length ===
+    0
+) {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+
+/* =====================================================
+   REFRESH CART
+===================================================== */
+
+if (
+    typeof refreshCartPrices ===
+    "function"
+) {
+
+    refreshCartPrices();
+
+}
+
+
+cart =
+    getCart();
+
+
+
+/* =====================================================
+   VALIDATE CART
+===================================================== */
+
+function getCartValidation() {
+
+
+    if (
+        typeof validateCart !==
+        "function"
+    ) {
+
+        return {
+
+            valid: true,
+
+            errors: []
+
+        };
+
+    }
+
+
+    return validateCart();
+
+}
+
+
+
+/* =====================================================
+   PREFILL NAME
+===================================================== */
+
+document.getElementById(
+    "deliveryName"
+).value =
+
+    currentUser.name ||
+    currentUser.businessName ||
+    "";
+
+
+
+/* =====================================================
+   SUMMARY ELEMENT
+===================================================== */
+
+const checkoutSummary =
+    document.getElementById(
+        "checkoutSummary"
+    );
+
+
+
+/* =====================================================
+   ACTIVE COUPON
+===================================================== */
+
+let appliedCoupon =
+    null;
+
+
+let couponDiscount =
+    0;
+
+
+
+/* =====================================================
+   CALCULATE SUBTOTAL
+===================================================== */
+
+function calculateSubtotal() {
+
+
+    cart =
+        getCart();
+
+
+    let total =
+        0;
+
+
+    cart.forEach(
+        item => {
+
+
+            const product =
+                typeof getCartProduct ===
+                "function"
+
+                    ?
+
+                getCartProduct(
+                    item
+                )
+
+                    :
+
+                null;
+
+
+            const price =
+                Number(
+                    item.price
+                ) || 0;
+
+
+            const quantity =
+                Number(
+                    item.quantity
+                ) || 0;
+
+
+            total +=
+                price *
+                quantity;
+
+        }
+    );
+
+
+    return Math.round(
+        total * 100
+    ) / 100;
+
+}
+
+
+
+/* =====================================================
+   DELIVERY FEE
+===================================================== */
+
+function calculateDeliveryFee(
+    subtotal
+) {
+
+    return subtotal >=
+        1000
+
+        ?
+
+        0
+
+        :
+
+        50;
+
+}
+
+
+
+/* =====================================================
+   CALCULATE TOTAL
+===================================================== */
+
+function calculateGrandTotal() {
+
+
+    const subtotal =
+        calculateSubtotal();
+
+
+    const deliveryFee =
+        calculateDeliveryFee(
+            subtotal
+        );
+
+
+    const discount =
+        Math.min(
+            couponDiscount,
+            subtotal
+        );
+
+
+    return Math.max(
+        0,
+        subtotal -
+        discount +
+        deliveryFee
+    );
+
+}
+
+
+
+/* =====================================================
+   DISPLAY SUMMARY
+===================================================== */
+
+function renderSummary() {
+
+
+    const subtotal =
+        calculateSubtotal();
+
+
+    const deliveryFee =
+        calculateDeliveryFee(
+            subtotal
+        );
+
+
+    const discount =
+        Math.min(
+            couponDiscount,
+            subtotal
+        );
+
+
+    const grandTotal =
+        Math.max(
+            0,
+            subtotal -
+            discount +
+            deliveryFee
+        );
+
+
+    let businessBanner =
+        "";
+
+
+    if (
+        currentUser.type ===
+        "business"
+    ) {
+
+
+        if (
+            typeof isBusinessVerified ===
+            "function" &&
+
+            isBusinessVerified(
+                currentUser
+            )
+        ) {
+
+
+            businessBanner = `
+
+                <div
+                    class="
+                        checkout-business-banner
+                    ">
+
+                    🏢
+
+                    <strong>
+                        Verified Business
+                    </strong>
+
+                    — Wholesale pricing is
+                    active on eligible products.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* =================================================
+       VALIDATION
+    ================================================== */
+
+    const validation =
+        getCartValidation();
+
+
+    let validationHTML =
+        "";
+
+
+    if (
+        !validation.valid
+    ) {
+
+
+        validationHTML = `
+
+            <div
+                class="checkout-error">
+
+
+                <strong>
+                    ⚠️ Cart needs attention
+                </strong>
+
+
+                <ul>
+
+                    ${
+                        validation.errors
+                            .map(
+                                error =>
+                                    `
+                                    <li>
+                                        ${escapeHTML(
+                                            error
+                                        )}
+                                    </li>
+                                    `
+                            )
+                            .join("")
+                    }
+
+                </ul>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* =================================================
+       ITEMS
+    ================================================== */
+
+    const itemsHTML =
+        cart.map(
+            item => {
+
+
+                const product =
+                    typeof getCartProduct ===
+                    "function"
+
+                        ?
+
+                    getCartProduct(
+                        item
+                    )
+
+                        :
+
+                    null;
+
+
+                const price =
+                    Number(
+                        item.price
+                    ) || 0;
+
+
+                const itemTotal =
+                    price *
+                    item.quantity;
+
+
+                return `
+
+                    <div
+                        class="checkout-item">
+
+
+                        <div>
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    item.name
+                                )}
+
+                            </strong>
+
+
+                            <span>
+
+                                Qty:
+                                ${item.quantity}
+
+                            </span>
+
+                        </div>
+
+
+                        <strong>
+
+                            ₹${itemTotal}
+
+                        </strong>
+
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+
+    /* =================================================
+       APPLIED COUPON
+    ================================================== */
+
+    let couponSummary =
+        "";
+
+
+    if (
+        appliedCoupon &&
+        discount > 0
+    ) {
+
+
+        couponSummary = `
+
+            <div
+                class="
+                    summary-row
+                    discount-row
+                ">
+
+
+                <span>
+
+                    Coupon
+                    (${escapeHTML(
+                        appliedCoupon.code
+                    )})
+
+                </span>
+
+
+                <strong>
+
+                    -₹${discount}
+
+                </strong>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* =================================================
+       RENDER
+    ================================================== */
+
+    checkoutSummary.innerHTML = `
+
+        ${businessBanner}
+
+
+        ${validationHTML}
+
+
+        <div
+            class="checkout-summary-inner">
+
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div
+                class="checkout-items">
+
+                ${itemsHTML}
+
+            </div>
+
+
+            <div
+                class="summary-row">
+
+
+                <span>
+                    Subtotal
+                </span>
+
+
+                <strong>
+                    ₹${subtotal}
+                </strong>
+
+
+            </div>
+
+
+
+            ${couponSummary}
+
+
+
+            <div
+                class="summary-row">
+
+
+                <span>
+                    Delivery
+                </span>
+
+
+                <strong>
+
+                    ${
+                        deliveryFee === 0
+
+                        ?
+
+                        "FREE"
+
+                        :
+
+                        "₹50"
+
+                    }
+
+                </strong>
+
+
+            </div>
+
+
+
+            <div
+                class="summary-divider">
+
+            </div>
+
+
+
+            <div
+                class="
+                    summary-row
+                    total-row
+                ">
+
+
+                <span>
+                    Total
+                </span>
+
+
+                <strong>
+                    ₹${grandTotal}
+                </strong>
+
+
+            </div>
+
+
+            ${
+                appliedCoupon
+
+                ?
+
+                `
+
+                <p
+                    class="checkout-summary-note">
+
+                    Coupon
+                    ${escapeHTML(
+                        appliedCoupon.code
+                    )}
+                    applied successfully.
+
+                </p>
+
+                `
+
+                :
+
+                ""
+
+            }
+
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   APPLY COUPON
+===================================================== */
+
+function applyCoupon() {
+
+
+    const input =
+        document.getElementById(
+            "couponCode"
+        );
+
+
+    const message =
+        document.getElementById(
+            "couponMessage"
+        );
+
+
+    const code =
+        input.value
+            .trim()
+            .toUpperCase();
+
+
+    message.className =
+        "coupon-message";
+
+
+    message.textContent =
+        "";
+
+
+    if (!code) {
+
+
+        message.classList.add(
+            "coupon-error"
+        );
+
+
+        message.textContent =
+            "Please enter a coupon code.";
+
+
+        return;
+
+    }
+
+
+    const subtotal =
+        calculateSubtotal();
+
+
+    const result =
+        validateCoupon(
+            code,
+            cart,
+            subtotal
+        );
+
+
+    if (
+        !result.valid
+    ) {
+
+
+        appliedCoupon =
+            null;
+
+
+        couponDiscount =
+            0;
+
+
+        message.classList.add(
+            "coupon-error"
+        );
+
+
+        message.textContent =
+            result.message;
+
+
+        document.getElementById(
+            "appliedCoupon"
+        ).style.display =
+            "none";
+
+
+        renderSummary();
+
+
+        return;
+
+    }
+
+
+    /* =================================================
+       SUCCESS
+    ================================================== */
+
+    appliedCoupon =
+        result.coupon;
+
+
+    couponDiscount =
+        result.discount;
+
+
+    message.classList.add(
+        "coupon-success"
+    );
+
+
+    message.textContent =
+        `Coupon applied! You saved ₹${result.discount}.`;
+
+
+    document.getElementById(
+        "appliedCoupon"
+    ).style.display =
+        "flex";
+
+
+    document.getElementById(
+        "appliedCouponText"
+    ).textContent =
+
+        `${result.coupon.code} — ₹${result.discount} off`;
+
+
+    renderSummary();
+
+}
+
+
+
+/* =====================================================
+   REMOVE COUPON
+===================================================== */
+
+function removeCoupon() {
+
+
+    appliedCoupon =
+        null;
+
+
+    couponDiscount =
+        0;
+
+
+    const input =
+        document.getElementById(
+            "couponCode"
+        );
+
+
+    const message =
+        document.getElementById(
+            "couponMessage"
+        );
+
+
+    input.value =
+        "";
+
+
+    message.textContent =
+        "";
+
+
+    message.className =
+        "coupon-message";
+
+
+    document.getElementById(
+        "appliedCoupon"
+    ).style.display =
+        "none";
+
+
+    renderSummary();
+
+}
+
+
+
+
+/* =====================================================
+   DEMO PAYMENT STATE
+===================================================== */
+
+let pendingDemoPayment =
+    null;
+
+
+
+/* =====================================================
+   C2C HELPERS
+===================================================== */
+
+function getAllTradeHubProducts() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "tradehub_products"
+            )
+        ) || [];
+
+    }
+    catch (error) {
+
+        console.error(
+            "Unable to read TradeHub products:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+function saveAllTradeHubProducts(
+    products
+) {
+
+    localStorage.setItem(
+        "tradehub_products",
+        JSON.stringify(
+            products
+        )
+    );
+
+}
+
+
+function isCustomerProduct(
+    product
+) {
+
+    return (
+        product.sourceType === "customer" ||
+        product.isUsed === true ||
+        product.isCustomerProduct === true
+    );
+
+}
+
+
+function markCustomerProductsSold(
+    order
+) {
+
+    const products =
+        getAllTradeHubProducts();
+
+
+    let changed =
+        false;
+
+
+    order.items.forEach(
+        function(orderItem) {
+
+            const index =
+                products.findIndex(
+                    function(product) {
+
+                        return (
+                            String(product.id) ===
+                            String(orderItem.productId)
+                        );
+
+                    }
+                );
+
+
+            if (
+                index === -1
+            ) {
+
+                return;
+
+            }
+
+
+            const product =
+                products[index];
+
+
+            if (
+                !isCustomerProduct(product)
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * A seller cannot buy their own listing.
+             */
+
+            if (
+                String(product.sellerId) ===
+                String(order.customerId)
+            ) {
+
+                return;
+
+            }
+
+
+            product.status =
+                "sold";
+
+
+            product.sold =
+                true;
+
+
+            product.stock =
+                0;
+
+
+            product.soldAt =
+                new Date().toISOString();
+
+
+            product.buyerId =
+                order.customerId;
+
+
+            product.buyerName =
+                order.customerName;
+
+
+            product.buyerType =
+                order.customerType;
+
+
+            product.buyerPhone =
+                order.delivery
+                ? order.delivery.phone
+                : "";
+
+
+            product.buyerAddress =
+                order.delivery
+                ? order.delivery.address
+                : "";
+
+
+            product.buyerCity =
+                order.delivery
+                ? order.delivery.city
+                : "";
+
+
+            product.buyerPin =
+                order.delivery
+                ? order.delivery.pin
+                : "";
+
+
+            product.orderId =
+                order.id;
+
+
+            product.updatedAt =
+                new Date().toISOString();
+
+
+            changed =
+                true;
+
+        }
+    );
+
+
+    if (changed) {
+
+        saveAllTradeHubProducts(
+            products
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   DEMO PAYMENT
+===================================================== */
+
+function openDemoPayment(
+    paymentMethod,
+    total,
+    orderData
+) {
+
+    const overlay =
+        document.getElementById(
+            "demoPaymentOverlay"
+        );
+
+
+    const amount =
+        document.getElementById(
+            "demoPaymentAmount"
+        );
+
+
+    const method =
+        document.getElementById(
+            "demoPaymentMethod"
+        );
+
+
+    if (
+        !overlay ||
+        !amount ||
+        !method
+    ) {
+
+        alert(
+            "Demo payment window could not be opened."
+        );
+
+        return;
+
+    }
+
+
+    pendingDemoPayment = {
+
+        paymentMethod:
+            paymentMethod,
+
+        total:
+            total,
+
+        orderData:
+            orderData
+
+    };
+
+
+    amount.textContent =
+        `₹${Number(total).toLocaleString("en-IN")}`;
+
+
+    method.textContent =
+        `Payment Method: ${paymentMethod}`;
+
+
+    overlay.style.display =
+        "flex";
+
+}
+
+
+function closeDemoPayment() {
+
+    const overlay =
+        document.getElementById(
+            "demoPaymentOverlay"
+        );
+
+
+    if (overlay) {
+
+        overlay.style.display =
+            "none";
+
+    }
+
+
+    pendingDemoPayment =
+        null;
+
+}
+
+
+function completeDemoPayment() {
+
+    if (
+        !pendingDemoPayment
+    ) {
+
+        return;
+
+    }
+
+
+    const order =
+        pendingDemoPayment.orderData;
+
+
+    order.paymentStatus =
+        "Paid";
+
+
+    order.paymentReference =
+        "DEMO-" + Date.now();
+
+
+    order.paymentProvider =
+        "TradeHub Demo Payment";
+
+
+    order.paymentMode =
+        "frontend-demo";
+
+
+    order.status =
+        "Order Placed";
+
+
+    order.updatedAt =
+        new Date().toISOString();
+
+
+    createOrder(
+        order
+    );
+
+
+    if (
+        appliedCoupon
+    ) {
+
+        useCoupon(
+            appliedCoupon.id
+        );
+
+    }
+
+
+    markCustomerProductsSold(
+        order
+    );
+
+
+    decreaseInventory(
+        order.items
+    );
+
+
+    clearCart();
+
+
+    const orderId =
+        order.id;
+
+
+    closeDemoPayment();
+
+
+    alert(
+        `Payment successful!\n\nOrder ID: ${orderId}\nTotal: ₹${order.total}`
+    );
+
+
+    window.location.href =
+        `orders.html?id=${encodeURIComponent(orderId)}`;
+
+}
+
+
+const demoPaymentCancel =
+    document.getElementById(
+        "demoPaymentCancel"
+    );
+
+
+const demoPaymentConfirm =
+    document.getElementById(
+        "demoPaymentConfirm"
+    );
+
+
+if (demoPaymentCancel) {
+
+    demoPaymentCancel.addEventListener(
+        "click",
+        closeDemoPayment
+    );
+
+}
+
+
+if (demoPaymentConfirm) {
+
+    demoPaymentConfirm.addEventListener(
+        "click",
+        completeDemoPayment
+    );
+
+}
+
+
+const demoPaymentOverlay =
+    document.getElementById(
+        "demoPaymentOverlay"
+    );
+
+
+if (demoPaymentOverlay) {
+
+    demoPaymentOverlay.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                demoPaymentOverlay
+            ) {
+
+                closeDemoPayment();
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
+
+document.getElementById(
+    "checkoutForm"
+).addEventListener(
+    "submit",
+    function(event) {
+
+
+        event.preventDefault();
+
+
+
+        /* =============================================
+           FINAL CART REFRESH
+        ============================================== */
+
+        if (
+            typeof refreshCartPrices ===
+            "function"
+        ) {
+
+            refreshCartPrices();
+
+        }
+
+
+        cart =
+            getCart();
+
+
+
+        /* =============================================
+           FINAL CART VALIDATION
+        ============================================== */
+
+        const validation =
+            getCartValidation();
+
+
+        if (
+            !validation.valid
+        ) {
+
+
+            alert(
+                validation.errors.join(
+                    "\n"
+                )
+            );
+
+
+            renderSummary();
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           PAYMENT
+        ============================================== */
+
+        const paymentInput =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            );
+
+
+        if (!paymentInput) {
+
+
+            alert(
+                "Please select a payment method."
+            );
+
+
+            return;
+
+        }
+
+
+        const paymentMethod =
+            paymentInput.value;
+
+
+
+        /* =============================================
+           DELIVERY DETAILS
+        ============================================== */
+
+        const deliveryDetails = {
+
+
+            name:
+                document.getElementById(
+                    "deliveryName"
+                ).value.trim(),
+
+
+            phone:
+                document.getElementById(
+                    "deliveryPhone"
+                ).value.trim(),
+
+
+            address:
+                document.getElementById(
+                    "deliveryAddress"
+                ).value.trim(),
+
+
+            city:
+                document.getElementById(
+                    "deliveryCity"
+                ).value.trim(),
+
+
+            pin:
+                document.getElementById(
+                    "deliveryPin"
+                ).value.trim()
+
+        };
+
+
+
+        /* =============================================
+           PHONE
+        ============================================== */
+
+        if (
+            !/^[0-9]{10}$/.test(
+                deliveryDetails.phone
+            )
+        ) {
+
+
+            alert(
+                "Please enter a valid 10 digit phone number."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           PIN
+        ============================================== */
+
+        if (
+            !/^[0-9]{6}$/.test(
+                deliveryDetails.pin
+            )
+        ) {
+
+
+            alert(
+                "Please enter a valid 6 digit PIN code."
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           SUBTOTAL
+        ============================================== */
+
+        const finalSubtotal =
+            calculateSubtotal();
+
+
+        const finalDeliveryFee =
+            calculateDeliveryFee(
+                finalSubtotal
+            );
+
+
+        const finalDiscount =
+            Math.min(
+                couponDiscount,
+                finalSubtotal
+            );
+
+
+        const finalTotal =
+            Math.max(
+                0,
+                finalSubtotal -
+                finalDiscount +
+                finalDeliveryFee
+            );
+
+
+
+        /* =============================================
+           ORDER ITEMS
+        ============================================== */
+
+        const orderItems =
+            cart.map(
+                item => {
+
+
+                    const product =
+                        typeof getCartProduct ===
+                        "function"
+
+                            ?
+
+                        getCartProduct(
+                            item
+                        )
+
+                            :
+
+                        null;
+
+
+                    const price =
+                        Number(
+                            item.price
+                        ) || 0;
+
+
+                    return {
+
+                        productId:
+                            item.productId,
+
+
+                        name:
+                            item.name,
+
+
+                        brand:
+                            item.brand,
+
+
+                        price:
+                            price,
+
+
+                        quantity:
+                            item.quantity,
+
+
+                        businessId:
+                            item.businessId,
+
+
+                        businessName:
+                            item.businessName,
+
+
+                        image:
+                            item.image,
+
+
+                        retailPrice:
+                            product
+                                ?
+                            Number(
+                                product.retailPrice
+                            ) || 0
+                                :
+                            Number(
+                                item.retailPrice
+                            ) || 0,
+
+
+                        wholesalePrice:
+                            product
+                                ?
+                            Number(
+                                product.wholesalePrice
+                            ) || 0
+                                :
+                            Number(
+                                item.wholesalePrice
+                            ) || 0
+,
+
+                        sourceType:
+                            product
+                            ?
+                            product.sourceType || null
+                            :
+                            item.sourceType || null,
+
+
+                        isUsed:
+                            product
+                            ?
+                            product.isUsed === true
+                            :
+                            item.isUsed === true,
+
+
+                        isCustomerProduct:
+                            product
+                            ?
+                            product.isCustomerProduct === true
+                            :
+                            item.isCustomerProduct === true,
+
+
+                        sellerId:
+                            product
+                            ?
+                            product.sellerId || null
+                            :
+                            item.sellerId || null,
+
+
+                        sellerName:
+                            product
+                            ?
+                            product.sellerName || null
+                            :
+                            item.sellerName || null,
+
+
+                        productAge:
+                            product
+                            ?
+                            product.productAge || null
+                            :
+                            item.productAge || null,
+
+
+                        productAgeUnit:
+                            product
+                            ?
+                            product.productAgeUnit || null
+                            :
+                            item.productAgeUnit || null,
+
+
+                        condition:
+                            product
+                            ?
+                            product.condition || null
+                            :
+                            item.condition || null
+
+                    };
+
+                }
+            );
+
+
+
+        /* =============================================
+           CREATE ORDER
+        ============================================== */
+
+        const order = {
+
+
+            id:
+                "TH-" +
+                Date.now(),
+
+
+            customerId:
+                currentUser.id,
+
+
+            customerName:
+                currentUser.name ||
+                currentUser.businessName,
+
+
+            customerType:
+                currentUser.type,
+
+
+            items:
+                orderItems,
+
+
+            subtotal:
+                finalSubtotal,
+
+
+            discount:
+                finalDiscount,
+
+
+            coupon:
+                appliedCoupon
+                ?
+                {
+                    id:
+                        appliedCoupon.id,
+
+                    code:
+                        appliedCoupon.code,
+
+                    businessId:
+                        appliedCoupon.businessId,
+
+                    businessName:
+                        appliedCoupon.businessName,
+
+                    discountType:
+                        appliedCoupon.discountType,
+
+                    discountValue:
+                        appliedCoupon.discountValue
+
+                }
+                :
+                null,
+
+
+            deliveryFee:
+                finalDeliveryFee,
+
+
+            total:
+                finalTotal,
+
+
+            delivery:
+                deliveryDetails,
+
+
+            paymentMethod:
+                paymentMethod,
+
+
+            paymentStatus:
+                "Pending",
+
+
+            paymentReference:
+                null,
+
+
+            paymentProvider:
+                paymentMethod === "COD"
+                ?
+                "Cash on Delivery"
+                :
+                null,
+
+
+            status:
+                "Payment Pending",
+
+
+            createdAt:
+                new Date().toISOString(),
+
+
+            updatedAt:
+                new Date().toISOString()
+
+        };
+
+
+
+        /* =============================================
+           COD
+        ============================================== */
+
+        if (
+            paymentMethod ===
+            "COD"
+        ) {
+
+            createOrder(
+                order
+            );
+
+
+            if (
+                appliedCoupon
+            ) {
+
+                useCoupon(
+                    appliedCoupon.id
+                );
+
+            }
+
+
+            markCustomerProductsSold(
+                order
+            );
+
+
+            decreaseInventory(
+                orderItems
+            );
+
+
+            clearCart();
+
+
+            alert(
+                `Order placed successfully!\n\nOrder ID: ${order.id}\nTotal: ₹${finalTotal}\n\nPayment will be collected on delivery.`
+            );
+
+
+            window.location.href =
+                `orders.html?id=${encodeURIComponent(
+                    order.id
+                )}`;
+
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           FRONTEND DEMO PAYMENT
+        ============================================== */
+
+        openDemoPayment(
+            paymentMethod,
+            finalTotal,
+            order
+        );
+
+
+    }
+);
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   INITIAL RENDER
+===================================================== */
+
+renderSummary();
+
+</script>
+
+
+</body>
+
+</html>

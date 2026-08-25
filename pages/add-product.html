@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="
+                window.location.href='business-dashboard.html'
+            ">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+        <span class="section-label">
+            BUSINESS
+        </span>
+
+
+        <h1>
+
+            Add a <span>Product</span>
+
+        </h1>
+
+
+        <p>
+
+            Add a new product to your TradeHub store.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRODUCT FORM
+    ================================================== -->
+
+    <form
+        id="productForm"
+        class="product-form">
+
+
+        <!-- =================================================
+             PRODUCT NAME
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Product Name
+            </label>
+
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="e.g. Wireless Headphones"
+                required
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Brand
+            </label>
+
+
+            <input
+                type="text"
+                id="productBrand"
+                placeholder="e.g. Sony"
+                required
+            >
+
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORY
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Category
+            </label>
+
+
+            <select
+                id="productCategory"
+                required>
+
+
+                <option value="">
+                    Select Category
+                </option>
+
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+
+                <option value="Fashion">
+                    Fashion
+                </option>
+
+
+                <option value="Groceries">
+                    Groceries
+                </option>
+
+
+                <option value="Home & Kitchen">
+                    Home & Kitchen
+                </option>
+
+
+                <option value="Beauty">
+                    Beauty
+                </option>
+
+
+                <option value="Sports">
+                    Sports
+                </option>
+
+
+                <option value="Industrial">
+                    Industrial
+                </option>
+
+
+                <option value="Wholesale">
+                    Wholesale
+                </option>
+
+
+                <option value="Automotive">
+                    Automotive
+                </option>
+
+
+                <option value="Stationery">
+                    Stationery
+                </option>
+
+
+                <option value="Other">
+                    Other
+                </option>
+
+
+            </select>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DESCRIPTION
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+                Product Description
+            </label>
+
+
+            <textarea
+                id="productDescription"
+                placeholder="Describe your product..."
+                rows="5"
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRICING
+        ================================================== -->
+
+        <div class="form-row">
+
+
+            <!-- RETAIL PRICE -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Retail Price (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="retailPrice"
+                    placeholder="999"
+                    min="1"
+                    step="0.01"
+                    required
+                >
+
+
+                <small>
+
+                    Price shown to customers.
+
+                </small>
+
+            </div>
+
+
+
+            <!-- WHOLESALE PRICE -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Wholesale Price (₹)
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="wholesalePrice"
+                    placeholder="799"
+                    min="1"
+                    step="0.01"
+                    required
+                >
+
+
+                <small>
+
+                    Price available to verified businesses.
+
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             MINIMUM WHOLESALE QUANTITY
+        ================================================== -->
+
+        <div class="form-group">
+
+
+            <label>
+
+                Minimum Wholesale Quantity
+
+            </label>
+
+
+            <input
+                type="number"
+                id="minimumWholesaleQuantity"
+                placeholder="20"
+                min="1"
+                step="1"
+                value="1"
+                required
+            >
+
+
+            <small>
+
+                Minimum number of units a verified
+                business must order to receive wholesale pricing.
+
+            </small>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRICING PREVIEW
+        ================================================== -->
+
+        <div
+            id="pricingPreview"
+            style="
+                display:none;
+                margin:10px 0 20px;
+                padding:15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                background:rgba(255,255,255,0.02);
+            ">
+
+
+            <div
+                style="
+                    font-size:10px;
+                    color:#777;
+                    margin-bottom:10px;
+                ">
+
+                PRICE PREVIEW
+
+            </div>
+
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:20px;
+                    flex-wrap:wrap;
+                ">
+
+
+                <div>
+
+                    <span
+                        style="
+                            display:block;
+                            color:#777;
+                            font-size:9px;
+                        ">
+
+                        Customer Price
+
+                    </span>
+
+
+                    <strong
+                        id="previewRetailPrice">
+
+                        ₹0
+
+                    </strong>
+
+                </div>
+
+
+
+                <div>
+
+                    <span
+                        style="
+                            display:block;
+                            color:#777;
+                            font-size:9px;
+                        ">
+
+                        Verified Business Price
+
+                    </span>
+
+
+                    <strong
+                        id="previewWholesalePrice">
+
+                        ₹0
+
+                    </strong>
+
+                </div>
+
+
+
+                <div>
+
+                    <span
+                        style="
+                            display:block;
+                            color:#777;
+                            font-size:9px;
+                        ">
+
+                        Business Savings
+
+                    </span>
+
+
+                    <strong
+                        id="previewSavings">
+
+                        ₹0
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             INVENTORY
+        ================================================== -->
+
+        <div class="form-row">
+
+
+            <!-- STOCK -->
+
+            <div class="form-group">
+
+                <label>
+
+                    Initial Stock
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="productStock"
+                    placeholder="100"
+                    min="0"
+                    step="1"
+                    required
+                >
+
+
+                <small>
+
+                    Number of units currently available.
+
+                </small>
+
+            </div>
+
+
+
+            <!-- SKU -->
+
+            <div class="form-group">
+
+                <label>
+                    SKU
+                </label>
+
+
+                <input
+                    type="text"
+                    id="productSKU"
+                    placeholder="SONY-WH-001"
+                    required
+                >
+
+
+                <small>
+
+                    Unique stock keeping unit.
+
+                </small>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCT IMAGE
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label>
+
+                Product Image URL
+
+            </label>
+
+
+            <input
+                type="url"
+                id="productImage"
+                placeholder="https://example.com/product.jpg"
+            >
+
+
+            <small>
+
+                We'll add local image upload later.
+
+            </small>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BUSINESS INFORMATION
+        ================================================== -->
+
+        <div
+            style="
+                margin:10px 0 25px;
+                padding:15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                background:rgba(255,255,255,0.02);
+            ">
+
+
+            <div
+                style="
+                    font-size:9px;
+                    color:#777;
+                    margin-bottom:7px;
+                ">
+
+                SELLER INFORMATION
+
+            </div>
+
+
+            <div
+                id="businessInfo"
+                style="
+                    font-size:11px;
+                ">
+
+                Loading business information...
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SUBMIT
+        ================================================== -->
+
+        <button
+            type="submit"
+            class="auth-btn">
+
+            + Add Product
+
+        </button>
+
+
+    </form>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/products.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+
+/* =====================================================
+   CHECK BUSINESS LOGIN
+===================================================== */
+
+if (
+    !currentUser ||
+    currentUser.type !==
+    "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   BUSINESS INFORMATION
+===================================================== */
+
+const businessName =
+    currentUser.businessName ||
+    currentUser.name ||
+    "Business";
+
+
+const businessInfo =
+    document.getElementById(
+        "businessInfo"
+    );
+
+
+businessInfo.innerHTML = `
+
+    <strong>
+
+        🏢 ${escapeHTML(
+            businessName
+        )}
+
+    </strong>
+
+    <span
+        style="
+            display:block;
+            margin-top:5px;
+            color:#666;
+            font-size:9px;
+        ">
+
+        Business ID:
+        ${escapeHTML(
+            String(
+                currentUser.id
+            )
+        )}
+
+    </span>
+
+`;
+
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+const productForm =
+    document.getElementById(
+        "productForm"
+    );
+
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+const retailPriceInput =
+    document.getElementById(
+        "retailPrice"
+    );
+
+
+const wholesalePriceInput =
+    document.getElementById(
+        "wholesalePrice"
+    );
+
+
+const minimumWholesaleInput =
+    document.getElementById(
+        "minimumWholesaleQuantity"
+    );
+
+
+const pricingPreview =
+    document.getElementById(
+        "pricingPreview"
+    );
+
+
+const previewRetail =
+    document.getElementById(
+        "previewRetailPrice"
+    );
+
+
+const previewWholesale =
+    document.getElementById(
+        "previewWholesalePrice"
+    );
+
+
+const previewSavings =
+    document.getElementById(
+        "previewSavings"
+    );
+
+
+
+/* =====================================================
+   PRICE PREVIEW
+===================================================== */
+
+function updatePricingPreview() {
+
+
+    const retail =
+        Number(
+            retailPriceInput.value
+        );
+
+
+    const wholesale =
+        Number(
+            wholesalePriceInput.value
+        );
+
+
+    if (
+        retail > 0 &&
+        wholesale > 0
+    ) {
+
+
+        pricingPreview.style.display =
+            "block";
+
+
+        previewRetail.textContent =
+            "₹" +
+            retail.toFixed(2);
+
+
+        previewWholesale.textContent =
+            "₹" +
+            wholesale.toFixed(2);
+
+
+        const savings =
+            Math.max(
+                0,
+                retail -
+                wholesale
+            );
+
+
+        previewSavings.textContent =
+            "₹" +
+            savings.toFixed(2);
+
+    }
+
+    else {
+
+        pricingPreview.style.display =
+            "none";
+
+    }
+
+}
+
+
+retailPriceInput.addEventListener(
+    "input",
+    updatePricingPreview
+);
+
+
+wholesalePriceInput.addEventListener(
+    "input",
+    updatePricingPreview
+);
+
+
+
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
+
+productForm.addEventListener(
+    "submit",
+    function(event) {
+
+
+        event.preventDefault();
+
+
+
+        /* =============================================
+           GET VALUES
+        ============================================== */
+
+        const name =
+            document.getElementById(
+                "productName"
+            ).value.trim();
+
+
+        const brand =
+            document.getElementById(
+                "productBrand"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "productCategory"
+            ).value;
+
+
+        const description =
+            document.getElementById(
+                "productDescription"
+            ).value.trim();
+
+
+        const retailPrice =
+            Number(
+                retailPriceInput.value
+            );
+
+
+        const wholesalePrice =
+            Number(
+                wholesalePriceInput.value
+            );
+
+
+        const minimumWholesaleQuantity =
+            Number(
+                minimumWholesaleInput.value
+            );
+
+
+        const stock =
+            Number(
+                document.getElementById(
+                    "productStock"
+                ).value
+            );
+
+
+        const sku =
+            document.getElementById(
+                "productSKU"
+            ).value.trim();
+
+
+        const image =
+            document.getElementById(
+                "productImage"
+            ).value.trim();
+
+
+
+        /* =============================================
+           VALIDATION
+        ============================================== */
+
+        if (!name) {
+
+            alert(
+                "Please enter a product name."
+            );
+
+            return;
+
+        }
+
+
+        if (!brand) {
+
+            alert(
+                "Please enter the brand."
+            );
+
+            return;
+
+        }
+
+
+        if (!category) {
+
+            alert(
+                "Please select a category."
+            );
+
+            return;
+
+        }
+
+
+        if (!description) {
+
+            alert(
+                "Please enter a product description."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(
+                retailPrice
+            ) ||
+            retailPrice <= 0
+        ) {
+
+            alert(
+                "Please enter a valid retail price."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(
+                wholesalePrice
+            ) ||
+            wholesalePrice <= 0
+        ) {
+
+            alert(
+                "Please enter a valid wholesale price."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           WHOLESALE PRICE CHECK
+        ============================================== */
+
+        if (
+            wholesalePrice >
+            retailPrice
+        ) {
+
+            alert(
+                "Wholesale price cannot be higher than retail price."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           WHOLESALE QUANTITY CHECK
+        ============================================== */
+
+        if (
+            !Number.isInteger(
+                minimumWholesaleQuantity
+            ) ||
+            minimumWholesaleQuantity <
+            1
+        ) {
+
+            alert(
+                "Minimum wholesale quantity must be at least 1."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           STOCK CHECK
+        ============================================== */
+
+        if (
+            !Number.isInteger(
+                stock
+            ) ||
+            stock < 0
+        ) {
+
+            alert(
+                "Stock must be a whole number and cannot be negative."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           SKU CHECK
+        ============================================== */
+
+        if (!sku) {
+
+            alert(
+                "Please enter an SKU."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           CREATE PRODUCT
+        ============================================== */
+
+        const product = {
+
+            id:
+                "PROD-" +
+                Date.now() +
+                "-" +
+                Math.floor(
+                    Math.random() *
+                    1000
+                ),
+
+
+            name:
+                name,
+
+
+            brand:
+                brand,
+
+
+            category:
+                category,
+
+
+            description:
+                description,
+
+
+            /* =========================================
+               RETAIL PRICE
+            ========================================== */
+
+            retailPrice:
+                retailPrice,
+
+
+            /* =========================================
+               WHOLESALE PRICE
+            ========================================== */
+
+            wholesalePrice:
+                wholesalePrice,
+
+
+            /* =========================================
+               MINIMUM B2B QUANTITY
+            ========================================== */
+
+            minimumWholesaleQuantity:
+                minimumWholesaleQuantity,
+
+
+            /* =========================================
+               INVENTORY
+            ========================================== */
+
+            stock:
+                stock,
+
+
+            /* =========================================
+               SKU
+            ========================================== */
+
+            sku:
+                sku,
+
+
+            /* =========================================
+               IMAGE
+            ========================================== */
+
+            image:
+                image,
+
+
+            /* =========================================
+               BUSINESS OWNERSHIP
+            ========================================== */
+
+            businessId:
+                currentUser.id,
+
+
+            businessName:
+                businessName,
+
+
+            /* =========================================
+               PRODUCT TIMESTAMP
+            ========================================== */
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+
+        /* =============================================
+           ADD PRODUCT
+        ============================================== */
+
+        const savedProduct =
+            addProduct(
+                product
+            );
+
+
+        if (!savedProduct) {
+
+            alert(
+                "Unable to add the product."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           SUCCESS
+        ============================================== */
+
+        alert(
+            "Product added successfully!"
+        );
+
+
+
+        /* =============================================
+           REDIRECT
+        ============================================== */
+
+        window.location.href =
+            "products.html";
+
+    }
+);
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

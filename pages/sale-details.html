@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Sale Details | TradeHub
+    </title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <style>
+
+        .sale-page {
+
+            max-width:
+                1100px;
+
+            margin:
+                0 auto;
+
+            padding:
+                55px 5% 80px;
+
+        }
+
+
+        .sale-header {
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .sale-card {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(220px, 360px)
+                1fr;
+
+            gap:
+                28px;
+
+            padding:
+                24px;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                16px;
+
+        }
+
+
+        .sale-product-image {
+
+            width:
+                100%;
+
+            min-height:
+                280px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            overflow:
+                hidden;
+
+            background:
+                #111;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .sale-product-image img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            max-height:
+                420px;
+
+            object-fit:
+                contain;
+
+            display:
+                block;
+
+        }
+
+
+        .sale-placeholder {
+
+            font-size:
+                60px;
+
+        }
+
+
+        .sale-badge {
+
+            display:
+                inline-block;
+
+            margin-bottom:
+                10px;
+
+            padding:
+                6px 10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                999px;
+
+            color:
+                #999;
+
+            font-size:
+                9px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .sale-content h1 {
+
+            margin:
+                0 0 8px;
+
+        }
+
+
+        .sale-subtitle {
+
+            margin:
+                0 0 22px;
+
+            color:
+                #777;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .sale-section {
+
+            margin-bottom:
+                18px;
+
+            padding:
+                15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .sale-section-title {
+
+            margin-bottom:
+                10px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .sale-details-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap:
+                9px 18px;
+
+        }
+
+
+        .sale-detail {
+
+            color:
+                #777;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .sale-detail strong {
+
+            color:
+                #ccc;
+
+        }
+
+
+        .sale-actions {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+
+            margin-top:
+                20px;
+
+        }
+
+
+        .sale-actions button {
+
+            flex:
+                1;
+
+            min-width:
+                170px;
+
+        }
+
+
+        .sale-error {
+
+            max-width:
+                700px;
+
+            margin:
+                60px auto;
+
+            padding:
+                35px 25px;
+
+            text-align:
+                center;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+        }
+
+
+
+        /* =====================================================
+           ORDER STATUS CONTROL
+        ====================================================== */
+
+        .sale-status-section {
+            margin-bottom: 18px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .sale-status-current {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .sale-status-pill {
+            display: inline-block;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .sale-status-timeline {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .sale-status-step {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 10px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: #666;
+            font-size: 9px;
+        }
+
+        .sale-status-step.active {
+            color: #ccc;
+        }
+
+        .sale-status-step.done {
+            color: var(--accent);
+        }
+
+        .sale-status-dot {
+            width: 9px;
+            height: 9px;
+            flex: 0 0 9px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+        }
+
+        .sale-status-step.active .sale-status-dot,
+        .sale-status-step.done .sale-status-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .sale-status-history {
+            display: grid;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .sale-status-history-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: #777;
+            font-size: 8px;
+        }
+
+        .sale-status-history-row strong {
+            color: #aaa;
+        }
+
+        .sale-status-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 9px;
+            background: var(--surface);
+            color: #ccc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .sale-status-note {
+            margin-top: 8px;
+            color: #666;
+            font-size: 8px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 750px) {
+
+            .sale-card {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .sale-details-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="customer-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            type="button"
+            onclick="
+                window.location.href='customer-dashboard.html'
+            ">
+
+            ← Dashboard
+
+        </button>
+
+
+        <button
+            class="login-btn"
+            type="button"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+</header>
+
+
+<main class="sale-page">
+
+
+    <section class="sale-header">
+
+        <span class="section-label">
+            SELLER AREA
+        </span>
+
+        <h1>
+            Sale Details
+        </h1>
+
+        <p class="sale-subtitle">
+
+            View the buyer and order information
+            for your sold customer-to-customer product.
+
+        </p>
+
+    </section>
+
+
+    <div id="saleContainer">
+
+        <div class="sale-error">
+
+            Loading sale details...
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<script src="../js/orders.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+let currentUser = null;
+
+
+try {
+
+    currentUser =
+        JSON.parse(
+            localStorage.getItem(
+                "tradehub_current_user"
+            )
+        );
+
+}
+catch (error) {
+
+    currentUser =
+        null;
+
+}
+
+
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+if (
+    !currentUser ||
+    currentUser.type !== "customer"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value == null
+        ? ""
+        : value
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =====================================================
+   GET PRODUCT LIST
+===================================================== */
+
+function getProducts() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "tradehub_products"
+            )
+        ) || [];
+
+    }
+    catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GET ORDER ID
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const orderId =
+    params.get(
+        "id"
+    );
+
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(
+    value
+) {
+
+    if (!value) {
+
+        return "Not available";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "Not available";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:
+                "numeric",
+
+            month:
+                "short",
+
+            year:
+                "numeric"
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CONTACT BUYER
+===================================================== */
+
+function contactBuyer(
+    buyerId,
+    buyerName
+) {
+
+    if (
+        !buyerId
+    ) {
+
+        alert(
+            "Buyer contact information is not available."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        `messages.html?userId=${encodeURIComponent(
+            buyerId
+        )}&userName=${encodeURIComponent(
+            buyerName ||
+            "Customer"
+        )}`;
+
+}
+
+
+
+/* =====================================================
+   RENDER ERROR
+===================================================== */
+
+function showError(
+    message
+) {
+
+    document.getElementById(
+        "saleContainer"
+    ).innerHTML = `
+
+        <div class="sale-error">
+
+            <h2>
+                ${escapeHTML(
+                    message
+                )}
+            </h2>
+
+            <p
+                style="
+                    color:#777;
+                    font-size:10px;
+                    line-height:1.6;
+                ">
+
+                You can return to your dashboard
+                and continue managing your listings.
+
+            </p>
+
+
+            <button
+                class="primary-btn"
+                type="button"
+                onclick="
+                    window.location.href='customer-dashboard.html'
+                ">
+
+                ← Back to Dashboard
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+
+
+/* =====================================================
+   STATUS HELPERS
+===================================================== */
+
+const SALE_STATUSES = [
+
+    "pending",
+    "confirmed",
+    "packed",
+    "shipped",
+    "out for delivery",
+    "delivered"
+
+];
+
+
+function formatStatus(
+    status
+) {
+
+    if (
+        !status
+    ) {
+
+        return "Pending";
+
+    }
+
+
+    return String(
+        status
+    )
+    .replace(
+        /\b\w/g,
+        function(letter) {
+
+            return letter.toUpperCase();
+
+        }
+    );
+
+}
+
+
+function formatStatusDate(
+    value
+) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day:
+                "numeric",
+
+            month:
+                "short",
+
+            hour:
+                "numeric",
+
+            minute:
+                "2-digit"
+        }
+    );
+
+}
+
+
+function renderSaleStatus(
+    order
+) {
+
+    const container =
+        document.getElementById(
+            "saleStatusContainer"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const currentStatus =
+        String(
+            order.status ||
+            "pending"
+        )
+        .trim()
+        .toLowerCase();
+
+
+    let currentIndex =
+        SALE_STATUSES.indexOf(
+            currentStatus
+        );
+
+
+    if (
+        currentIndex < 0
+    ) {
+
+        currentIndex = 0;
+
+    }
+
+
+    const history =
+        Array.isArray(
+            order.statusHistory
+        )
+        ?
+        order.statusHistory
+        :
+        [];
+
+
+    const timelineHTML =
+        SALE_STATUSES.map(
+            function(status, index) {
+
+                let stateClass = "";
+
+                if (
+                    index <
+                    currentIndex
+                ) {
+
+                    stateClass =
+                        "done";
+
+                }
+                else if (
+                    index ===
+                    currentIndex
+                ) {
+
+                    stateClass =
+                        "active";
+
+                }
+
+
+                return `
+
+                    <div
+                        class="
+                            sale-status-step
+                            ${stateClass}
+                        ">
+
+                        <span
+                            class="sale-status-dot">
+                        </span>
+
+                        <span>
+
+                            ${escapeHTML(
+                                formatStatus(
+                                    status
+                                )
+                            )}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    const historyHTML =
+        history.length > 0
+
+        ?
+
+        history
+        .slice()
+        .reverse()
+        .map(
+            function(entry) {
+
+                return `
+
+                    <div
+                        class="
+                            sale-status-history-row
+                        ">
+
+                        <strong>
+
+                            ${escapeHTML(
+                                formatStatus(
+                                    entry.status
+                                )
+                            )}
+
+                        </strong>
+
+                        <span>
+
+                            ${escapeHTML(
+                                formatStatusDate(
+                                    entry.updatedAt
+                                )
+                            )}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("")
+
+        :
+
+        `
+
+            <div
+                class="sale-status-note">
+
+                No status changes recorded yet.
+
+            </div>
+
+        `;
+
+
+    container.innerHTML = `
+
+        <div
+            class="sale-status-current">
+
+            <span
+                style="
+                    color:#777;
+                    font-size:9px;
+                ">
+
+                Current status
+
+            </span>
+
+
+            <span
+                class="sale-status-pill">
+
+                ${escapeHTML(
+                    formatStatus(
+                        currentStatus
+                    )
+                )}
+
+            </span>
+
+        </div>
+
+
+        <div
+            class="sale-status-timeline">
+
+            ${timelineHTML}
+
+        </div>
+
+
+        <label
+            for="saleStatusSelect"
+            style="
+                display:block;
+                margin-bottom:7px;
+                color:#777;
+                font-size:9px;
+            ">
+
+            Update order status
+
+        </label>
+
+
+        <select
+            id="saleStatusSelect"
+            class="sale-status-select">
+
+            ${SALE_STATUSES.map(
+                function(status) {
+
+                    return `
+
+                        <option
+                            value="${escapeHTML(
+                                status
+                            )}"
+                            ${
+                                status ===
+                                currentStatus
+                                ?
+                                "selected"
+                                :
+                                ""
+                            }>
+
+                            ${escapeHTML(
+                                formatStatus(
+                                    status
+                                )
+                            )}
+
+                        </option>
+
+                    `;
+
+                }
+            ).join("")}
+
+        </select>
+
+
+        <button
+            class="primary-btn"
+            type="button"
+            onclick="
+                updateSaleStatusFromPage()
+            ">
+
+            Update Status
+
+        </button>
+
+
+        <div
+            class="sale-status-note">
+
+            The buyer's Track Order page will
+            automatically use this same order status.
+
+        </div>
+
+
+        <div
+            class="sale-status-history">
+
+            ${historyHTML}
+
+        </div>
+
+    `;
+
+}
+
+
+function updateSaleStatusFromPage() {
+
+    const select =
+        document.getElementById(
+            "saleStatusSelect"
+        );
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const newStatus =
+        select.value;
+
+
+    if (
+        typeof canCustomerUpdateSaleStatus !==
+        "function" ||
+
+        typeof updateCustomerSaleStatus !==
+        "function"
+    ) {
+
+        alert(
+            "Order status system is not available."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !canCustomerUpdateSaleStatus(
+            currentUser.id,
+            orderId
+        )
+    ) {
+
+        alert(
+            "You are not authorized to update this sale."
+        );
+
+        return;
+
+    }
+
+
+    const success =
+        updateCustomerSaleStatus(
+            currentUser.id,
+            orderId,
+            newStatus
+        );
+
+
+    if (!success) {
+
+        alert(
+            "Unable to update the order status."
+        );
+
+        return;
+
+    }
+
+
+    const updatedOrder =
+        getOrderById(
+            orderId
+        );
+
+
+    if (
+        !updatedOrder
+    ) {
+
+        alert(
+            "Status updated, but the order could not be reloaded."
+        );
+
+        return;
+
+    }
+
+
+    renderSaleStatus(
+        updatedOrder
+    );
+
+
+    /*
+     * Re-rendering the status controls replaces the
+     * select element, so the page always reflects the
+     * value actually saved to localStorage.
+     */
+
+    alert(
+        "Order status updated successfully."
+    );
+
+}
+
+
+/* =====================================================
+   LOAD SALE
+===================================================== */
+
+function loadSale() {
+
+    if (
+        !orderId
+    ) {
+
+        showError(
+            "Sale order could not be identified."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof getOrders !==
+        "function"
+    ) {
+
+        showError(
+            "Order system could not be loaded."
+        );
+
+        return;
+
+    }
+
+
+    const orders =
+        getOrders();
+
+
+    const order =
+        orders.find(
+            function(item) {
+
+                return (
+                    String(
+                        item.id
+                    ) ===
+                    String(
+                        orderId
+                    )
+                );
+
+            }
+        );
+
+
+    if (!order) {
+
+        showError(
+            "Sale order was not found."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !Array.isArray(
+            order.items
+        )
+    ) {
+
+        showError(
+            "This order does not contain any products."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * SECURITY:
+     * A seller can only view an order if at least one
+     * customer-listed item in that order belongs to them.
+     */
+
+    const sellerItems =
+        order.items.filter(
+            function(item) {
+
+                const customerListing = (
+
+                    item.sourceType ===
+                        "customer"
+
+                    ||
+
+                    item.isUsed ===
+                        true
+
+                    ||
+
+                    item.isCustomerProduct ===
+                        true
+
+                );
+
+
+                return (
+
+                    customerListing
+
+                    &&
+
+                    String(
+                        item.sellerId
+                    ) ===
+                    String(
+                        currentUser.id
+                    )
+
+                );
+
+            }
+        );
+
+
+    if (
+        sellerItems.length ===
+        0
+    ) {
+
+        showError(
+            "You are not authorized to view this sale."
+        );
+
+        return;
+
+    }
+
+
+    const firstItem =
+        sellerItems[0];
+
+
+    const products =
+        getProducts();
+
+
+    const product =
+        products.find(
+            function(item) {
+
+                return (
+                    String(
+                        item.id
+                    ) ===
+                    String(
+                        firstItem.productId
+                    )
+                );
+
+            }
+        );
+
+
+    /*
+     * Buyer information is taken from the order,
+     * not from the current user's profile.
+     */
+
+    const buyerName =
+        order.customerName ||
+        "Customer";
+
+
+    const buyerId =
+        order.customerId ||
+        "";
+
+
+    const delivery =
+        order.delivery ||
+        {};
+
+
+    const productName =
+        firstItem.name ||
+        (
+            product &&
+            product.name
+        ) ||
+        "Product";
+
+
+    const productImage =
+        firstItem.image ||
+        (
+            product &&
+            product.image
+        ) ||
+        "";
+
+
+    const productPrice =
+        Number(
+            firstItem.price ??
+            firstItem.retailPrice ??
+            (
+                product &&
+                product.retailPrice
+            ) ??
+            0
+        );
+
+
+    const condition =
+        firstItem.condition ||
+        (
+            product &&
+            product.condition
+        ) ||
+        "Not specified";
+
+
+    const age =
+        firstItem.productAge ??
+        (
+            product &&
+            product.productAge
+        );
+
+
+    const ageUnit =
+        firstItem.productAgeUnit ||
+        (
+            product &&
+            product.productAgeUnit
+        ) ||
+        "years";
+
+
+    const imageHTML =
+        productImage
+
+        ?
+
+        `
+
+            <img
+                src="${escapeHTML(
+                    productImage
+                )}"
+                alt="${escapeHTML(
+                    productName
+                )}">
+
+        `
+
+        :
+
+        `
+
+            <div
+                class="sale-placeholder">
+
+                ♻️
+
+            </div>
+
+        `;
+
+
+    document.getElementById(
+        "saleContainer"
+    ).innerHTML = `
+
+        <article
+            class="sale-card">
+
+
+            <div
+                class="sale-product-image">
+
+                ${imageHTML}
+
+            </div>
+
+
+            <div
+                class="sale-content">
+
+
+                <span
+                    class="sale-badge">
+
+                    🔴 SOLD • CUSTOMER LISTING
+
+                </span>
+
+
+                <h1>
+
+                    ${escapeHTML(
+                        productName
+                    )}
+
+                </h1>
+
+
+                <p
+                    class="sale-subtitle">
+
+                    This product was sold through
+                    TradeHub's customer-to-customer marketplace.
+
+                </p>
+
+
+                <section
+                    class="sale-section">
+
+                    <div
+                        class="sale-section-title">
+
+                        Product Details
+
+                    </div>
+
+
+                    <div
+                        class="sale-details-grid">
+
+                        <div
+                            class="sale-detail">
+
+                            Price:
+
+                            <strong>
+
+                                ₹${productPrice.toLocaleString(
+                                    "en-IN"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Condition:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    condition
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Product Age:
+
+                            <strong>
+
+                                ${
+                                    age !==
+                                    null &&
+                                    age !==
+                                    undefined &&
+                                    age !==
+                                    ""
+
+                                    ?
+
+                                    `${escapeHTML(
+                                        age
+                                    )} ${escapeHTML(
+                                        ageUnit
+                                    )}`
+
+                                    :
+
+                                    "Not specified"
+                                }
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Category:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    firstItem.category ||
+                                    (
+                                        product &&
+                                        product.category
+                                    ) ||
+                                    "Not specified"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="sale-section">
+
+                    <div
+                        class="sale-section-title">
+
+                        Buyer Details
+
+                    </div>
+
+
+                    <div
+                        class="sale-details-grid">
+
+                        <div
+                            class="sale-detail">
+
+                            Name:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    buyerName
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Phone:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    delivery.phone ||
+                                    "Not provided"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Address:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    delivery.address ||
+                                    "Not provided"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            City:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    delivery.city ||
+                                    "Not provided"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            PIN:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    delivery.pin ||
+                                    "Not provided"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="sale-section">
+
+                    <div
+                        class="sale-section-title">
+
+                        Order Details
+
+                    </div>
+
+
+                    <div
+                        class="sale-details-grid">
+
+                        <div
+                            class="sale-detail">
+
+                            Order ID:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    order.id ||
+                                    orderId
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Sale Date:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    formatDate(
+                                        order.createdAt
+                                    )
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Payment Method:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    order.paymentMethod ||
+                                    "Not specified"
+                                )}
+
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="sale-detail">
+
+                            Payment Status:
+
+                            <strong>
+
+                                ${escapeHTML(
+                                    order.paymentStatus ||
+                                    (
+                                        order.paymentMethod ===
+                                        "COD"
+                                        ?
+                                        "Pending"
+                                        :
+                                        "Paid"
+                                    )
+                                )}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section
+                    class="sale-status-section">
+
+                    <div
+                        class="sale-section-title">
+
+                        Delivery Status
+
+                    </div>
+
+
+                    <div
+                        id="saleStatusContainer">
+
+                        Loading status...
+
+                    </div>
+
+                </section>                </section>
+
+
+                <div
+                    class="sale-actions">
+
+
+                    ${
+                        buyerId
+
+                        ?
+
+                        `
+
+                            <button
+                                class="primary-btn"
+                                type="button"
+                                onclick="
+                                    contactBuyer(
+                                        '${String(
+                                            buyerId
+                                        ).replace(
+                                            /'/g,
+                                            "\\'"
+                                        )}',
+                                        '${String(
+                                            buyerName
+                                        ).replace(
+                                            /'/g,
+                                            "\\'"
+                                        )}'
+                                    )
+                                ">
+
+                                💬 Contact Buyer
+
+                            </button>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
+
+
+                    <button
+                        class="secondary-btn"
+                        type="button"
+                        onclick="
+                            window.location.href='customer-dashboard.html'
+                        ">
+
+                        ← Back to My Listings
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+    `;
+
+
+    renderSaleStatus(
+        order
+    );
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "tradehub_current_user"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+loadSale();
+
+</script>
+
+
+</body>
+
+</html>

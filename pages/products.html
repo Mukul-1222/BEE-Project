@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Products | TradeHub</title>
+
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+
+        /* =====================================================
+           B2B PRICE BADGES
+        ====================================================== */
+
+        .price-type-badge {
+
+            display: inline-block;
+
+            margin-top: 6px;
+
+            padding: 4px 7px;
+
+            border-radius: 5px;
+
+            font-size: 8px;
+
+            letter-spacing: 0.3px;
+
+        }
+
+
+        .wholesale-badge {
+
+            background:
+                rgba(0, 230, 118, 0.08);
+
+            border:
+                1px solid
+                rgba(0, 230, 118, 0.25);
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .retail-badge {
+
+            background:
+                rgba(255, 255, 255, 0.04);
+
+            border:
+                1px solid
+                var(--border);
+
+            color:
+                #777;
+
+        }
+
+
+
+        /* =====================================================
+           C2C / PRE-OWNED BADGE
+        ====================================================== */
+
+        .customer-product-badge {
+
+            display: inline-block;
+
+            margin-top: 7px;
+
+            padding: 5px 8px;
+
+            border-radius: 6px;
+
+            background:
+                rgba(0, 230, 118, 0.08);
+
+            border:
+                1px solid
+                rgba(0, 230, 118, 0.25);
+
+            color:
+                var(--accent);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.3px;
+
+        }
+
+
+        .customer-product-condition {
+
+            margin-top: 5px;
+
+            color: #777;
+
+            font-size: 8px;
+
+        }
+
+        .business-price-note {
+
+            margin-top: 5px;
+
+            color: #777;
+
+            font-size: 8px;
+
+            line-height: 1.4;
+
+        }
+
+
+        .business-own-product {
+
+            margin-top: 8px;
+
+            padding: 7px 8px;
+
+            border-radius: 6px;
+
+            background:
+                rgba(255, 193, 7, 0.06);
+
+            border:
+                1px solid
+                rgba(255, 193, 7, 0.15);
+
+            color: #aaa;
+
+            font-size: 8px;
+
+        }
+
+
+        .verified-business-banner {
+
+            margin-bottom: 20px;
+
+            padding: 12px 15px;
+
+            border:
+                1px solid
+                rgba(0, 230, 118, 0.2);
+
+            border-radius: 10px;
+
+            background:
+                rgba(0, 230, 118, 0.04);
+
+            font-size: 10px;
+
+            color: #aaa;
+
+        }
+
+
+        .verified-business-banner strong {
+
+            color: var(--accent);
+
+        }
+
+
+        .verify-business-banner {
+
+            margin-bottom: 20px;
+
+            padding: 12px 15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.02);
+
+            font-size: 10px;
+
+            color: #777;
+
+        }
+
+
+        .verify-business-banner button {
+
+            margin-left: 10px;
+
+            padding: 5px 9px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 5px;
+
+            background: transparent;
+
+            color: var(--accent);
+
+            cursor: pointer;
+
+            font-size: 8px;
+
+        }
+
+
+        .b2b-info {
+
+            margin-top: 7px;
+
+            color: #777;
+
+            font-size: 8px;
+
+        }
+
+
+        .b2b-savings {
+
+            margin-top: 3px;
+
+            color: var(--accent);
+
+            font-size: 8px;
+
+        }
+
+
+        .product-btn:disabled {
+
+            opacity: 0.5;
+
+            cursor: not-allowed;
+
+        }
+
+        /* =====================================================
+           PRODUCT FILTERS
+        ====================================================== */
+
+        .product-filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+            margin-bottom: 24px;
+        }
+
+        .product-filters select,
+        .product-filters input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            color: #ddd;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .product-filters select:focus,
+        .product-filters input:focus {
+            border-color: var(--accent);
+        }
+
+        .product-filters option {
+            background: #111;
+            color: #ddd;
+        }
+
+        .filter-actions {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .clear-filters-btn {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 10px 12px;
+        }
+
+        .clear-filters-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .filter-result-info {
+            margin: -10px 0 18px;
+            color: #777;
+            font-size: 10px;
+        }
+
+
+        .marketplace-mode-banner {
+            margin: 0 0 18px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #aaa;
+            font-size: 10px;
+        }
+
+        .marketplace-mode-banner strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 900px) {
+            .product-filters {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .product-filters {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+
+    <nav class="nav-links">
+
+
+        <a href="../index.html">
+            Home
+        </a>
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="#"
+           onclick="return false;">
+
+            Categories
+
+        </a>
+
+
+    </nav>
+
+
+
+    <div class="nav-actions">
+
+
+        <button
+            class="icon-btn"
+            onclick="
+                window.location.href='cart.html'
+            ">
+
+            🛒
+
+            <span class="cart-count">
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            class="login-btn"
+            id="accountButton">
+
+            Account
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+
+        <span class="section-label">
+
+            MARKETPLACE
+
+        </span>
+
+
+        <h1>
+
+            Explore <span>Products</span>
+
+        </h1>
+
+
+        <p>
+
+            Discover products from businesses
+            and customers across TradeHub.
+
+        </p>
+
+    </div>
+
+
+    <div
+        id="marketplaceModeBanner"
+        class="marketplace-mode-banner"
+        style="display:none;">
+    </div>
+
+
+
+    <!-- =================================================
+         B2B STATUS
+    ================================================== -->
+
+    <div
+        id="businessStatusBanner"
+        style="display:none;">
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="product-search">
+
+        <input
+            type="text"
+            id="productSearch"
+            placeholder="Search by product name, brand or category..."
+        >
+
+    </div>
+
+    <div class="product-filters">
+
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+        </select>
+
+        <input
+            type="number"
+            id="minPriceFilter"
+            min="0"
+            step="1"
+            placeholder="Min price ₹"
+        >
+
+        <input
+            type="number"
+            id="maxPriceFilter"
+            min="0"
+            step="1"
+            placeholder="Max price ₹"
+        >
+
+        <select id="ratingFilter">
+            <option value="">All Ratings</option>
+            <option value="4">4★ &amp; above</option>
+            <option value="3">3★ &amp; above</option>
+            <option value="2">2★ &amp; above</option>
+            <option value="1">1★ &amp; above</option>
+        </select>
+
+        <select id="sortFilter">
+            <option value="default">Sort: Default</option>
+            <option value="price-low">Price: Low → High</option>
+            <option value="price-high">Price: High → Low</option>
+            <option value="rating-high">Rating: High → Low</option>
+            <option value="newest">Newest</option>
+        </select>
+
+        <div class="filter-actions">
+            <button
+                type="button"
+                id="clearFilters"
+                class="clear-filters-btn"
+            >
+                Clear Filters
+            </button>
+        </div>
+
+    </div>
+
+    <div
+        id="filterResultInfo"
+        class="filter-result-info"
+    ></div>
+
+
+
+    <!-- =================================================
+         PRODUCTS
+    ================================================== -->
+
+    <div
+        class="product-grid"
+        id="productGrid">
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/products.js"></script>
+<script src="../js/reviews.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const productGrid =
+    document.getElementById(
+        "productGrid"
+    );
+
+
+const businessStatusBanner =
+    document.getElementById(
+        "businessStatusBanner"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "productSearch"
+    );
+
+
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
+
+
+const minPriceFilter =
+    document.getElementById(
+        "minPriceFilter"
+    );
+
+
+const maxPriceFilter =
+    document.getElementById(
+        "maxPriceFilter"
+    );
+
+
+const ratingFilter =
+    document.getElementById(
+        "ratingFilter"
+    );
+
+
+const sortFilter =
+    document.getElementById(
+        "sortFilter"
+    );
+
+
+const clearFiltersButton =
+    document.getElementById(
+        "clearFilters"
+    );
+
+
+const filterResultInfo =
+    document.getElementById(
+        "filterResultInfo"
+    );
+
+
+const marketplaceModeBanner =
+    document.getElementById(
+        "marketplaceModeBanner"
+    );
+
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+
+
+/* =====================================================
+   BUSINESS STATUS
+===================================================== */
+
+function displayBusinessStatus() {
+
+
+    if (
+        !currentUser ||
+        currentUser.type !==
+        "business"
+    ) {
+
+        businessStatusBanner.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    businessStatusBanner.style.display =
+        "block";
+
+
+    /* =============================================
+       VERIFIED BUSINESS
+    ============================================== */
+
+    if (
+        isBusinessVerified(
+            currentUser
+        )
+    ) {
+
+        businessStatusBanner.className =
+            "verified-business-banner";
+
+
+        businessStatusBanner.innerHTML = `
+
+            🏢
+
+            <strong>
+                Verified Business
+            </strong>
+
+            — You're seeing wholesale prices
+            on eligible products.
+
+        `;
+
+    }
+
+
+    /* =============================================
+       UNVERIFIED BUSINESS
+    ============================================== */
+
+    else {
+
+        businessStatusBanner.className =
+            "verify-business-banner";
+
+
+        businessStatusBanner.innerHTML = `
+
+            🏢
+
+            You're browsing as a business.
+
+            Verify your business to unlock
+            wholesale pricing.
+
+            <button
+                onclick="
+                    window.location.href='business-verification.html'
+                ">
+
+                Verify Business
+
+            </button>
+
+        `;
+
+    }
+
+}
+
+
+
+
+/* =====================================================
+   C2C PRODUCT HELPERS
+===================================================== */
+
+function isCustomerMarketplaceProduct(
+    product
+) {
+
+    if (!product) {
+
+        return false;
+
+    }
+
+
+    return (
+
+        product.sourceType ===
+            "customer"
+
+        ||
+
+        product.isUsed ===
+            true
+
+        ||
+
+        product.isCustomerProduct ===
+            true
+
+    );
+
+}
+
+
+function isUnavailableMarketplaceProduct(
+    product
+) {
+
+    if (!product) {
+
+        return true;
+
+    }
+
+
+    const customerProduct =
+        isCustomerMarketplaceProduct(
+            product
+        );
+
+
+    /*
+     * C2C products are one-of-one listings.
+     * Once sold, they must disappear from
+     * the public marketplace.
+     */
+
+    if (
+        customerProduct
+    ) {
+
+        return (
+
+            product.sold ===
+                true
+
+            ||
+
+            String(
+                product.status ||
+                ""
+            ).toLowerCase() ===
+                "sold"
+
+            ||
+
+            Number(
+                product.stock
+            ) <=
+                0
+
+        );
+
+    }
+
+
+    /*
+     * Business products use normal stock.
+     */
+
+    return Number(
+        product.stock
+    ) <=
+        0;
+
+}
+
+
+function getVisibleMarketplaceProducts() {
+
+    if (
+        typeof getMarketplaceProducts ===
+        "function"
+    ) {
+
+        return getMarketplaceProducts();
+
+    }
+
+
+    return getProducts().filter(
+        function(product) {
+
+            return !isUnavailableMarketplaceProduct(
+                product
+            );
+
+        }
+    );
+
+}
+
+
+function getCustomerProductBadge(
+    product
+) {
+
+    if (
+        !isCustomerMarketplaceProduct(
+            product
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return `
+
+        <span
+            class="customer-product-badge">
+
+            ♻️ PRE-OWNED • CUSTOMER
+
+        </span>
+
+    `;
+
+}
+
+
+function getCustomerProductCondition(
+    product
+) {
+
+    if (
+        !isCustomerMarketplaceProduct(
+            product
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    const age =
+        product.productAge ||
+        product.age ||
+        product.usedFor ||
+        product.ageOfProduct;
+
+
+    if (
+        age
+    ) {
+
+        return `
+
+            <div
+                class="customer-product-condition">
+
+                Product age:
+                ${escapeHTML(
+                    String(age)
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div
+            class="customer-product-condition">
+
+            Customer-listed used product
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DISPLAY PRODUCTS
+===================================================== */
+
+function displayProducts(
+    products
+) {
+
+
+    products =
+        (Array.isArray(products)
+            ? products
+            : []
+        ).filter(
+            function(product) {
+
+                return !isUnavailableMarketplaceProduct(
+                    product
+                );
+
+            }
+        );
+
+
+    productGrid.innerHTML =
+        "";
+
+
+    /* =================================================
+       EMPTY
+    ================================================== */
+
+    if (
+        products.length ===
+        0
+    ) {
+
+        const activeCategory =
+            categoryFilter.value.trim();
+
+
+        productGrid.innerHTML = `
+
+            <div
+                class="empty-products">
+
+
+                <h2>
+
+                    ${
+                        activeCategory
+                            ?
+                        `No ${escapeHTML(
+                            activeCategory
+                        )} products found`
+                            :
+                        "No products found"
+                    }
+
+                </h2>
+
+
+                <p>
+
+                    ${
+                        activeCategory
+                            ?
+                        `There are currently no products listed in the ${escapeHTML(
+                            activeCategory
+                        )} category.`
+                            :
+                        "There are currently no products available on TradeHub."
+                    }
+
+                </p>
+
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       PRODUCT CARDS
+    ================================================== */
+
+    products.forEach(
+        function(rawProduct) {
+
+
+            /* =========================================
+               NORMALIZE PRODUCT
+            ========================================== */
+
+            const product =
+                normalizeProduct(
+                    rawProduct
+                );
+
+
+            const isCustomerProduct =
+                isCustomerMarketplaceProduct(
+                    product
+                );
+
+
+            const customerProductBadge =
+                getCustomerProductBadge(
+                    product
+                );
+
+
+            const customerProductCondition =
+                getCustomerProductCondition(
+                    product
+                );
+
+
+            /* =========================================
+               PRICE
+            ========================================== */
+
+            const price =
+                getProductPriceForUser(
+                    product,
+                    currentUser
+                );
+
+
+            const priceType =
+                getProductPriceType(
+                    currentUser
+                );
+
+
+            /* =========================================
+               WHOLESALE DATA
+            ========================================== */
+
+            const wholesalePrice =
+                getWholesalePrice(
+                    product
+                );
+
+
+            const retailPrice =
+                getRetailPrice(
+                    product
+                );
+
+
+            const minimumWholesaleQuantity =
+                getMinimumWholesaleQuantity(
+                    product
+                );
+
+
+            const savings =
+                getWholesaleSavings(
+                    product
+                );
+
+
+            /* =========================================
+               VERIFIED BUSINESS
+            ========================================== */
+
+            const verifiedBusiness =
+                isBusinessVerified(
+                    currentUser
+                );
+
+
+            /* =========================================
+               OWN PRODUCT
+            ========================================== */
+
+            const isOwnProduct =
+
+                currentUser &&
+
+                currentUser.type ===
+                "business" &&
+
+                isProductOwnedByBusiness(
+                    product,
+                    currentUser.id
+                );
+
+
+
+            /* =========================================
+               PRICE BADGE
+            ========================================== */
+
+            let priceBadge = "";
+
+
+            if (
+                verifiedBusiness
+            ) {
+
+                priceBadge = `
+
+                    <span
+                        class="
+                            price-type-badge
+                            wholesale-badge
+                        ">
+
+                        ✓ Wholesale Price
+
+                    </span>
+
+                `;
+
+            }
+
+            else {
+
+                priceBadge = `
+
+                    <span
+                        class="
+                            price-type-badge
+                            retail-badge
+                        ">
+
+                        Retail Price
+
+                    </span>
+
+                `;
+
+            }
+
+
+
+            /* =========================================
+               B2B INFORMATION
+            ========================================== */
+
+            let b2bInfo = "";
+
+
+            if (
+                currentUser &&
+                currentUser.type ===
+                "business"
+            ) {
+
+
+                if (
+                    verifiedBusiness
+                ) {
+
+
+                    b2bInfo = `
+
+                        <div
+                            class="b2b-info">
+
+                            Minimum B2B order:
+                            ${minimumWholesaleQuantity}
+                            units
+
+                        </div>
+
+
+                        ${
+                            savings > 0
+
+                            ?
+
+                            `
+
+                            <div
+                                class="b2b-savings">
+
+                                Save ₹${savings}
+                                per unit
+
+                                ${
+                                    retailPrice > 0
+
+                                    ?
+
+                                    `(
+                                        ${getWholesaleSavingsPercentage(
+                                            product
+                                        )}% off
+                                    )`
+
+                                    :
+
+                                    ""
+
+                                }
+
+                            </div>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+                    `;
+
+                }
+
+                else {
+
+                    b2bInfo = `
+
+                        <div
+                            class="business-price-note">
+
+                            Verify your business to
+                            unlock wholesale pricing.
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+
+
+
+            /* =========================================
+               OWN PRODUCT
+            ========================================== */
+
+            let ownProductNotice = "";
+
+
+            if (
+                isOwnProduct
+            ) {
+
+                ownProductNotice = `
+
+                    <div
+                        class="business-own-product">
+
+                        🏢 This is your product
+
+                    </div>
+
+                `;
+
+            }
+
+
+
+            /* =========================================
+               PRODUCT CARD
+            ========================================== */
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "product-card";
+
+
+            card.innerHTML = `
+
+                <!-- PRODUCT IMAGE -->
+
+                <div
+                    class="product-image">
+
+
+                    ${
+                        product.image
+
+                        ?
+
+                        `
+
+                        <img
+                            src="${escapeHTML(
+                                product.image
+                            )}"
+                            alt="${escapeHTML(
+                                product.name
+                            )}"
+                        >
+
+                        `
+
+                        :
+
+                        `
+
+                        <span>
+                            📦
+                        </span>
+
+                        `
+
+                    }
+
+
+                </div>
+
+
+
+                <!-- PRODUCT INFO -->
+
+                <div
+                    class="product-info">
+
+
+                    <span
+                        class="product-category">
+
+                        ${escapeHTML(
+                            product.category
+                        )}
+
+                    </span>
+
+
+                    ${customerProductBadge}
+
+
+                    ${customerProductCondition}
+
+
+                    <h3>
+
+                        ${escapeHTML(
+                            product.name
+                        )}
+
+                    </h3>
+
+
+                    <p
+                        class="product-brand">
+
+                        ${escapeHTML(
+                            product.brand
+                        )}
+
+                    </p>
+
+
+
+                    <!-- PRICE -->
+
+                    <div
+                        class="product-price">
+
+                        ₹${price}
+
+                    </div>
+
+
+                    ${priceBadge}
+
+
+                    ${b2bInfo}
+
+
+                    <!-- STOCK -->
+
+                    <p
+                        class="product-stock">
+
+                        ${
+                            Number(
+                                product.stock
+                            ) > 0
+
+                            ?
+
+                            `
+
+                            ●
+                            ${product.stock}
+                            in stock
+
+                            `
+
+                            :
+
+                            `
+
+                            ●
+                            Out of stock
+
+                            `
+
+                        }
+
+                    </p>
+
+
+                    ${ownProductNotice}
+
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        class="primary-btn product-btn"
+                        ${
+                            Number(
+                                product.stock
+                            ) <= 0
+
+                            ||
+
+                            isOwnProduct
+
+                            ?
+
+                            "disabled"
+
+                            :
+
+                            ""
+
+                        }
+                        onclick="
+                            viewProduct(
+                                '${escapeHTML(
+                                    String(
+                                        product.id
+                                    )
+                                )}'
+                            )
+                        ">
+
+
+                        ${
+                            isOwnProduct
+
+                            ?
+
+                            "Your Product"
+
+                            :
+
+                            Number(
+                                product.stock
+                            ) <= 0
+
+                            ?
+
+                            "Out of Stock"
+
+                            :
+
+                            "View Product →"
+
+                        }
+
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+            productGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEARCH + FILTERS
+===================================================== */
+
+function getProductRatingForFilter(
+    productId
+) {
+
+    if (
+        typeof getProductRating !==
+        "function"
+    ) {
+
+        return {
+            average: 0,
+            count: 0
+        };
+
+    }
+
+    return getProductRating(
+        productId
+    );
+
+}
+
+
+function getProductPriceForFilter(
+    product
+) {
+
+    const price =
+        typeof getProductPriceForUser ===
+        "function"
+
+            ?
+
+        getProductPriceForUser(
+            product,
+            currentUser
+        )
+
+            :
+
+        Number(
+            product.price
+        ) || 0;
+
+
+    return Number(
+        price
+    ) || 0;
+
+}
+
+
+function getProductCategories() {
+
+    const categories =
+        getProducts()
+            .map(
+                product =>
+                    String(
+                        product.category ||
+                        ""
+                    ).trim()
+            )
+            .filter(
+                category =>
+                    category !== ""
+            );
+
+
+    return [
+        ...new Set(
+            categories
+        )
+    ].sort(
+        (a, b) =>
+            a.localeCompare(
+                b
+            )
+    );
+
+}
+
+
+function populateCategoryFilter(
+    selectedCategory = ""
+) {
+
+    const categories =
+        getProductCategories();
+
+
+    categoryFilter.innerHTML =
+        `
+            <option value="">
+                All Categories
+            </option>
+        `;
+
+
+    categories.forEach(
+        category => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                category;
+
+
+            option.textContent =
+                category;
+
+
+            categoryFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    /*
+     * IMPORTANT:
+     * A category can be present on the homepage
+     * even when there are currently no products
+     * in that category.
+     *
+     * Example:
+     * index.html → Beauty
+     * products.html → ?category=Beauty
+     *
+     * If Beauty is not present in the current
+     * product data, the <select> previously had
+     * no Beauty option. Setting its value to
+     * "Beauty" therefore reset it to "" and all
+     * products were displayed.
+     *
+     * Add the requested category temporarily so
+     * the filter remains active and correctly
+     * shows "No products found" when appropriate.
+     */
+
+    if (
+        selectedCategory &&
+        !Array.from(
+            categoryFilter.options
+        ).some(
+            option =>
+                String(
+                    option.value
+                ).trim().toLowerCase() ===
+                String(
+                    selectedCategory
+                ).trim().toLowerCase()
+        )
+    ) {
+
+        const requestedOption =
+            document.createElement(
+                "option"
+            );
+
+
+        requestedOption.value =
+            selectedCategory;
+
+
+        requestedOption.textContent =
+            selectedCategory;
+
+
+        categoryFilter.appendChild(
+            requestedOption
+        );
+
+    }
+
+
+    /*
+     * Match the requested category
+     * case-insensitively.
+     */
+
+    const matchingOption =
+        Array.from(
+            categoryFilter.options
+        ).find(
+            option =>
+                String(
+                    option.value
+                ).trim().toLowerCase() ===
+                String(
+                    selectedCategory
+                ).trim().toLowerCase()
+        );
+
+
+    categoryFilter.value =
+        matchingOption
+            ?
+        matchingOption.value
+            :
+        "";
+}
+
+
+/* =====================================================
+   MARKETPLACE MODE
+===================================================== */
+
+function getMarketplaceMode() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const market =
+        String(
+            params.get("market") || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    if (
+        ["b2c", "b2b", "c2c"].includes(
+            market
+        )
+    ) {
+
+        return market;
+
+    }
+
+
+    return "all";
+
+}
+
+
+function getMarketplaceModeLabel(
+    mode
+) {
+
+    const labels = {
+
+        all:
+            "All Products",
+
+        b2c:
+            "B2C • Business to Customer",
+
+        b2b:
+            "B2B • Business to Business",
+
+        c2c:
+            "C2C • Customer to Customer"
+
+    };
+
+
+    return (
+        labels[mode] ||
+        labels.all
+    );
+
+}
+
+
+function updateMarketplaceModeBanner() {
+
+    const mode =
+        getMarketplaceMode();
+
+
+    if (
+        !marketplaceModeBanner
+    ) {
+        return;
+    }
+
+
+    if (
+        mode === "all"
+    ) {
+
+        marketplaceModeBanner.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const descriptions = {
+
+        b2c:
+            "Showing products listed by businesses for normal customer shopping.",
+
+        b2b:
+            "Showing business products that support wholesale or bulk purchasing.",
+
+        c2c:
+            "Showing customer-listed pre-owned products."
+
+    };
+
+
+    marketplaceModeBanner.innerHTML = `
+
+        <strong>
+            ${getMarketplaceModeLabel(mode)}
+        </strong>
+
+        — ${descriptions[mode]}
+
+        <a
+            href="products.html"
+            style="
+                margin-left:8px;
+                color:var(--accent);
+                text-decoration:none;
+            ">
+
+            View All Products
+
+        </a>
+
+    `;
+
+
+    marketplaceModeBanner.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   MARKETPLACE MODE FILTER
+===================================================== */
+
+function getProductsForCurrentMarketplace() {
+
+    const mode =
+        getMarketplaceMode();
+
+
+    if (
+        typeof getProductsForMarketplace ===
+        "function"
+    ) {
+
+        return getProductsForMarketplace(
+            mode
+        );
+
+    }
+
+
+    return getVisibleMarketplaceProducts();
+
+}
+
+
+function getURLFilterValues() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return {
+
+        search:
+            params.get("search") ||
+            "",
+
+        category:
+            params.get("category") ||
+            "",
+
+        minPrice:
+            params.get("minPrice") ||
+            "",
+
+        maxPrice:
+            params.get("maxPrice") ||
+            "",
+
+        rating:
+            params.get("rating") ||
+            "",
+
+        sort:
+            params.get("sort") ||
+            "default"
+
+    };
+
+}
+
+
+function updateURLFromFilters() {
+
+    const params =
+        new URLSearchParams();
+
+
+    const search =
+        searchInput.value.trim();
+
+
+    const category =
+        categoryFilter.value;
+
+
+    const minPrice =
+        minPriceFilter.value;
+
+
+    const maxPrice =
+        maxPriceFilter.value;
+
+
+    const rating =
+        ratingFilter.value;
+
+
+    const sort =
+        sortFilter.value;
+
+
+    if (search) {
+
+        params.set(
+            "search",
+            search
+        );
+
+    }
+
+
+    if (category) {
+
+        params.set(
+            "category",
+            category
+        );
+
+    }
+
+
+    if (minPrice) {
+
+        params.set(
+            "minPrice",
+            minPrice
+        );
+
+    }
+
+
+    if (maxPrice) {
+
+        params.set(
+            "maxPrice",
+            maxPrice
+        );
+
+    }
+
+
+    if (rating) {
+
+        params.set(
+            "rating",
+            rating
+        );
+
+    }
+
+
+    if (
+        sort &&
+        sort !== "default"
+    ) {
+
+        params.set(
+            "sort",
+            sort
+        );
+
+    }
+
+
+    const query =
+        params.toString();
+
+
+    const newURL =
+        query
+
+            ?
+
+        `${window.location.pathname}?${query}`
+
+            :
+
+        window.location.pathname;
+
+
+    window.history.replaceState(
+        {},
+        "",
+        newURL
+    );
+
+}
+
+
+function applyProductFilters(
+    updateURL = true
+) {
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const category =
+        categoryFilter.value
+            .trim()
+            .toLowerCase();
+
+
+    const minPrice =
+        minPriceFilter.value === ""
+            ?
+        null
+            :
+        Number(
+            minPriceFilter.value
+        );
+
+
+    const maxPrice =
+        maxPriceFilter.value === ""
+            ?
+        null
+            :
+        Number(
+            maxPriceFilter.value
+        );
+
+
+    const minimumRating =
+        ratingFilter.value === ""
+            ?
+        null
+            :
+        Number(
+            ratingFilter.value
+        );
+
+
+    const sort =
+        sortFilter.value;
+
+
+    let filtered =
+        getProductsForCurrentMarketplace()
+            .filter(
+                function(rawProduct) {
+
+                    const product =
+                        normalizeProduct(
+                            rawProduct
+                        );
+
+
+                    const name =
+                        String(
+                            product.name ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const brand =
+                        String(
+                            product.brand ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const productCategory =
+                        String(
+                            product.category ||
+                            ""
+                        )
+                        .toLowerCase();
+
+
+                    const matchesSearch =
+                        !search ||
+
+                        name.includes(
+                            search
+                        ) ||
+
+                        brand.includes(
+                            search
+                        ) ||
+
+                        productCategory.includes(
+                            search
+                        );
+
+
+                    const matchesCategory =
+                        !category ||
+
+                        productCategory ===
+                        category;
+
+
+                    const price =
+                        getProductPriceForFilter(
+                            product
+                        );
+
+
+                    const matchesMinPrice =
+                        minPrice === null ||
+
+                        (
+                            Number.isFinite(
+                                minPrice
+                            ) &&
+                            price >=
+                            minPrice
+                        );
+
+
+                    const matchesMaxPrice =
+                        maxPrice === null ||
+
+                        (
+                            Number.isFinite(
+                                maxPrice
+                            ) &&
+                            price <=
+                            maxPrice
+                        );
+
+
+                    const rating =
+                        getProductRatingForFilter(
+                            product.id
+                        );
+
+
+                    const averageRating =
+                        Number(
+                            rating.average
+                        ) || 0;
+
+
+                    const matchesRating =
+                        minimumRating === null ||
+
+                        averageRating >=
+                        minimumRating;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesCategory &&
+                        matchesMinPrice &&
+                        matchesMaxPrice &&
+                        matchesRating
+                    );
+
+                }
+            );
+
+
+    filtered.sort(
+        function(a, b) {
+
+            const productA =
+                normalizeProduct(
+                    a
+                );
+
+
+            const productB =
+                normalizeProduct(
+                    b
+                );
+
+
+            if (
+                sort ===
+                "price-low"
+            ) {
+
+                return (
+                    getProductPriceForFilter(
+                        productA
+                    ) -
+
+                    getProductPriceForFilter(
+                        productB
+                    )
+                );
+
+            }
+
+
+            if (
+                sort ===
+                "price-high"
+            ) {
+
+                return (
+                    getProductPriceForFilter(
+                        productB
+                    ) -
+
+                    getProductPriceForFilter(
+                        productA
+                    )
+                );
+
+            }
+
+
+            if (
+                sort ===
+                "rating-high"
+            ) {
+
+                const ratingA =
+                    getProductRatingForFilter(
+                        productA.id
+                    );
+
+
+                const ratingB =
+                    getProductRatingForFilter(
+                        productB.id
+                    );
+
+
+                return (
+                    Number(
+                        ratingB.average
+                    ) -
+
+                    Number(
+                        ratingA.average
+                    )
+                );
+
+            }
+
+
+            if (
+                sort ===
+                "newest"
+            ) {
+
+                return (
+                    new Date(
+                        productB.createdAt ||
+                        0
+                    ) -
+
+                    new Date(
+                        productA.createdAt ||
+                        0
+                    )
+                );
+
+            }
+
+
+            return 0;
+
+        }
+    );
+
+
+    displayProducts(
+        filtered
+    );
+
+
+    filterResultInfo.textContent =
+        `Showing ${filtered.length} of ${
+            getProductsForCurrentMarketplace().length
+        } available products`;
+
+
+    if (updateURL) {
+
+        updateURLFromFilters();
+
+    }
+
+}
+
+
+function initializeProductFilters() {
+
+    updateMarketplaceModeBanner();
+
+
+    const urlFilters =
+        getURLFilterValues();
+
+
+    populateCategoryFilter(
+        urlFilters.category
+    );
+
+
+    searchInput.value =
+        urlFilters.search;
+
+
+    minPriceFilter.value =
+        urlFilters.minPrice;
+
+
+    maxPriceFilter.value =
+        urlFilters.maxPrice;
+
+
+    ratingFilter.value =
+        urlFilters.rating;
+
+
+    sortFilter.value =
+        [
+            "default",
+            "price-low",
+            "price-high",
+            "rating-high",
+            "newest"
+        ].includes(
+            urlFilters.sort
+        )
+
+            ?
+
+        urlFilters.sort
+
+            :
+
+        "default";
+
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    categoryFilter.addEventListener(
+        "change",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    minPriceFilter.addEventListener(
+        "input",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    maxPriceFilter.addEventListener(
+        "input",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    ratingFilter.addEventListener(
+        "change",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    sortFilter.addEventListener(
+        "change",
+        function() {
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    clearFiltersButton.addEventListener(
+        "click",
+        function() {
+
+            searchInput.value =
+                "";
+
+
+            categoryFilter.value =
+                "";
+
+
+            minPriceFilter.value =
+                "";
+
+
+            maxPriceFilter.value =
+                "";
+
+
+            ratingFilter.value =
+                "";
+
+
+            sortFilter.value =
+                "default";
+
+
+            applyProductFilters();
+
+        }
+    );
+
+
+    applyProductFilters(
+        false
+    );
+
+}
+
+
+/* =====================================================
+   ACCOUNT
+===================================================== */
+
+if (
+    currentUser
+) {
+
+
+    accountButton.textContent =
+        `👤 ${
+            currentUser.businessName ||
+            currentUser.name
+        }`;
+
+
+    accountButton.onclick =
+        function() {
+
+
+            if (
+                currentUser.type ===
+                "business"
+            ) {
+
+                window.location.href =
+                    "business-dashboard.html";
+
+            }
+
+            else {
+
+                window.location.href =
+                    "customer-dashboard.html";
+
+            }
+
+        };
+
+}
+
+else {
+
+
+    accountButton.textContent =
+        "Login";
+
+
+    accountButton.onclick =
+        function() {
+
+            window.location.href =
+                "login.html";
+
+        };
+
+}
+
+
+
+/* =====================================================
+   VIEW PRODUCT
+===================================================== */
+
+function viewProduct(
+    productId
+) {
+
+    window.location.href =
+        `product-details.html?id=${encodeURIComponent(
+            productId
+        )}`;
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displayBusinessStatus();
+
+
+initializeProductFilters();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Track Order | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+    <!-- =====================================================
+         LEAFLET MAP
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        crossorigin=""
+    >
+
+
+
+
+    <style>
+        /* =====================================================
+           FRONTEND DELIVERY MAP
+        ====================================================== */
+
+        .tracking-map {
+            min-height: 420px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .tracking-map .leaflet-container {
+            width: 100%;
+            min-height: 420px;
+            border-radius: 12px;
+            background: #111;
+        }
+
+        .tradehub-delivery-marker,
+        .tradehub-buyer-marker {
+            background: transparent;
+            border: none;
+        }
+
+        @media (max-width: 700px) {
+
+            .tracking-map,
+            .tracking-map .leaflet-container {
+                min-height: 320px;
+            }
+
+        }
+    </style>
+
+<style>
+
+/* =====================================================
+   CRISP VECTOR ORDER-TIMELINE ICONS
+   Uses SVG instead of browser emoji glyphs.
+===================================================== */
+
+.timeline-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.timeline-svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    flex: 0 0 20px;
+}
+
+.timeline-icon svg {
+    shape-rendering: geometricPrecision;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="orders.html">
+            My Orders
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="goBackToOrders()">
+
+            ← Orders
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="order-details-page">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="page-header">
+
+        <span class="section-label">
+            ORDER TRACKING
+        </span>
+
+        <h1>
+            Track Your <span>Order</span>
+        </h1>
+
+        <p id="orderHeaderText">
+            Loading order information...
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ORDER STATUS
+    ================================================== -->
+
+    <section class="tracking-card">
+
+
+        <div class="tracking-header">
+
+            <div>
+
+                <span>
+                    ORDER ID
+                </span>
+
+                <strong id="orderId">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ORDER STATUS
+                </span>
+
+                <strong
+                    id="orderStatus"
+                    class="tracking-current-status">
+
+                    --
+
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    ORDER DATE
+                </span>
+
+                <strong id="orderDate">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==========================================
+             TIMELINE
+        =========================================== -->
+
+        <div class="order-timeline">
+
+
+            <div
+                class="timeline-step"
+                data-status="Order Placed">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h14v18H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 7h8M8 11h8M8 15h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 18h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Order Placed
+                    </strong>
+
+                    <span>
+                        Your order has been received.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="timeline-line">
+            </div>
+
+
+
+            <div
+                class="timeline-step"
+                data-status="Confirmed">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Confirmed
+                    </strong>
+
+                    <span>
+                        The business confirmed your order.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="timeline-line">
+            </div>
+
+
+
+            <div
+                class="timeline-step"
+                data-status="Processing">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="17" r="2" fill="currentColor"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Processing
+                    </strong>
+
+                    <span>
+                        Your products are being prepared.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="timeline-line">
+            </div>
+
+
+
+            <div
+                class="timeline-step"
+                data-status="Shipped">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Shipped
+                    </strong>
+
+                    <span>
+                        Your order has left the business.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="timeline-line">
+            </div>
+
+
+
+            <div
+                class="timeline-step"
+                data-status="Out for Delivery">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="18" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Out for Delivery
+                    </strong>
+
+                    <span>
+                        Your delivery partner is on the way.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="timeline-line">
+            </div>
+
+
+
+            <div
+                class="timeline-step"
+                data-status="Delivered">
+
+                <div class="timeline-icon">
+                    <svg class="timeline-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/></svg>
+                </div>
+
+                <div class="timeline-content">
+
+                    <strong>
+                        Delivered
+                    </strong>
+
+                    <span>
+                        Your order has been delivered.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         CONTENT GRID
+    ================================================== -->
+
+    <div class="order-details-grid">
+
+
+        <!-- ==========================================
+             PRODUCTS
+        =========================================== -->
+
+        <section class="order-detail-card">
+
+            <h2>
+                Ordered Products
+            </h2>
+
+            <div id="orderedProducts">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             PAYMENT
+        =========================================== -->
+
+        <section class="order-detail-card">
+
+            <h2>
+                Payment Details
+            </h2>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Payment Method
+                </span>
+
+                <strong id="paymentMethod">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Payment Status
+                </span>
+
+                <strong
+                    id="paymentStatus"
+                    class="payment-success">
+
+                    --
+
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="orderSubtotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong id="orderDelivery">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="detail-divider">
+            </div>
+
+
+            <div class="detail-row total-detail-row">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="orderTotal">
+                    ₹0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             DELIVERY ADDRESS
+        =========================================== -->
+
+        <section class="order-detail-card">
+
+            <h2>
+                Delivery Address
+            </h2>
+
+
+            <div class="address-box">
+
+                <strong id="deliveryName">
+                    --
+                </strong>
+
+                <span id="deliveryPhone">
+                    --
+                </span>
+
+                <p id="deliveryAddress">
+                    --
+                </p>
+
+                <span id="deliveryCityPin">
+                    --
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             DELIVERY PARTNER
+        =========================================== -->
+
+        <section class="order-detail-card">
+
+            <h2>
+                Delivery Partner
+            </h2>
+
+
+            <div
+                id="deliveryPartner"
+                class="delivery-partner">
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         MAP
+    ================================================== -->
+
+    <section class="order-detail-card map-card">
+
+        <div class="map-header">
+
+            <div>
+
+                <span class="section-label">
+                    LIVE DELIVERY
+                </span>
+
+                <h2>
+                    Delivery Location
+                </h2>
+
+            </div>
+
+
+            <span
+                id="mapStatus"
+                class="map-status">
+
+                Tracking unavailable
+
+            </span>
+
+        </div>
+
+
+        <div
+            id="map"
+            class="tracking-map">
+
+            <div
+                id="mapLoading"
+                class="map-placeholder">
+
+                <div class="map-placeholder-icon">
+                    🗺️
+                </div>
+
+                <h3>
+                    Loading Delivery Map
+                </h3>
+
+                <p>
+                    Preparing your delivery location...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="mapInfo"
+            style="
+                display:none;
+                margin-top:12px;
+                padding:12px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                font-size:9px;
+                color:#777;
+                line-height:1.7;
+            ">
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MESSAGE DELIVERY PARTNER
+    ================================================== -->
+
+    <section
+        id="partnerMessageSection"
+        class="order-detail-card partner-message-card">
+
+        <div>
+
+            <span class="section-label">
+                DELIVERY SUPPORT
+            </span>
+
+            <h2>
+                Need Help With Delivery?
+            </h2>
+
+            <p>
+                You will be able to communicate directly
+                with your delivery partner here.
+            </p>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="messageDeliveryPartner()">
+
+            💬 Message Delivery Partner
+
+        </button>
+
+    </section>
+
+
+</main>
+
+
+
+<script src="../js/orders.js"></script>
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin="">
+</script>
+
+
+
+<script>
+
+
+// =====================================================
+// CURRENT USER
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+if (!currentUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// GET ORDER ID
+// =====================================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const orderId =
+    params.get("id");
+
+
+if (!orderId) {
+
+    alert(
+        "No order was selected."
+    );
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+// =====================================================
+// GET ORDER
+// =====================================================
+
+const order =
+    getOrderById(
+        orderId
+    );
+
+
+if (!order) {
+
+    alert(
+        "Order could not be found."
+    );
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+// =====================================================
+// SECURITY CHECK
+// =====================================================
+
+const isCustomer =
+    order.customerId ===
+    currentUser.id;
+
+
+const isBusiness =
+    currentUser.type ===
+    "business" &&
+    order.items.some(
+        item =>
+            item.businessId ===
+            currentUser.id
+    );
+
+
+if (
+    !isCustomer &&
+    !isBusiness
+) {
+
+    alert(
+        "You don't have permission to view this order."
+    );
+
+    window.location.href =
+        currentUser.type ===
+        "business"
+        ? "business-orders.html"
+        : "orders.html";
+
+}
+
+
+// =====================================================
+// BASIC INFORMATION
+// =====================================================
+
+document.getElementById(
+    "orderId"
+).textContent =
+    order.id;
+
+
+document.getElementById(
+    "orderStatus"
+).textContent =
+    order.status;
+
+
+document.getElementById(
+    "orderDate"
+).textContent =
+    new Date(
+        order.createdAt
+    ).toLocaleDateString();
+
+
+document.getElementById(
+    "orderHeaderText"
+).textContent =
+    `Order ${order.id} · ${order.status}`;
+
+
+// =====================================================
+// PAYMENT
+// =====================================================
+
+document.getElementById(
+    "paymentMethod"
+).textContent =
+    order.paymentMethod;
+
+
+document.getElementById(
+    "paymentStatus"
+).textContent =
+    order.paymentStatus;
+
+
+document.getElementById(
+    "orderSubtotal"
+).textContent =
+    `₹${order.subtotal}`;
+
+
+document.getElementById(
+    "orderDelivery"
+).textContent =
+    order.deliveryFee === 0
+    ? "FREE"
+    : `₹${order.deliveryFee}`;
+
+
+document.getElementById(
+    "orderTotal"
+).textContent =
+    `₹${order.total}`;
+
+
+// =====================================================
+// DELIVERY ADDRESS
+// =====================================================
+
+document.getElementById(
+    "deliveryName"
+).textContent =
+    order.delivery.name;
+
+
+document.getElementById(
+    "deliveryPhone"
+).textContent =
+    order.delivery.phone;
+
+
+document.getElementById(
+    "deliveryAddress"
+).textContent =
+    order.delivery.address;
+
+
+document.getElementById(
+    "deliveryCityPin"
+).textContent =
+    `${order.delivery.city} - ${order.delivery.pin}`;
+
+
+// =====================================================
+// PRODUCTS
+// =====================================================
+
+const orderedProducts =
+    document.getElementById(
+        "orderedProducts"
+    );
+
+
+order.items.forEach(
+    item => {
+
+        const product =
+            document.createElement(
+                "div"
+            );
+
+
+        product.className =
+            "ordered-product";
+
+
+        product.innerHTML = `
+
+            <div class="ordered-product-image">
+
+                ${
+                    item.image
+
+                    ?
+
+                    `<img
+                        src="${item.image}"
+                        alt="${item.name}">`
+
+                    :
+
+                    `📦`
+                }
+
+            </div>
+
+
+            <div class="ordered-product-info">
+
+                <strong>
+                    ${item.name}
+                </strong>
+
+                <span>
+                    ${item.brand}
+                </span>
+
+                <small>
+                    Quantity: ${item.quantity}
+                </small>
+
+            </div>
+
+
+            <strong class="ordered-product-price">
+
+                ₹${item.price *
+                item.quantity}
+
+            </strong>
+
+        `;
+
+
+        orderedProducts.appendChild(
+            product
+        );
+
+    }
+);
+
+
+// =====================================================
+// TIMELINE
+// =====================================================
+
+const statusOrder = [
+
+    "pending",
+
+    "confirmed",
+
+    "packed",
+
+    "shipped",
+
+    "out for delivery",
+
+    "delivered"
+
+];
+
+
+const currentIndex =
+    statusOrder.indexOf(
+        normalizedOrderStatus(
+            order.status
+        )
+    );
+
+
+document
+    .querySelectorAll(
+        ".timeline-step"
+    )
+    .forEach(
+        (step, index) => {
+
+            const stepStatus =
+                normalizedOrderStatus(
+                    step.dataset.status
+                );
+
+
+            /*
+             * The older UI calls Processing what the
+             * seller-side C2C system calls Packed.
+             */
+            const normalizedStepStatus =
+                stepStatus === "processing"
+                ? "packed"
+                : stepStatus;
+
+
+            const stepIndex =
+                statusOrder.indexOf(
+                    normalizedStepStatus
+                );
+
+
+            if (
+                stepIndex <=
+                currentIndex
+            ) {
+
+                step.classList.add(
+                    "completed"
+                );
+
+            }
+
+
+            if (
+                stepIndex ===
+                currentIndex
+            ) {
+
+                step.classList.add(
+                    "current"
+                );
+
+            }
+
+        }
+    );
+
+
+// =====================================================
+// DELIVERY PARTNER
+// =====================================================
+
+// Temporary demo partner.
+// This will later come from the delivery system.
+
+const deliveryPartner =
+    order.deliveryPartner || {
+
+        name:
+            "Rahul Sharma",
+
+        phone:
+            "9876501234",
+
+        rating:
+            "4.8",
+
+        vehicle:
+            "Motorcycle",
+
+        vehicleNumber:
+            "PB 10 AB 1234"
+
+    };
+
+
+const partnerContainer =
+    document.getElementById(
+        "deliveryPartner"
+    );
+
+
+if (
+    normalizedStatus ===
+    "shipped" ||
+
+    normalizedStatus ===
+    "out for delivery" ||
+
+    normalizedStatus ===
+    "delivered"
+) {
+
+    partnerContainer.innerHTML = `
+
+        <div class="partner-avatar">
+            👨‍💼
+        </div>
+
+
+        <div class="partner-info">
+
+            <strong>
+                ${deliveryPartner.name}
+            </strong>
+
+            <span>
+                ⭐ ${deliveryPartner.rating}
+            </span>
+
+            <span>
+                🚚 ${deliveryPartner.vehicle}
+            </span>
+
+            <span>
+                ${deliveryPartner.vehicleNumber}
+            </span>
+
+        </div>
+
+
+        <a
+            class="partner-call"
+            href="tel:${deliveryPartner.phone}">
+
+            📞
+
+        </a>
+
+    `;
+
+} else {
+
+    partnerContainer.innerHTML = `
+
+        <div class="partner-not-assigned">
+
+            🚚
+
+            <strong>
+                Delivery partner not assigned yet
+            </strong>
+
+            <span>
+                A delivery partner will be assigned
+                after your order is shipped.
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+// =====================================================
+// MAP STATUS + FRONTEND DEMO LIVE MAP
+// =====================================================
+
+const mapStatus =
+    document.getElementById(
+        "mapStatus"
+    );
+
+const mapContainer =
+    document.getElementById(
+        "map"
+    );
+
+const mapLoading =
+    document.getElementById(
+        "mapLoading"
+    );
+
+const mapInfo =
+    document.getElementById(
+        "mapInfo"
+    );
+
+
+function normalizedOrderStatus(
+    status
+) {
+
+    return String(
+        status ||
+        "pending"
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+const normalizedStatus =
+    normalizedOrderStatus(
+        order.status
+    );
+
+
+if (
+    normalizedStatus ===
+    "out for delivery"
+) {
+
+    mapStatus.textContent =
+        "● Live Demo Tracking";
+
+    mapStatus.classList.add(
+        "map-live"
+    );
+
+}
+else if (
+    normalizedStatus ===
+    "delivered"
+) {
+
+    mapStatus.textContent =
+        "✓ Delivered";
+
+}
+else if (
+    normalizedStatus ===
+    "shipped"
+) {
+
+    mapStatus.textContent =
+        "● Ready for Tracking";
+
+}
+else {
+
+    mapStatus.textContent =
+        "Tracking starts when shipped";
+
+}
+
+
+/* =====================================================
+   MAP CONFIGURATION
+===================================================== */
+
+/*
+ * This is a frontend-only demo.
+ *
+ * Leaflet renders the real map.
+ * OpenStreetMap provides the map tiles.
+ * Nominatim converts the order city/PIN into
+ * approximate public coordinates.
+ *
+ * No TradeHub backend is required.
+ *
+ * IMPORTANT:
+ * This is NOT real GPS tracking of a delivery person.
+ * The moving marker is a local browser simulation.
+ */
+
+let deliveryMap =
+    null;
+
+let deliveryMarker =
+    null;
+
+let buyerMarker =
+    null;
+
+let routeLine =
+    null;
+
+let simulationTimer =
+    null;
+
+let routePoints =
+    [];
+
+let routeIndex =
+    0;
+
+
+function escapeMapText(
+    value
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value == null
+        ? ""
+        : String(value);
+
+    return div.innerHTML;
+
+}
+
+
+function showMapInfo(
+    html
+) {
+
+    if (!mapInfo) {
+
+        return;
+
+    }
+
+    mapInfo.innerHTML =
+        html;
+
+    mapInfo.style.display =
+        "block";
+
+}
+
+
+function showMapLoading(
+    title,
+    message
+) {
+
+    if (!mapLoading) {
+
+        return;
+
+    }
+
+    mapLoading.innerHTML = `
+
+        <div
+            class="map-placeholder-icon">
+
+            🗺️
+
+        </div>
+
+        <h3>
+
+            ${escapeMapText(
+                title
+            )}
+
+        </h3>
+
+        <p>
+
+            ${escapeMapText(
+                message
+            )}
+
+        </p>
+
+    `;
+
+    mapLoading.style.display =
+        "flex";
+
+}
+
+
+function hideMapLoading() {
+
+    if (mapLoading) {
+
+        mapLoading.style.display =
+            "none";
+
+    }
+
+}
+
+
+function getDeliverySearchQuery() {
+
+    const delivery =
+        order.delivery ||
+        {};
+
+    const city =
+        delivery.city ||
+        "";
+
+    const pin =
+        delivery.pin ||
+        "";
+
+    const address =
+        delivery.address ||
+        "";
+
+    /*
+     * PIN + city is usually more useful than
+     * a potentially incomplete street address.
+     */
+
+    if (
+        pin &&
+        city
+    ) {
+
+        return `${pin}, ${city}, India`;
+
+    }
+
+    if (
+        address &&
+        city
+    ) {
+
+        return `${address}, ${city}, India`;
+
+    }
+
+    if (
+        city
+    ) {
+
+        return `${city}, India`;
+
+    }
+
+    if (
+        pin
+    ) {
+
+        return `${pin}, India`;
+
+    }
+
+    return "India";
+
+}
+
+
+/* =====================================================
+   DELIVERY LOCATION RESOLUTION
+===================================================== */
+
+const CITY_COORDINATES = {
+
+    delhi: [28.6139, 77.2090],
+    "new delhi": [28.6139, 77.2090],
+    gurgaon: [28.4595, 77.0266],
+    gurugram: [28.4595, 77.0266],
+    noida: [28.5355, 77.3910],
+    chandigarh: [30.7333, 76.7794],
+    jaipur: [26.9124, 75.7873],
+    amritsar: [31.6340, 74.8723],
+    ludhiana: [30.9010, 75.8573],
+    jalandhar: [31.3260, 75.5762],
+    mumbai: [19.0760, 72.8777],
+    pune: [18.5204, 73.8567],
+    bangalore: [12.9716, 77.5946],
+    bengaluru: [12.9716, 77.5946],
+    hyderabad: [17.3850, 78.4867],
+    chennai: [13.0827, 80.2707],
+    kolkata: [22.5726, 88.3639],
+    ahmedabad: [23.0225, 72.5714],
+    lucknow: [26.8467, 80.9462],
+    kanpur: [26.4499, 80.3319],
+    indore: [22.7196, 75.8577],
+    bhopal: [23.2599, 77.4126],
+    patna: [25.5941, 85.1376],
+    surat: [21.1702, 72.8311],
+    nagpur: [21.1458, 79.0882],
+    kochi: [9.9312, 76.2673],
+    coimbatore: [11.0168, 76.9558],
+    dehradun: [30.3165, 78.0322]
+
+};
+
+
+function getDeliveryCity() {
+
+    const delivery =
+        order.delivery ||
+        {};
+
+    return String(
+        delivery.city ||
+        ""
+    ).trim().toLowerCase();
+
+}
+
+
+function getFallbackDeliveryLocation() {
+
+    const city =
+        getDeliveryCity();
+
+    const coordinates =
+        CITY_COORDINATES[city];
+
+    if (coordinates) {
+
+        return {
+
+            lat: coordinates[0],
+            lng: coordinates[1],
+
+            displayName:
+                (
+                    order.delivery &&
+                    order.delivery.city
+                ) ||
+                "Delivery Location",
+
+            fallback: true
+
+        };
+
+    }
+
+    return {
+
+        lat: 22.9734,
+        lng: 78.6569,
+        displayName: "India",
+        fallback: true
+
+    };
+
+}
+
+
+async function geocodeDeliveryAddress() {
+
+    const query =
+        getDeliverySearchQuery();
+
+    const controller =
+        new AbortController();
+
+    const timeout =
+        setTimeout(
+            function() {
+
+                controller.abort();
+
+            },
+            5000
+        );
+
+    try {
+
+        const url =
+            "https://nominatim.openstreetmap.org/search" +
+            "?format=jsonv2" +
+            "&limit=1" +
+            "&countrycodes=in" +
+            "&q=" +
+            encodeURIComponent(query);
+
+        const response =
+            await fetch(
+                url,
+                {
+                    signal:
+                        controller.signal
+                }
+            );
+
+        if (response.ok) {
+
+            const results =
+                await response.json();
+
+            if (
+                Array.isArray(results) &&
+                results.length > 0
+            ) {
+
+                const lat =
+                    Number(
+                        results[0].lat
+                    );
+
+                const lng =
+                    Number(
+                        results[0].lon
+                    );
+
+                if (
+                    Number.isFinite(lat) &&
+                    Number.isFinite(lng)
+                ) {
+
+                    return {
+
+                        lat: lat,
+                        lng: lng,
+
+                        displayName:
+                            results[0].display_name ||
+                            query,
+
+                        fallback: false
+
+                    };
+
+                }
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Exact location lookup unavailable. Using city coordinates.",
+            error
+        );
+
+    }
+    finally {
+
+        clearTimeout(timeout);
+
+    }
+
+    return getFallbackDeliveryLocation();
+
+}
+
+
+function createDemoRoute(
+    buyerLat,
+    buyerLng
+) {
+
+    /*
+     * Creates a short local demo route around the
+     * delivery destination. It is deliberately a
+     * simulated route rather than claiming to be a
+     * real courier GPS path.
+     */
+
+    const offsets = [
+
+        [0.018, -0.020],
+
+        [0.014, -0.012],
+
+        [0.010, -0.005],
+
+        [0.006, 0.004],
+
+        [0.003, 0.008],
+
+        [0.001, 0.004],
+
+        [0, 0]
+
+    ];
+
+
+    return offsets.map(
+        function(offset) {
+
+            return [
+
+                buyerLat +
+                    offset[0],
+
+                buyerLng +
+                    offset[1]
+
+            ];
+
+        }
+    );
+
+}
+
+
+function createDeliveryIcon() {
+
+    return L.divIcon({
+
+        className:
+            "tradehub-delivery-marker",
+
+        html: `
+
+            <div
+                style="
+                    width:38px;
+                    height:38px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#111;
+                    border:2px solid #00e676;
+                    border-radius:50%;
+                    box-shadow:0 4px 15px rgba(0,0,0,.35);
+                    font-size:20px;
+                ">
+
+                🚚
+
+            </div>
+
+        `,
+
+        iconSize:
+            [38, 38],
+
+        iconAnchor:
+            [19, 19]
+
+    });
+
+}
+
+
+function createBuyerIcon() {
+
+    return L.divIcon({
+
+        className:
+            "tradehub-buyer-marker",
+
+        html: `
+
+            <div
+                style="
+                    width:32px;
+                    height:32px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    background:#fff;
+                    border:2px solid #111;
+                    border-radius:50%;
+                    box-shadow:0 3px 10px rgba(0,0,0,.3);
+                    font-size:16px;
+                ">
+
+                📍
+
+            </div>
+
+        `,
+
+        iconSize:
+            [32, 32],
+
+        iconAnchor:
+            [16, 16]
+
+    });
+
+}
+
+
+function updateMapInfo(
+    currentPosition,
+    buyerPosition,
+    statusText
+) {
+
+    if (!mapInfo) {
+
+        return;
+
+    }
+
+    const currentLatLng =
+        L.latLng(
+            currentPosition
+        );
+
+    const buyerLatLng =
+        L.latLng(
+            buyerPosition
+        );
+
+
+    const distance =
+        currentLatLng.distanceTo(
+            buyerLatLng
+        );
+
+    const distanceKm =
+        Math.max(
+            0,
+            distance / 1000
+        );
+
+
+    showMapInfo(`
+
+        <strong
+            style="
+                color:#aaa;
+            ">
+
+            🚚 ${escapeMapText(
+                statusText
+            )}
+
+        </strong>
+
+        <br>
+
+        📍 Destination:
+        ${escapeMapText(
+            getDeliverySearchQuery()
+        )}
+
+        <br>
+
+        📏 Approx. distance remaining:
+        ${distanceKm.toFixed(1)} km
+
+        <br>
+
+        🔄 Demo location updates:
+        every 2 seconds
+
+        <br>
+
+        <span
+            style="
+                color:#666;
+            ">
+
+            Frontend-only demo — the vehicle
+            position is simulated and is not
+            real courier GPS data.
+
+        </span>
+
+    `);
+
+}
+
+
+function startDemoTracking(
+    buyerPosition
+) {
+
+    routePoints =
+        createDemoRoute(
+            buyerPosition.lat,
+            buyerPosition.lng
+        );
+
+
+    routeIndex =
+        0;
+
+
+    const firstPoint =
+        routePoints[0];
+
+
+    deliveryMarker =
+        L.marker(
+            firstPoint,
+            {
+                icon:
+                    createDeliveryIcon()
+            }
+        )
+        .addTo(
+            deliveryMap
+        );
+
+
+    deliveryMarker.bindPopup(
+        "<strong>🚚 TradeHub Delivery</strong><br>Demo location"
+    );
+
+
+    routeLine =
+        L.polyline(
+            routePoints,
+            {
+                color:
+                    "#00e676",
+
+                weight:
+                    4,
+
+                opacity:
+                    0.65,
+
+                dashArray:
+                    "8 8"
+            }
+        )
+        .addTo(
+            deliveryMap
+        );
+
+
+    updateMapInfo(
+        firstPoint,
+        [
+            buyerPosition.lat,
+            buyerPosition.lng
+        ],
+        "Out for Delivery"
+    );
+
+
+    if (
+        simulationTimer
+    ) {
+
+        clearInterval(
+            simulationTimer
+        );
+
+    }
+
+
+    simulationTimer =
+        setInterval(
+            function() {
+
+                routeIndex +=
+                    1;
+
+
+                if (
+                    routeIndex >=
+                    routePoints.length
+                ) {
+
+                    routeIndex =
+                        routePoints.length -
+                        1;
+
+                }
+
+
+                const point =
+                    routePoints[
+                        routeIndex
+                    ];
+
+
+                deliveryMarker.setLatLng(
+                    point
+                );
+
+
+                updateMapInfo(
+                    point,
+                    [
+                        buyerPosition.lat,
+                        buyerPosition.lng
+                    ],
+                    routeIndex ===
+                        routePoints.length - 1
+                        ?
+                        "Arriving at destination"
+                        :
+                        "Out for Delivery"
+                );
+
+
+                if (
+                    routeIndex ===
+                    routePoints.length - 1
+                ) {
+
+                    clearInterval(
+                        simulationTimer
+                    );
+
+                    simulationTimer =
+                        null;
+
+                }
+
+            },
+            2000
+        );
+
+}
+
+
+function initializeDeliveryMap(
+    location
+) {
+
+    if (
+        typeof L ===
+        "undefined"
+    ) {
+
+        throw new Error(
+            "Map library could not be loaded."
+        );
+
+    }
+
+
+    hideMapLoading();
+
+
+    deliveryMap =
+        L.map(
+            mapContainer,
+            {
+                zoomControl:
+                    true
+            }
+        )
+        .setView(
+            [
+                location.lat,
+                location.lng
+            ],
+            14
+        );
+
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom:
+                19,
+
+            attribution:
+                '&copy; OpenStreetMap contributors'
+        }
+    )
+    .addTo(
+        deliveryMap
+    );
+
+
+    buyerMarker =
+        L.marker(
+            [
+                location.lat,
+                location.lng
+            ],
+            {
+                icon:
+                    createBuyerIcon()
+            }
+        )
+        .addTo(
+            deliveryMap
+        );
+
+
+    buyerMarker.bindPopup(
+        "<strong>📍 Delivery Destination</strong>"
+    );
+
+
+    if (
+        normalizedStatus ===
+            "out for delivery"
+        ||
+        normalizedStatus ===
+            "shipped"
+    ) {
+
+        startDemoTracking(
+            location
+        );
+
+
+        const group =
+            L.featureGroup(
+                [
+                    buyerMarker,
+                    deliveryMarker
+                ]
+            );
+
+
+        deliveryMap.fitBounds(
+            group.getBounds().pad(
+                0.25
+            )
+        );
+
+    }
+    else if (
+        normalizedStatus ===
+            "delivered"
+    ) {
+
+        showMapInfo(`
+
+            <strong
+                style="
+                    color:#aaa;
+                ">
+
+                ✓ Delivered
+
+            </strong>
+
+            <br>
+
+            📍 Destination:
+            ${escapeMapText(
+                getDeliverySearchQuery()
+            )}
+
+            <br>
+
+            The delivery has already been
+            completed.
+
+        `);
+
+    }
+    else {
+
+        showMapInfo(`
+
+            <strong
+                style="
+                    color:#aaa;
+                ">
+
+                📦 Delivery location
+
+            </strong>
+
+            <br>
+
+            📍 ${escapeMapText(
+                getDeliverySearchQuery()
+            )}
+
+            <br>
+
+            Live movement will start when the
+            order reaches <strong>Shipped</strong>
+            or <strong>Out for Delivery</strong>.
+
+        `);
+
+    }
+
+}
+
+
+async function loadDeliveryMap() {
+
+    if (!mapContainer) {
+
+        return;
+
+    }
+
+    showMapLoading(
+        "Loading Delivery Map",
+        "Preparing your delivery location..."
+    );
+
+    try {
+
+        if (
+            typeof L ===
+            "undefined"
+        ) {
+
+            throw new Error(
+                "Leaflet did not load. Check internet/CDN access."
+            );
+
+        }
+
+        const location =
+            await geocodeDeliveryAddress();
+
+        initializeDeliveryMap(
+            location
+        );
+
+        if (
+            location.fallback
+        ) {
+
+            showMapInfo(`
+
+                <strong
+                    style="
+                        color:#aaa;
+                    ">
+
+                    📍 ${escapeMapText(
+                        location.displayName
+                    )}
+
+                </strong>
+
+                <br>
+
+                Exact address lookup is unavailable,
+                so the map is using a city-level
+                location for this frontend demo.
+
+                <br>
+
+                🚚 Delivery movement is simulated.
+
+            `);
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "TradeHub map error:",
+            error
+        );
+
+        showMapLoading(
+            "Map Could Not Load",
+            "Leaflet or the map service could not be reached."
+        );
+
+        showMapInfo(`
+
+            <strong
+                style="
+                    color:#aaa;
+                ">
+
+                📍 Delivery location
+
+            </strong>
+
+            <br>
+
+            ${escapeMapText(
+                getDeliverySearchQuery()
+            )}
+
+            <br>
+
+            <span
+                style="
+                    color:#777;
+                ">
+
+                If the map library is blocked,
+                check the browser console and
+                internet connection.
+
+            </span>
+
+        `);
+
+    }
+
+}
+
+
+loadDeliveryMap();
+
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        if (
+            simulationTimer
+        ) {
+
+            clearInterval(
+                simulationTimer
+            );
+
+        }
+
+    }
+);
+
+
+
+
+// =====================================================
+// MESSAGE PARTNER
+// =====================================================
+
+function messageDeliveryPartner() {
+
+    if (
+        normalizedStatus !==
+            "shipped" &&
+
+        normalizedStatus !==
+            "out for delivery" &&
+
+        normalizedStatus !==
+            "delivered"
+    ) {
+
+        alert(
+            "A delivery partner has not been assigned yet."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Delivery messaging will be connected to the TradeHub messaging system next."
+    );
+
+}
+
+
+// =====================================================
+// BACK
+// =====================================================
+
+function goBackToOrders() {
+
+    if (
+        currentUser.type ===
+        "business"
+    ) {
+
+        window.location.href =
+            "business-orders.html";
+
+    } else {
+
+        window.location.href =
+            "orders.html";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

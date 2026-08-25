@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cart | TradeHub</title>
+
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+
+        /* =====================================================
+           CART B2B STYLES
+        ====================================================== */
+
+        .cart-user-banner {
+
+            margin-bottom: 20px;
+
+            padding: 14px 16px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.02);
+
+            color: #888;
+
+            font-size: 10px;
+
+        }
+
+
+        .cart-user-banner strong {
+
+            color: var(--accent);
+
+        }
+
+
+        .cart-price-type {
+
+            display: inline-block;
+
+            margin-top: 5px;
+
+            padding: 4px 7px;
+
+            border-radius: 5px;
+
+            font-size: 8px;
+
+        }
+
+
+        .cart-price-type.wholesale {
+
+            color: var(--accent);
+
+            background:
+                rgba(0,230,118,0.07);
+
+            border:
+                1px solid
+                rgba(0,230,118,0.2);
+
+        }
+
+
+        .cart-price-type.retail {
+
+            color: #777;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            border:
+                1px solid
+                var(--border);
+
+        }
+
+
+        .cart-b2b-info {
+
+            margin-top: 7px;
+
+            color: #777;
+
+            font-size: 8px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .cart-savings {
+
+            margin-top: 3px;
+
+            color: var(--accent);
+
+            font-size: 8px;
+
+        }
+
+
+        .cart-own-product {
+
+            margin-top: 7px;
+
+            padding: 6px 8px;
+
+            border-radius: 5px;
+
+            color: #aaa;
+
+            background:
+                rgba(255,193,7,0.05);
+
+            border:
+                1px solid
+                rgba(255,193,7,0.15);
+
+            font-size: 8px;
+
+        }
+
+
+        .cart-validation {
+
+            margin-bottom: 20px;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,60,60,0.05);
+
+            border:
+                1px solid
+                rgba(255,60,60,0.2);
+
+            color: #ff8a8a;
+
+            font-size: 10px;
+
+        }
+
+
+        .cart-validation strong {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .cart-validation ul {
+
+            margin: 0;
+
+            padding-left: 18px;
+
+        }
+
+
+        .cart-validation li {
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .cart-item-out-of-stock {
+
+            opacity: 0.65;
+
+        }
+
+
+        .cart-summary-note {
+
+            margin-top: 10px;
+
+            color: #666;
+
+            font-size: 8px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .cart-total-price {
+
+            font-size: 15px;
+
+        }
+
+
+        .old-retail-price {
+
+            display: block;
+
+            color: #666;
+
+            text-decoration: line-through;
+
+            font-size: 9px;
+
+        }
+
+
+        .cart-item-business {
+
+            margin-top: 4px;
+
+            color: #666;
+
+            font-size: 8px;
+
+        }
+
+
+        .checkout-btn:disabled {
+
+            opacity: 0.45;
+
+            cursor: not-allowed;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+
+        <a href="products.html">
+            Products
+        </a>
+
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+
+        <button
+            class="icon-btn cart-nav-btn"
+            aria-label="Shopping Cart">
+
+            🛒
+
+            <span class="cart-count">
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            class="login-btn"
+            id="accountButton">
+
+            Account
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+
+        <span class="section-label">
+            SHOPPING
+        </span>
+
+
+        <h1>
+            Your <span>Cart</span>
+        </h1>
+
+
+        <p>
+            Review your items before checkout.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CART
+    ================================================== -->
+
+    <div id="cartContainer">
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/products.js"></script>
+
+<script src="../js/cart.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const cartContainer =
+    document.getElementById(
+        "cartContainer"
+    );
+
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+function getCurrentUser() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+}
+
+
+
+/* =====================================================
+   ACCOUNT BUTTON
+===================================================== */
+
+const currentUser =
+    getCurrentUser();
+
+
+if (
+    currentUser
+) {
+
+
+    accountButton.textContent =
+        `👤 ${
+            currentUser.businessName ||
+            currentUser.name
+        }`;
+
+
+    accountButton.onclick =
+        function() {
+
+
+            if (
+                currentUser.type ===
+                "business"
+            ) {
+
+                window.location.href =
+                    "business-dashboard.html";
+
+            }
+
+            else {
+
+                window.location.href =
+                    "customer-dashboard.html";
+
+            }
+
+        };
+
+}
+
+else {
+
+
+    accountButton.textContent =
+        "Login";
+
+
+    accountButton.onclick =
+        function() {
+
+            window.location.href =
+                "login.html";
+
+        };
+
+}
+
+
+
+/* =====================================================
+   DISPLAY CART
+===================================================== */
+
+function displayCart() {
+
+
+    /*
+     * Refresh prices using the current
+     * user before displaying anything.
+     */
+
+    if (
+        typeof refreshCartPrices ===
+        "function"
+    ) {
+
+        refreshCartPrices();
+
+    }
+
+
+    const cart =
+        getCart();
+
+
+    /* =================================================
+       EMPTY CART
+    ================================================== */
+
+    if (
+        cart.length ===
+        0
+    ) {
+
+
+        cartContainer.innerHTML = `
+
+            <div
+                class="empty-products">
+
+
+                <h2>
+                    Your cart is empty
+                </h2>
+
+
+                <p>
+
+                    Add some products to
+                    get started.
+
+                </p>
+
+
+                <br>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="
+                        window.location.href='products.html'
+                    ">
+
+                    Explore Products →
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       CART VALIDATION
+    ================================================== */
+
+    let validation =
+        {
+
+            valid: true,
+
+            errors: []
+
+        };
+
+
+    if (
+        typeof validateCart ===
+        "function"
+    ) {
+
+        validation =
+            validateCart();
+
+    }
+
+
+
+    /* =================================================
+       USER STATUS
+    ================================================== */
+
+    let userBanner =
+        "";
+
+
+    if (
+        currentUser &&
+        currentUser.type ===
+        "business"
+    ) {
+
+
+        if (
+            typeof isBusinessVerified ===
+            "function" &&
+
+            isBusinessVerified(
+                currentUser
+            )
+        ) {
+
+
+            userBanner = `
+
+                <div
+                    class="cart-user-banner">
+
+                    🏢
+
+                    <strong>
+                        Verified Business
+                    </strong>
+
+                    — Wholesale pricing is
+                    active for eligible products.
+
+                </div>
+
+            `;
+
+        }
+
+        else {
+
+
+            userBanner = `
+
+                <div
+                    class="cart-user-banner">
+
+                    🏢
+
+                    You're shopping as a business.
+
+                    <strong>
+                        Verify your business
+                    </strong>
+
+                    to unlock wholesale pricing.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* =================================================
+       VALIDATION MESSAGE
+    ================================================== */
+
+    let validationHTML =
+        "";
+
+
+    if (
+        !validation.valid
+    ) {
+
+
+        validationHTML = `
+
+            <div
+                class="cart-validation">
+
+
+                <strong>
+
+                    ⚠️ Please fix these cart
+                    issues before checkout:
+
+                </strong>
+
+
+                <ul>
+
+                    ${
+                        validation.errors
+                            .map(
+                                error =>
+
+                                    `
+                                    <li>
+                                        ${escapeHTML(
+                                            error
+                                        )}
+                                    </li>
+                                    `
+                            )
+                            .join("")
+                    }
+
+                </ul>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* =================================================
+       BUILD CART
+    ================================================== */
+
+    let subtotal =
+        0;
+
+
+    let html = `
+
+        ${userBanner}
+
+        ${validationHTML}
+
+
+        <div
+            class="cart-list">
+
+    `;
+
+
+
+    cart.forEach(
+        function(item) {
+
+
+            const product =
+                typeof getCartProduct ===
+                "function"
+
+                    ?
+
+                getCartProduct(
+                    item
+                )
+
+                    :
+
+                null;
+
+
+            const quantity =
+                Number(
+                    item.quantity
+                ) || 0;
+
+
+            const price =
+                product &&
+
+                typeof getCartItemPrice ===
+                "function"
+
+                    ?
+
+                getCartItemPrice(
+                    item,
+                    currentUser
+                )
+
+                    :
+
+                Number(
+                    item.price
+                ) || 0;
+
+
+            const total =
+                price *
+                quantity;
+
+
+            subtotal +=
+                total;
+
+
+
+            /* =========================================
+               PRODUCT PRICES
+            ========================================== */
+
+            let priceHTML = `
+
+                <p>
+
+                    ₹${price}
+
+                </p>
+
+            `;
+
+
+            let priceTypeHTML = "";
+
+
+            if (
+                currentUser &&
+                currentUser.type ===
+                "business" &&
+
+                typeof isBusinessVerified ===
+                "function" &&
+
+                isBusinessVerified(
+                    currentUser
+                )
+            ) {
+
+
+                priceTypeHTML = `
+
+                    <span
+                        class="
+                            cart-price-type
+                            wholesale
+                        ">
+
+                        ✓ Wholesale Price
+
+                    </span>
+
+                `;
+
+
+                const retailPrice =
+                    product &&
+
+                    typeof getRetailPrice ===
+                    "function"
+
+                        ?
+
+                    getRetailPrice(
+                        product
+                    )
+
+                        :
+
+                    Number(
+                        item.retailPrice
+                    ) || 0;
+
+
+                if (
+                    retailPrice >
+                    price
+                ) {
+
+
+                    priceHTML = `
+
+                        <p>
+
+                            ₹${price}
+
+                        </p>
+
+
+                        <span
+                            class="old-retail-price">
+
+                            Retail ₹${retailPrice}
+
+                        </span>
+
+                    `;
+
+                }
+
+            }
+
+            else {
+
+
+                priceTypeHTML = `
+
+                    <span
+                        class="
+                            cart-price-type
+                            retail
+                        ">
+
+                        Retail Price
+
+                    </span>
+
+                `;
+
+            }
+
+
+
+            /* =========================================
+               B2B INFORMATION
+            ========================================== */
+
+            let b2bHTML =
+                "";
+
+
+            if (
+                currentUser &&
+                currentUser.type ===
+                "business"
+            ) {
+
+
+                const minimum =
+                    product &&
+
+                    typeof getMinimumWholesaleQuantity ===
+                    "function"
+
+                        ?
+
+                    getMinimumWholesaleQuantity(
+                        product
+                    )
+
+                        :
+
+                    Number(
+                        item.minimumWholesaleQuantity
+                    ) || 1;
+
+
+                if (
+                    typeof isBusinessVerified ===
+                    "function" &&
+
+                    isBusinessVerified(
+                        currentUser
+                    )
+                ) {
+
+
+                    const retail =
+                        product &&
+
+                        typeof getRetailPrice ===
+                        "function"
+
+                            ?
+
+                        getRetailPrice(
+                            product
+                        )
+
+                            :
+
+                        Number(
+                            item.retailPrice
+                        ) || 0;
+
+
+                    const savings =
+                        Math.max(
+                            0,
+                            retail -
+                            price
+                        );
+
+
+                    b2bHTML = `
+
+                        <div
+                            class="cart-b2b-info">
+
+                            Minimum B2B order:
+                            ${minimum}
+                            units
+
+                        </div>
+
+
+                        ${
+                            savings > 0
+
+                            ?
+
+                            `
+
+                            <div
+                                class="cart-savings">
+
+                                Save ₹${savings}
+                                per unit
+
+                            </div>
+
+                            `
+
+                            :
+
+                            ""
+
+                        }
+
+                    `;
+
+                }
+
+                else {
+
+
+                    b2bHTML = `
+
+                        <div
+                            class="cart-b2b-info">
+
+                            Verify your business
+                            to unlock wholesale pricing.
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+
+
+
+            /* =========================================
+               BUSINESS SELLER
+            ========================================== */
+
+            const sellerHTML =
+
+                item.businessName
+
+                ?
+
+                `
+
+                <div
+                    class="cart-item-business">
+
+                    Seller:
+                    ${escapeHTML(
+                        item.businessName
+                    )}
+
+                </div>
+
+                `
+
+                :
+
+                "";
+
+
+
+            /* =========================================
+               OWN PRODUCT
+            ========================================== */
+
+            let ownProductHTML =
+                "";
+
+
+            if (
+
+                currentUser &&
+
+                currentUser.type ===
+                "business" &&
+
+                product &&
+
+                typeof isProductOwnedByBusiness ===
+                "function" &&
+
+                isProductOwnedByBusiness(
+                    product,
+                    currentUser.id
+                )
+
+            ) {
+
+
+                ownProductHTML = `
+
+                    <div
+                        class="cart-own-product">
+
+                        🏢 You cannot purchase
+                        your own product.
+
+                    </div>
+
+                `;
+
+            }
+
+
+
+            /* =========================================
+               STOCK
+            ========================================== */
+
+            const outOfStock =
+
+                product &&
+
+                Number(
+                    product.stock
+                ) <= 0;
+
+
+
+            /* =========================================
+               CART ITEM
+            ========================================== */
+
+            html += `
+
+                <div
+                    class="cart-item
+                    ${
+                        outOfStock
+                            ?
+                        "cart-item-out-of-stock"
+                            :
+                        ""
+                    }">
+
+
+                    <!-- IMAGE -->
+
+                    <div
+                        class="cart-item-image">
+
+
+                        ${
+                            item.image
+
+                            ?
+
+                            `
+
+                            <img
+                                src="${escapeHTML(
+                                    item.image
+                                )}"
+                                alt="${escapeHTML(
+                                    item.name
+                                )}"
+                            >
+
+                            `
+
+                            :
+
+                            `📦`
+
+                        }
+
+
+                    </div>
+
+
+
+                    <!-- INFORMATION -->
+
+                    <div
+                        class="cart-item-info">
+
+
+                        <span>
+
+                            ${escapeHTML(
+                                item.brand ||
+                                ""
+                            )}
+
+                        </span>
+
+
+                        <h3>
+
+                            ${escapeHTML(
+                                item.name
+                            )}
+
+                        </h3>
+
+
+                        ${sellerHTML}
+
+
+                        ${priceHTML}
+
+
+                        ${priceTypeHTML}
+
+
+                        ${b2bHTML}
+
+
+                        ${ownProductHTML}
+
+
+                    </div>
+
+
+
+                    <!-- QUANTITY -->
+
+                    <div
+                        class="cart-quantity">
+
+
+                        <button
+                            onclick="
+                                changeQuantity(
+                                    '${escapeHTML(
+                                        String(
+                                            item.productId
+                                        )
+                                    )}',
+                                    ${
+                                        quantity - 1
+                                    }
+                                )
+                            ">
+
+                            −
+
+                        </button>
+
+
+                        <span>
+
+                            ${quantity}
+
+                        </span>
+
+
+                        <button
+                            onclick="
+                                changeQuantity(
+                                    '${escapeHTML(
+                                        String(
+                                            item.productId
+                                        )
+                                    )}',
+                                    ${
+                                        quantity + 1
+                                    }
+                                )
+                            ">
+
+                            +
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <!-- TOTAL -->
+
+                    <strong
+                        class="
+                            cart-total
+                            cart-total-price
+                        ">
+
+                        ₹${total}
+
+                    </strong>
+
+
+
+                    <!-- REMOVE -->
+
+                    <button
+                        class="remove-cart"
+                        onclick="
+                            removeItem(
+                                '${escapeHTML(
+                                    String(
+                                        item.productId
+                                    )
+                                )}'
+                            )
+                        ">
+
+                        ×
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+
+    /* =================================================
+       DELIVERY
+    ================================================== */
+
+    const delivery =
+        subtotal >= 1000
+        ?
+        0
+        :
+        50;
+
+
+    const grandTotal =
+        subtotal +
+        delivery;
+
+
+
+    /* =================================================
+       SUMMARY
+    ================================================== */
+
+    html += `
+
+        </div>
+
+
+        <div
+            class="cart-summary">
+
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+
+            <div
+                class="summary-row">
+
+
+                <span>
+                    Subtotal
+                </span>
+
+
+                <strong>
+                    ₹${subtotal}
+                </strong>
+
+
+            </div>
+
+
+
+            <div
+                class="summary-row">
+
+
+                <span>
+                    Delivery
+                </span>
+
+
+                <strong>
+                    ${
+                        delivery === 0
+                        ?
+                        "FREE"
+                        :
+                        "₹" + delivery
+                    }
+                </strong>
+
+            </div>
+
+
+
+            <div
+                class="summary-divider">
+
+            </div>
+
+
+
+            <div
+                class="summary-row total-row">
+
+
+                <span>
+                    Total
+                </span>
+
+
+                <strong>
+                    ₹${grandTotal}
+                </strong>
+
+
+            </div>
+
+
+
+            ${
+                currentUser &&
+                currentUser.type ===
+                "business" &&
+
+                typeof isBusinessVerified ===
+                "function" &&
+
+                isBusinessVerified(
+                    currentUser
+                )
+
+                ?
+
+                `
+
+                <p
+                    class="cart-summary-note">
+
+                    ✓ Wholesale pricing has been
+                    applied to eligible products.
+
+                </p>
+
+                `
+
+                :
+
+                ""
+
+            }
+
+
+
+            <button
+                class="
+                    primary-btn
+                    checkout-btn
+                "
+                ${
+                    validation.valid
+                        ?
+                    ""
+                        :
+                    "disabled"
+                }
+                onclick="
+                    goToCheckout()
+                ">
+
+                Proceed to Checkout →
+
+            </button>
+
+
+        </div>
+
+    `;
+
+
+
+    cartContainer.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   CHANGE QUANTITY
+===================================================== */
+
+function changeQuantity(
+    productId,
+    quantity
+) {
+
+
+    if (
+        quantity <= 0
+    ) {
+
+
+        removeItem(
+            productId
+        );
+
+
+        return;
+
+    }
+
+
+    const success =
+        updateCartQuantity(
+            productId,
+            quantity
+        );
+
+
+    if (
+        success !== false
+    ) {
+
+        displayCart();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   REMOVE
+===================================================== */
+
+function removeItem(
+    productId
+) {
+
+    removeFromCart(
+        productId
+    );
+
+
+    displayCart();
+
+}
+
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+function goToCheckout() {
+
+
+    const cart =
+        getCart();
+
+
+    if (
+        cart.length ===
+        0
+    ) {
+
+
+        alert(
+            "Your cart is empty."
+        );
+
+
+        return;
+
+    }
+
+
+
+    const currentUser =
+        getCurrentUser();
+
+
+    if (!currentUser) {
+
+
+        alert(
+            "Please login before checkout."
+        );
+
+
+        window.location.href =
+            "login.html";
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       FINAL CART VALIDATION
+    ================================================== */
+
+    if (
+        typeof validateCart ===
+        "function"
+    ) {
+
+
+        const validation =
+            validateCart();
+
+
+        if (
+            !validation.valid
+        ) {
+
+
+            alert(
+                validation.errors.join(
+                    "\n"
+                )
+            );
+
+
+            displayCart();
+
+
+            return;
+
+        }
+
+    }
+
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displayCart();
+
+
+if (
+    typeof updateCartCount ===
+    "function"
+) {
+
+    updateCartCount();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

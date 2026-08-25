@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Coupons | TradeHub</title>
+
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           COUPON PAGE
+        ====================================================== */
+
+        .coupon-page {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding:
+                50px 25px 80px;
+
+        }
+
+
+        .coupon-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(280px, 380px)
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+
+        }
+
+
+        .coupon-card {
+
+            padding: 25px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.02);
+
+        }
+
+
+        .coupon-card h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .coupon-card > p {
+
+            color: #777;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .coupon-form {
+
+            margin-top: 20px;
+
+        }
+
+
+        .coupon-form .form-group {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .coupon-form small {
+
+            display: block;
+
+            margin-top: 5px;
+
+            color: #666;
+
+            font-size: 8px;
+
+        }
+
+
+        .coupon-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        .generated-coupon {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 9px;
+
+            border:
+                1px solid
+                rgba(0,230,118,0.2);
+
+            background:
+                rgba(0,230,118,0.04);
+
+        }
+
+
+        .generated-coupon-code {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            color: var(--accent);
+
+        }
+
+
+        .coupon-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+        }
+
+
+        .coupon-item {
+
+            padding: 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.02);
+
+        }
+
+
+        .coupon-item-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap: 15px;
+
+        }
+
+
+        .coupon-code {
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .coupon-status {
+
+            padding: 4px 7px;
+
+            border-radius: 5px;
+
+            font-size: 8px;
+
+        }
+
+
+        .coupon-status.active {
+
+            color: var(--accent);
+
+            background:
+                rgba(0,230,118,0.07);
+
+        }
+
+
+        .coupon-status.inactive {
+
+            color: #777;
+
+            background:
+                rgba(255,255,255,0.04);
+
+        }
+
+
+        .coupon-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 8px;
+
+            margin-top: 12px;
+
+        }
+
+
+        .coupon-detail {
+
+            color: #777;
+
+            font-size: 8px;
+
+        }
+
+
+        .coupon-detail strong {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #aaa;
+
+            font-size: 10px;
+
+        }
+
+
+        .coupon-actions {
+
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 14px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .coupon-action-btn {
+
+            padding: 7px 10px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 6px;
+
+            background:
+                transparent;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            font-size: 8px;
+
+        }
+
+
+        .coupon-action-btn:hover {
+
+            color: var(--accent);
+
+        }
+
+
+        .coupon-action-btn.delete {
+
+            color: #ff7777;
+
+        }
+
+
+        .empty-coupons {
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border:
+                1px dashed var(--border);
+
+            border-radius: 10px;
+
+            color: #666;
+
+        }
+
+
+        .empty-coupons h3 {
+
+            color: #aaa;
+
+        }
+
+
+        @media (
+            max-width: 750px
+        ) {
+
+            .coupon-layout {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .coupon-row {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    
+/* =====================================================
+   COUPON FORM INPUT STYLING
+===================================================== */
+
+
+.coupon-form input,
+.coupon-form select,
+.coupon-form textarea {
+
+    width:100%;
+    padding:14px 16px;
+    margin-top:8px;
+
+    background:
+        rgba(255,255,255,0.03);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    border-radius:10px;
+
+    color:white;
+    font-size:14px;
+    outline:none;
+
+    transition:0.3s ease;
+    box-sizing:border-box;
+
+}
+
+
+.coupon-form input::placeholder {
+    color:#777;
+}
+
+
+.coupon-form input:focus,
+.coupon-form select:focus,
+.coupon-form textarea:focus {
+
+    border-color:#00e676;
+
+    box-shadow:
+        0 0 12px rgba(0,230,118,0.2);
+
+}
+
+
+.coupon-form select {
+
+    cursor:pointer;
+    appearance:none;
+
+}
+
+
+.coupon-form select option {
+
+    background:#111;
+    color:white;
+
+}
+
+
+.coupon-form input[type="date"],
+.coupon-form input[type="number"] {
+
+    color:white;
+
+}
+
+
+.coupon-form label {
+
+    display:block;
+    color:#ddd;
+    font-weight:600;
+    font-size:14px;
+
+}
+
+
+.coupon-form small {
+
+    color:#777;
+    font-size:11px;
+
+}
+
+
+.coupon-form .auth-btn {
+
+    width:100%;
+    margin-top:15px;
+    padding:14px;
+
+    border-radius:10px;
+    border:none;
+
+    background:#00e676;
+    color:#000;
+
+    font-weight:700;
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+
+.coupon-form .auth-btn:hover {
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(0,230,118,0.25);
+
+}
+
+
+.coupon-card {
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+.generated-coupon {
+
+    background:
+        rgba(0,230,118,0.05);
+
+    border:
+        1px solid rgba(0,230,118,0.25);
+
+}
+
+
+@media(max-width:700px){
+
+    .coupon-row {
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+
+        <button
+            class="secondary-btn"
+            onclick="
+                window.location.href='business-dashboard.html'
+            ">
+
+            ← Dashboard
+
+        </button>
+
+
+        <button
+            class="login-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="coupon-page">
+
+
+    <div class="page-header">
+
+
+        <span class="section-label">
+            BUSINESS
+        </span>
+
+
+        <h1>
+
+            Coupon <span>Manager</span>
+
+        </h1>
+
+
+        <p>
+
+            Create discounts and promotional offers
+            for TradeHub customers and businesses.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         LAYOUT
+    ================================================== -->
+
+    <div class="coupon-layout">
+
+
+        <!-- =================================================
+             CREATE COUPON
+        ================================================== -->
+
+        <section
+            class="coupon-card">
+
+
+            <h2>
+                Create Coupon
+            </h2>
+
+
+            <p>
+
+                Generate a coupon that customers
+                can apply during checkout.
+
+            </p>
+
+
+            <form
+                id="couponForm"
+                class="coupon-form">
+
+
+                <!-- CODE -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Coupon Code
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="couponCode"
+                        placeholder="e.g. ABC20"
+                        maxlength="20"
+                        required
+                    >
+
+
+                    <small>
+
+                        Letters and numbers are recommended.
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- DISCOUNT TYPE -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Discount Type
+                    </label>
+
+
+                    <select
+                        id="discountType"
+                        required>
+
+
+                        <option
+                            value="percentage">
+
+                            Percentage (%)
+
+                        </option>
+
+
+                        <option
+                            value="fixed">
+
+                            Fixed Amount (₹)
+
+                        </option>
+
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DISCOUNT VALUE -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Discount Value
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="discountValue"
+                        placeholder="20"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- MINIMUM ORDER -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Minimum Order Value (₹)
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="minimumOrder"
+                        placeholder="500"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        required
+                    >
+
+
+                    <small>
+
+                        Enter 0 if there is no minimum order.
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- EXPIRY -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Expiry Date
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="expiryDate"
+                    >
+
+
+                    <small>
+
+                        Leave empty for no expiry.
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- USAGE LIMIT -->
+
+                <div
+                    class="form-group">
+
+                    <label>
+                        Usage Limit
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="usageLimit"
+                        placeholder="100"
+                        min="0"
+                        step="1"
+                        value="0"
+                        required
+                    >
+
+
+                    <small>
+
+                        0 means unlimited usage.
+
+                    </small>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="auth-btn">
+
+                    + Generate Coupon
+
+                </button>
+
+
+            </form>
+
+
+            <!-- SUCCESS -->
+
+            <div
+                id="generatedCoupon"
+                class="generated-coupon"
+                style="display:none;">
+
+
+                <div
+                    style="
+                        color:#777;
+                        font-size:8px;
+                        margin-bottom:6px;
+                    ">
+
+                    COUPON CREATED
+
+                </div>
+
+
+                <div
+                    id="generatedCouponCode"
+                    class="generated-coupon-code">
+
+                </div>
+
+
+                <div
+                    id="generatedCouponDetails"
+                    style="
+                        margin-top:8px;
+                        color:#888;
+                        font-size:9px;
+                        line-height:1.5;
+                    ">
+
+                    </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             COUPON LIST
+        ================================================== -->
+
+        <section
+            class="coupon-card">
+
+
+            <h2>
+                Your Coupons
+            </h2>
+
+
+            <p>
+
+                Manage coupons generated by your business.
+
+            </p>
+
+
+            <div
+                id="couponList"
+                class="coupon-list">
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/coupons.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+/* =====================================================
+   CHECK BUSINESS LOGIN
+===================================================== */
+
+if (
+    !currentUser ||
+    currentUser.type !==
+    "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const couponForm =
+    document.getElementById(
+        "couponForm"
+    );
+
+
+const couponList =
+    document.getElementById(
+        "couponList"
+    );
+
+
+const generatedCoupon =
+    document.getElementById(
+        "generatedCoupon"
+    );
+
+
+const generatedCouponCode =
+    document.getElementById(
+        "generatedCouponCode"
+    );
+
+
+const generatedCouponDetails =
+    document.getElementById(
+        "generatedCouponDetails"
+    );
+
+
+
+/* =====================================================
+   CREATE COUPON
+===================================================== */
+
+couponForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        /* =============================================
+           VALUES
+        ============================================== */
+
+        const code =
+            document.getElementById(
+                "couponCode"
+            ).value
+                .trim()
+                .toUpperCase();
+
+
+        const discountType =
+            document.getElementById(
+                "discountType"
+            ).value;
+
+
+        const discountValue =
+            Number(
+                document.getElementById(
+                    "discountValue"
+                ).value
+            );
+
+
+        const minimumOrder =
+            Number(
+                document.getElementById(
+                    "minimumOrder"
+                ).value
+            );
+
+
+        const expiryDate =
+            document.getElementById(
+                "expiryDate"
+            ).value;
+
+
+        const usageLimit =
+            Number(
+                document.getElementById(
+                    "usageLimit"
+                ).value
+            );
+
+
+
+        /* =============================================
+           CODE VALIDATION
+        ============================================== */
+
+        if (
+            !/^[A-Z0-9_-]+$/i.test(
+                code
+            )
+        ) {
+
+            alert(
+                "Coupon code can contain letters, numbers, _ and - only."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           DISCOUNT VALIDATION
+        ============================================== */
+
+        if (
+            !Number.isFinite(
+                discountValue
+            ) ||
+            discountValue <= 0
+        ) {
+
+            alert(
+                "Please enter a valid discount value."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            discountType ===
+            "percentage" &&
+            discountValue > 100
+        ) {
+
+            alert(
+                "Percentage discount cannot exceed 100%."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           MINIMUM ORDER
+        ============================================== */
+
+        if (
+            !Number.isFinite(
+                minimumOrder
+            ) ||
+            minimumOrder < 0
+        ) {
+
+            alert(
+                "Minimum order cannot be negative."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           USAGE LIMIT
+        ============================================== */
+
+        if (
+            !Number.isInteger(
+                usageLimit
+            ) ||
+            usageLimit < 0
+        ) {
+
+            alert(
+                "Usage limit must be a whole number."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           EXPIRY VALIDATION
+        ============================================== */
+
+        if (
+            expiryDate
+        ) {
+
+
+            const expiry =
+                new Date(
+                    expiryDate +
+                    "T23:59:59"
+                );
+
+
+            if (
+                expiry <=
+                new Date()
+            ) {
+
+                alert(
+                    "Expiry date must be in the future."
+                );
+
+                return;
+
+            }
+
+        }
+
+
+
+        /* =============================================
+           GENERATE
+        ============================================== */
+
+        const result =
+            generateCoupon(
+
+                currentUser,
+
+                code,
+
+                discountType,
+
+                discountValue,
+
+                minimumOrder,
+
+                expiryDate,
+
+                usageLimit
+
+            );
+
+
+
+        /* =============================================
+           RESULT
+        ============================================== */
+
+        if (
+            !result.success
+        ) {
+
+            alert(
+                result.message
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           SUCCESS UI
+        ============================================== */
+
+        generatedCoupon.style.display =
+            "block";
+
+
+        generatedCouponCode.textContent =
+            result.coupon.code;
+
+
+        generatedCouponDetails.textContent =
+
+            discountType ===
+            "percentage"
+
+                ?
+
+            `${discountValue}% off`
+
+                :
+
+            `₹${discountValue} off`;
+
+
+        /* =============================================
+           FORM RESET
+        ============================================== */
+
+        couponForm.reset();
+
+
+        document.getElementById(
+            "minimumOrder"
+        ).value =
+            "0";
+
+
+        document.getElementById(
+            "usageLimit"
+        ).value =
+            "0";
+
+
+        /* =============================================
+           REFRESH LIST
+        ============================================== */
+
+        displayCoupons();
+
+
+        alert(
+            `Coupon ${result.coupon.code} created successfully!`
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   DISPLAY COUPONS
+===================================================== */
+
+function displayCoupons() {
+
+
+    const coupons =
+        getBusinessCoupons(
+            currentUser.id
+        );
+
+
+    /* =================================================
+       EMPTY
+    ================================================== */
+
+    if (
+        coupons.length ===
+        0
+    ) {
+
+
+        couponList.innerHTML = `
+
+            <div
+                class="empty-coupons">
+
+
+                <h3>
+                    No coupons yet
+                </h3>
+
+
+                <p>
+
+                    Create your first coupon
+                    to offer discounts.
+
+                </p>
+
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    /* =================================================
+       DISPLAY
+    ================================================== */
+
+    couponList.innerHTML =
+        "";
+
+
+    coupons
+        .slice()
+        .reverse()
+        .forEach(
+            coupon => {
+
+
+                const expired =
+                    isCouponExpired(
+                        coupon
+                    );
+
+
+                const active =
+                    coupon.active &&
+                    !expired;
+
+
+                const discountText =
+
+                    coupon.discountType ===
+                    "percentage"
+
+                        ?
+
+                    `${coupon.discountValue}% OFF`
+
+                        :
+
+                    `₹${coupon.discountValue} OFF`;
+
+
+                const expiryText =
+
+                    coupon.expiryDate
+
+                        ?
+
+                    new Date(
+                        coupon.expiryDate
+                    ).toLocaleDateString()
+
+                        :
+
+                    "No expiry";
+
+
+                const usageText =
+
+                    coupon.usageLimit > 0
+
+                        ?
+
+                    `${coupon.usedCount} / ${coupon.usageLimit}`
+
+                        :
+
+                    `${coupon.usedCount} / Unlimited`;
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "coupon-item";
+
+
+                item.innerHTML = `
+
+                    <div
+                        class="
+                            coupon-item-header
+                        ">
+
+
+                        <div
+                            class="coupon-code">
+
+                            ${escapeHTML(
+                                coupon.code
+                            )}
+
+                        </div>
+
+
+                        <span
+                            class="
+                                coupon-status
+                                ${
+                                    active
+                                    ?
+                                    "active"
+                                    :
+                                    "inactive"
+                                }
+                            ">
+
+                            ${
+                                active
+                                ?
+                                "ACTIVE"
+                                :
+                                expired
+                                ?
+                                "EXPIRED"
+                                :
+                                "INACTIVE"
+                            }
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div
+                        class="coupon-details">
+
+
+                        <div
+                            class="coupon-detail">
+
+                            Discount
+
+                            <strong>
+                                ${discountText}
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="coupon-detail">
+
+                            Minimum Order
+
+                            <strong>
+                                ₹${coupon.minimumOrder}
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="coupon-detail">
+
+                            Expires
+
+                            <strong>
+                                ${expiryText}
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="coupon-detail">
+
+                            Used
+
+                            <strong>
+                                ${usageText}
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div
+                        class="coupon-actions">
+
+
+                        <button
+                            class="coupon-action-btn"
+                            onclick="
+                                toggleBusinessCoupon(
+                                    '${escapeHTML(
+                                        coupon.id
+                                    )}'
+                                )
+                            ">
+
+                            ${
+                                coupon.active
+                                ?
+                                "Disable"
+                                :
+                                "Enable"
+                            }
+
+                        </button>
+
+
+                        <button
+                            class="
+                                coupon-action-btn
+                                delete
+                            "
+                            onclick="
+                                deleteBusinessCoupon(
+                                    '${escapeHTML(
+                                        coupon.id
+                                    )}'
+                                )
+                            ">
+
+                            Delete
+
+                        </button>
+
+
+                    </div>
+
+                `;
+
+
+                couponList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =====================================================
+   TOGGLE COUPON
+===================================================== */
+
+function toggleBusinessCoupon(
+    couponId
+) {
+
+
+    const active =
+        toggleCoupon(
+            couponId
+        );
+
+
+    if (
+        active
+    ) {
+
+        alert(
+            "Coupon enabled."
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Coupon disabled."
+        );
+
+    }
+
+
+    displayCoupons();
+
+}
+
+
+
+/* =====================================================
+   DELETE COUPON
+===================================================== */
+
+function deleteBusinessCoupon(
+    couponId
+) {
+
+
+    const confirmed =
+        confirm(
+            "Delete this coupon?"
+        );
+
+
+    if (
+        !confirmed
+    ) {
+
+        return;
+
+    }
+
+
+    deleteCoupon(
+        couponId
+    );
+
+
+    displayCoupons();
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+
+    localStorage.removeItem(
+        "tradehub_current_user"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displayCoupons();
+
+</script>
+
+
+</body>
+
+</html>

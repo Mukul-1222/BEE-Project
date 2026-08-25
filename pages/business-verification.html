@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Business Verification | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/auth.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <button
+        class="secondary-btn"
+        onclick="window.location.href='business-dashboard.html'">
+
+        ← Dashboard
+
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="auth-page">
+
+
+    <div class="auth-container"
+         style="max-width: 600px;">
+
+
+        <!-- LOGO -->
+
+        <div class="auth-logo">
+
+            <div class="auth-logo-icon">
+                T
+            </div>
+
+            Trade<span>Hub</span>
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Business Verification
+        </h1>
+
+
+        <p class="auth-subtitle">
+
+            Verify your business to unlock
+            wholesale pricing and B2B features.
+
+        </p>
+
+
+
+        <!-- =================================================
+             VERIFICATION STATUS
+        ================================================= -->
+
+        <div
+            id="verificationStatus"
+            class="verification-status">
+
+        </div>
+
+
+
+        <!-- =================================================
+             VERIFICATION FORM
+        ================================================= -->
+
+        <form
+            id="verificationForm">
+
+
+            <!-- BUSINESS NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Business Name
+                </label>
+
+                <input
+                    type="text"
+                    id="businessName"
+                    placeholder="Your registered business name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- GST -->
+
+            <div class="form-group">
+
+                <label>
+                    GST Number
+                </label>
+
+                <input
+                    type="text"
+                    id="gstNumber"
+                    placeholder="22AAAAA0000A1Z5"
+                    maxlength="15"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PAN -->
+
+            <div class="form-group">
+
+                <label>
+                    PAN Number
+                </label>
+
+                <input
+                    type="text"
+                    id="panNumber"
+                    placeholder="ABCDE1234F"
+                    maxlength="10"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label>
+                    Business Category
+                </label>
+
+                <select
+                    id="businessCategory"
+                    required>
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="Retail">
+                        Retail
+                    </option>
+
+                    <option value="Wholesale">
+                        Wholesale
+                    </option>
+
+                    <option value="Manufacturing">
+                        Manufacturing
+                    </option>
+
+                    <option value="Distribution">
+                        Distribution
+                    </option>
+
+                    <option value="Services">
+                        Services
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label>
+                    Business Address
+                </label>
+
+                <textarea
+                    id="businessAddress"
+                    rows="4"
+                    placeholder="Enter your business address"
+                    required></textarea>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="auth-btn"
+                id="verificationButton">
+
+                Submit for Verification
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+
+// =====================================================
+// CURRENT USER
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+// =====================================================
+// CHECK BUSINESS LOGIN
+// =====================================================
+
+if (
+    !currentUser ||
+    currentUser.type !== "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+const statusBox =
+    document.getElementById(
+        "verificationStatus"
+    );
+
+
+const verificationForm =
+    document.getElementById(
+        "verificationForm"
+    );
+
+
+const verificationButton =
+    document.getElementById(
+        "verificationButton"
+    );
+
+
+// =====================================================
+// LOAD EXISTING USER DATA
+// =====================================================
+
+document.getElementById(
+    "businessName"
+).value =
+    currentUser.businessName ||
+    currentUser.name ||
+    "";
+
+
+document.getElementById(
+    "gstNumber"
+).value =
+    currentUser.gstNumber ||
+    "";
+
+
+document.getElementById(
+    "panNumber"
+).value =
+    currentUser.panNumber ||
+    "";
+
+
+document.getElementById(
+    "businessCategory"
+).value =
+    currentUser.businessCategory ||
+    "";
+
+
+document.getElementById(
+    "businessAddress"
+).value =
+    currentUser.businessAddress ||
+    "";
+
+
+// =====================================================
+// SHOW VERIFICATION STATUS
+// =====================================================
+
+function displayVerificationStatus() {
+
+
+    // =================================================
+    // VERIFIED
+    // =================================================
+
+    if (
+        currentUser.verificationStatus ===
+        "verified"
+    ) {
+
+        statusBox.innerHTML = `
+
+            <div class="verification-success">
+
+                <span style="font-size: 24px;">
+                    🟢
+                </span>
+
+                <strong>
+                    Business Verified
+                </strong>
+
+                <p>
+                    Your business has been verified
+                    successfully.
+                </p>
+
+                <p>
+                    You now have access to
+                    wholesale pricing and B2B features.
+                </p>
+
+            </div>
+
+        `;
+
+
+        verificationForm.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // PENDING
+    // =================================================
+
+    if (
+        currentUser.verificationStatus ===
+        "pending"
+    ) {
+
+        statusBox.innerHTML = `
+
+            <div class="verification-pending">
+
+                <span style="font-size: 24px;">
+                    🟡
+                </span>
+
+                <strong>
+                    Verification Pending
+                </strong>
+
+                <p>
+                    Your business information
+                    is currently under review.
+                </p>
+
+            </div>
+
+        `;
+
+
+        verificationButton.textContent =
+            "Application Submitted";
+
+
+        verificationButton.disabled =
+            true;
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // NOT VERIFIED
+    // =================================================
+
+    statusBox.innerHTML = `
+
+        <div class="verification-info">
+
+            <span style="font-size: 24px;">
+                🔵
+            </span>
+
+            <strong>
+                Not Verified
+            </strong>
+
+            <p>
+                Complete the form below to
+                verify your business.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =====================================================
+// INITIAL STATUS
+// =====================================================
+
+displayVerificationStatus();
+
+
+// =====================================================
+// FORM SUBMISSION
+// =====================================================
+
+verificationForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        // =================================================
+        // GET FORM VALUES
+        // =================================================
+
+        const businessName =
+            document.getElementById(
+                "businessName"
+            ).value.trim();
+
+
+        const gstNumber =
+            document.getElementById(
+                "gstNumber"
+            ).value.trim()
+                .toUpperCase();
+
+
+        const panNumber =
+            document.getElementById(
+                "panNumber"
+            ).value.trim()
+                .toUpperCase();
+
+
+        const businessCategory =
+            document.getElementById(
+                "businessCategory"
+            ).value;
+
+
+        const businessAddress =
+            document.getElementById(
+                "businessAddress"
+            ).value.trim();
+
+
+        // =================================================
+        // BASIC GST VALIDATION
+        // =================================================
+
+        const gstPattern =
+            /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
+
+
+        if (
+            !gstPattern.test(
+                gstNumber
+            )
+        ) {
+
+            alert(
+                "Please enter a valid GST number."
+            );
+
+            return;
+
+        }
+
+
+        // =================================================
+        // BASIC PAN VALIDATION
+        // =================================================
+
+        const panPattern =
+            /^[A-Z]{5}[0-9]{4}[A-Z]$/;
+
+
+        if (
+            !panPattern.test(
+                panNumber
+            )
+        ) {
+
+            alert(
+                "Please enter a valid PAN number."
+            );
+
+            return;
+
+        }
+
+
+        // =================================================
+        // UPDATE CURRENT USER
+        // =================================================
+
+        currentUser.businessName =
+            businessName;
+
+
+        currentUser.gstNumber =
+            gstNumber;
+
+
+        currentUser.panNumber =
+            panNumber;
+
+
+        currentUser.businessCategory =
+            businessCategory;
+
+
+        currentUser.businessAddress =
+            businessAddress;
+
+
+        // =================================================
+        // AUTOMATIC VERIFICATION
+        // =================================================
+
+        currentUser.verificationStatus =
+            "verified";
+
+
+        // Keep this for compatibility
+        // with any older code.
+
+        currentUser.verified =
+            true;
+
+
+        // =================================================
+        // SAVE CURRENT USER
+        // =================================================
+
+        localStorage.setItem(
+            "tradehub_current_user",
+            JSON.stringify(
+                currentUser
+            )
+        );
+
+
+        // =================================================
+        // UPDATE USER DATABASE
+        // =================================================
+
+        const users =
+            JSON.parse(
+                localStorage.getItem(
+                    "tradehub_users"
+                )
+            ) || [];
+
+
+        const userIndex =
+            users.findIndex(
+                user =>
+                    user.id ===
+                    currentUser.id
+            );
+
+
+        if (
+            userIndex !== -1
+        ) {
+
+            users[userIndex] =
+                currentUser;
+
+        }
+
+
+        localStorage.setItem(
+            "tradehub_users",
+            JSON.stringify(
+                users
+            )
+        );
+
+
+        // =================================================
+        // SUCCESS MESSAGE
+        // =================================================
+
+        alert(
+            "Business verified successfully! Wholesale pricing is now unlocked."
+        );
+
+
+        // =================================================
+        // UPDATE PAGE
+        // =================================================
+
+        displayVerificationStatus();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

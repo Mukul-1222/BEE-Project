@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Product | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='inventory.html'">
+
+            ← Inventory
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+        <span class="section-label">
+            BUSINESS MANAGEMENT
+        </span>
+
+        <h1>
+            Edit <span>Product</span>
+        </h1>
+
+        <p>
+            Update your product information and pricing.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FORM
+    ================================================= -->
+
+    <form
+        id="editProductForm"
+        class="product-form">
+
+
+        <!-- PRODUCT NAME -->
+
+        <div class="form-group">
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="editProductName"
+                required
+            >
+
+        </div>
+
+
+
+        <!-- BRAND -->
+
+        <div class="form-group">
+
+            <label>
+                Brand
+            </label>
+
+            <input
+                type="text"
+                id="editProductBrand"
+                required
+            >
+
+        </div>
+
+
+
+        <!-- CATEGORY -->
+
+        <div class="form-group">
+
+            <label>
+                Category
+            </label>
+
+            <select
+                id="editProductCategory"
+                required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Fashion">
+                    Fashion
+                </option>
+
+                <option value="Groceries">
+                    Groceries
+                </option>
+
+                <option value="Home & Kitchen">
+                    Home & Kitchen
+                </option>
+
+                <option value="Beauty">
+                    Beauty
+                </option>
+
+                <option value="Sports">
+                    Sports
+                </option>
+
+                <option value="Industrial">
+                    Industrial
+                </option>
+
+                <option value="Wholesale">
+                    Wholesale
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+            <label>
+                Product Description
+            </label>
+
+            <textarea
+                id="editProductDescription"
+                rows="5"
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- PRICES -->
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label>
+                    Retail Price (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="editRetailPrice"
+                    min="1"
+                    required
+                >
+
+                <small>
+                    Price for normal customers
+                </small>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>
+                    Wholesale Price (₹)
+                </label>
+
+                <input
+                    type="number"
+                    id="editWholesalePrice"
+                    min="1"
+                    required
+                >
+
+                <small>
+                    Price for verified businesses
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STOCK + SKU -->
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label>
+                    Stock
+                </label>
+
+                <input
+                    type="number"
+                    id="editProductStock"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label>
+                    SKU
+                </label>
+
+                <input
+                    type="text"
+                    id="editProductSKU"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- IMAGE -->
+
+        <div class="form-group">
+
+            <label>
+                Product Image URL
+            </label>
+
+            <input
+                type="url"
+                id="editProductImage"
+            >
+
+        </div>
+
+
+
+        <!-- SAVE -->
+
+        <button
+            type="submit"
+            class="auth-btn">
+
+            Save Changes
+
+        </button>
+
+
+    </form>
+
+</main>
+
+
+
+<script src="../js/products.js"></script>
+
+
+<script>
+
+
+// =====================================================
+// CHECK USER
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+if (
+    !currentUser ||
+    currentUser.type !== "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// GET PRODUCT ID
+// =====================================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const productId =
+    Number(
+        params.get("id")
+    );
+
+
+// =====================================================
+// FIND PRODUCT
+// =====================================================
+
+const product =
+    getProductById(
+        productId
+    );
+
+
+if (
+    !product ||
+    product.businessId !== currentUser.id
+) {
+
+    alert(
+        "Product not found or you don't have permission to edit it."
+    );
+
+    window.location.href =
+        "inventory.html";
+
+}
+
+
+// =====================================================
+// LOAD PRODUCT DATA
+// =====================================================
+
+document.getElementById(
+    "editProductName"
+).value =
+    product.name;
+
+
+document.getElementById(
+    "editProductBrand"
+).value =
+    product.brand;
+
+
+document.getElementById(
+    "editProductCategory"
+).value =
+    product.category;
+
+
+document.getElementById(
+    "editProductDescription"
+).value =
+    product.description;
+
+
+document.getElementById(
+    "editRetailPrice"
+).value =
+    product.retailPrice;
+
+
+document.getElementById(
+    "editWholesalePrice"
+).value =
+    product.wholesalePrice;
+
+
+document.getElementById(
+    "editProductStock"
+).value =
+    product.stock;
+
+
+document.getElementById(
+    "editProductSKU"
+).value =
+    product.sku;
+
+
+document.getElementById(
+    "editProductImage"
+).value =
+    product.image || "";
+
+
+// =====================================================
+// SAVE CHANGES
+// =====================================================
+
+document.getElementById(
+    "editProductForm"
+).addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        const retailPrice =
+            Number(
+                document.getElementById(
+                    "editRetailPrice"
+                ).value
+            );
+
+
+        const wholesalePrice =
+            Number(
+                document.getElementById(
+                    "editWholesalePrice"
+                ).value
+            );
+
+
+        if (
+            wholesalePrice >
+            retailPrice
+        ) {
+
+            alert(
+                "Wholesale price cannot be higher than retail price."
+            );
+
+            return;
+
+        }
+
+
+        // =================================================
+        // GET ALL PRODUCTS
+        // =================================================
+
+        const products =
+            getProducts();
+
+
+        const productIndex =
+            products.findIndex(
+                item =>
+                    item.id === productId
+            );
+
+
+        if (
+            productIndex === -1
+        ) {
+
+            alert(
+                "Product could not be found."
+            );
+
+            return;
+
+        }
+
+
+        // =================================================
+        // UPDATE PRODUCT
+        // =================================================
+
+        products[productIndex].name =
+            document.getElementById(
+                "editProductName"
+            ).value.trim();
+
+
+        products[productIndex].brand =
+            document.getElementById(
+                "editProductBrand"
+            ).value.trim();
+
+
+        products[productIndex].category =
+            document.getElementById(
+                "editProductCategory"
+            ).value;
+
+
+        products[productIndex].description =
+            document.getElementById(
+                "editProductDescription"
+            ).value.trim();
+
+
+        products[productIndex].retailPrice =
+            retailPrice;
+
+
+        products[productIndex].wholesalePrice =
+            wholesalePrice;
+
+
+        products[productIndex].stock =
+            Number(
+                document.getElementById(
+                    "editProductStock"
+                ).value
+            );
+
+
+        products[productIndex].sku =
+            document.getElementById(
+                "editProductSKU"
+            ).value.trim();
+
+
+        products[productIndex].image =
+            document.getElementById(
+                "editProductImage"
+            ).value.trim();
+
+
+        products[productIndex].updatedAt =
+            new Date().toISOString();
+
+
+        // =================================================
+        // SAVE
+        // =================================================
+
+        saveProducts(
+            products
+        );
+
+
+        alert(
+            "Product updated successfully!"
+        );
+
+
+        window.location.href =
+            "inventory.html";
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

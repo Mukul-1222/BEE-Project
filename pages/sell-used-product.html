@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sell Used Product | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            type="button"
+            onclick="
+                window.location.href='customer-dashboard.html'
+            ">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+        <span class="section-label">
+            CUSTOMER MARKETPLACE
+        </span>
+
+
+        <h1>
+
+            Sell Your <span>Used Product</span>
+
+        </h1>
+
+
+        <p>
+
+            List a pre-owned product and connect
+            with buyers on TradeHub.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRE-OWNED NOTICE
+    ================================================== -->
+
+    <div
+        style="
+            margin:0 0 25px;
+            padding:15px;
+            border:1px solid var(--border);
+            border-radius:10px;
+            background:rgba(255,255,255,0.02);
+        ">
+
+        <div
+            style="
+                font-size:10px;
+                color:#777;
+                margin-bottom:7px;
+            ">
+
+            ♻️ PRE-OWNED LISTING
+
+        </div>
+
+
+        <div
+            style="
+                font-size:12px;
+                line-height:1.7;
+            ">
+
+            Your listing will appear in the marketplace
+            with a <strong>PRE-OWNED</strong> badge so buyers
+            can easily distinguish it from business products.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FORM
+    ================================================== -->
+
+    <form
+        id="usedProductForm"
+        class="product-form">
+
+
+        <!-- PRODUCT NAME -->
+
+        <div class="form-group">
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="productName"
+                placeholder="e.g. iPhone 13"
+                maxlength="100"
+                required>
+
+        </div>
+
+
+
+        <!-- BRAND -->
+
+        <div class="form-group">
+
+            <label>
+                Brand
+            </label>
+
+            <input
+                type="text"
+                id="productBrand"
+                placeholder="e.g. Apple"
+                maxlength="80"
+                required>
+
+        </div>
+
+
+
+        <!-- CATEGORY -->
+
+        <div class="form-group">
+
+            <label>
+                Category
+            </label>
+
+            <select
+                id="productCategory"
+                required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Fashion">
+                    Fashion
+                </option>
+
+                <option value="Groceries">
+                    Groceries
+                </option>
+
+                <option value="Home & Kitchen">
+                    Home & Kitchen
+                </option>
+
+                <option value="Beauty">
+                    Beauty
+                </option>
+
+                <option value="Sports">
+                    Sports
+                </option>
+
+                <option value="Industrial">
+                    Industrial
+                </option>
+
+                <option value="Wholesale">
+                    Wholesale
+                </option>
+
+                <option value="Automotive">
+                    Automotive
+                </option>
+
+                <option value="Stationery">
+                    Stationery
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+            <label>
+                Product Description
+            </label>
+
+            <textarea
+                id="productDescription"
+                placeholder="Describe the product, its condition, defects, included accessories and anything a buyer should know..."
+                rows="6"
+                maxlength="2000"
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- PRICE -->
+
+        <div class="form-group">
+
+            <label>
+                Selling Price (₹)
+            </label>
+
+            <input
+                type="number"
+                id="productPrice"
+                placeholder="24999"
+                min="1"
+                step="0.01"
+                required>
+
+            <small>
+                Set the price you want to receive for the product.
+            </small>
+
+        </div>
+
+
+
+        <!-- AGE -->
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>
+                    Product Age
+                </label>
+
+                <input
+                    type="number"
+                    id="productAge"
+                    placeholder="2"
+                    min="0"
+                    step="0.1"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Age Unit
+                </label>
+
+                <select
+                    id="productAgeUnit"
+                    required>
+
+                    <option value="years">
+                        Years
+                    </option>
+
+                    <option value="months">
+                        Months
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONDITION -->
+
+        <div class="form-group">
+
+            <label>
+                Condition
+            </label>
+
+            <select
+                id="productCondition"
+                required>
+
+                <option value="">
+                    Select Condition
+                </option>
+
+                <option value="Like New">
+                    Like New
+                </option>
+
+                <option value="Excellent">
+                    Excellent
+                </option>
+
+                <option value="Good">
+                    Good
+                </option>
+
+                <option value="Fair">
+                    Fair
+                </option>
+
+                <option value="Heavily Used">
+                    Heavily Used
+                </option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- REASON -->
+
+        <div class="form-group">
+
+            <label>
+                Reason for Selling
+            </label>
+
+            <input
+                type="text"
+                id="sellingReason"
+                placeholder="e.g. Upgrading to a newer model"
+                maxlength="200"
+                required>
+
+        </div>
+
+
+
+        <!-- LOCATION -->
+
+        <div class="form-group">
+
+            <label>
+                Seller Location
+            </label>
+
+            <input
+                type="text"
+                id="sellerLocation"
+                placeholder="e.g. New Delhi"
+                maxlength="100"
+                required>
+
+        </div>
+
+
+
+        <!-- IMAGE -->
+
+        <div class="form-group">
+
+            <label>
+                Product Photo URL
+            </label>
+
+            <input
+                type="url"
+                id="productImage"
+                placeholder="https://example.com/product.jpg">
+
+            <small>
+                Add a clear photo of the actual product.
+                Local image upload can be added later.
+            </small>
+
+        </div>
+
+
+
+        <!-- SELLER INFORMATION -->
+
+        <div
+            style="
+                margin:10px 0 25px;
+                padding:15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                background:rgba(255,255,255,0.02);
+            ">
+
+            <div
+                style="
+                    font-size:9px;
+                    color:#777;
+                    margin-bottom:7px;
+                ">
+
+                CUSTOMER SELLER
+
+            </div>
+
+
+            <div
+                id="customerInfo"
+                style="
+                    font-size:11px;
+                ">
+
+                Loading customer information...
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="auth-btn">
+
+            ♻️ List Used Product
+
+        </button>
+
+
+    </form>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="../js/products.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   CURRENT USER
+===================================================== */
+
+let currentUser =
+    null;
+
+
+try {
+
+    currentUser =
+        JSON.parse(
+            localStorage.getItem(
+                "tradehub_current_user"
+            )
+        );
+
+}
+catch (error) {
+
+    currentUser =
+        null;
+
+}
+
+
+
+/* =====================================================
+   CHECK CUSTOMER LOGIN
+===================================================== */
+
+if (
+    !currentUser ||
+    currentUser.type !== "customer"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+/* =====================================================
+   CUSTOMER INFORMATION
+===================================================== */
+
+const customerInfo =
+    document.getElementById(
+        "customerInfo"
+    );
+
+
+if (
+    currentUser &&
+    customerInfo
+) {
+
+    const customerName =
+        currentUser.name ||
+        "Customer";
+
+
+    customerInfo.innerHTML = `
+
+        <strong>
+
+            👤 ${escapeHTML(
+                customerName
+            )}
+
+        </strong>
+
+        <span
+            style="
+                display:block;
+                margin-top:5px;
+                color:#666;
+                font-size:9px;
+            ">
+
+            Customer ID:
+            ${escapeHTML(
+                String(
+                    currentUser.id
+                )
+            )}
+
+        </span>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+const usedProductForm =
+    document.getElementById(
+        "usedProductForm"
+    );
+
+
+
+usedProductForm.addEventListener(
+    "submit",
+    function(event) {
+
+        event.preventDefault();
+
+
+        /* =============================================
+           GET VALUES
+        ============================================== */
+
+        const name =
+            document.getElementById(
+                "productName"
+            ).value.trim();
+
+
+        const brand =
+            document.getElementById(
+                "productBrand"
+            ).value.trim();
+
+
+        const category =
+            document.getElementById(
+                "productCategory"
+            ).value;
+
+
+        const description =
+            document.getElementById(
+                "productDescription"
+            ).value.trim();
+
+
+        const price =
+            Number(
+                document.getElementById(
+                    "productPrice"
+                ).value
+            );
+
+
+        const productAge =
+            Number(
+                document.getElementById(
+                    "productAge"
+                ).value
+            );
+
+
+        const productAgeUnit =
+            document.getElementById(
+                "productAgeUnit"
+            ).value;
+
+
+        const condition =
+            document.getElementById(
+                "productCondition"
+            ).value;
+
+
+        const sellingReason =
+            document.getElementById(
+                "sellingReason"
+            ).value.trim();
+
+
+        const sellerLocation =
+            document.getElementById(
+                "sellerLocation"
+            ).value.trim();
+
+
+        const image =
+            document.getElementById(
+                "productImage"
+            ).value.trim();
+
+
+
+        /* =============================================
+           VALIDATION
+        ============================================== */
+
+        if (!name) {
+
+            alert(
+                "Please enter the product name."
+            );
+
+            return;
+
+        }
+
+
+        if (!brand) {
+
+            alert(
+                "Please enter the brand."
+            );
+
+            return;
+
+        }
+
+
+        if (!category) {
+
+            alert(
+                "Please select a category."
+            );
+
+            return;
+
+        }
+
+
+        if (!description) {
+
+            alert(
+                "Please enter a product description."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(price) ||
+            price <= 0
+        ) {
+
+            alert(
+                "Please enter a valid selling price."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !Number.isFinite(productAge) ||
+            productAge < 0
+        ) {
+
+            alert(
+                "Please enter a valid product age."
+            );
+
+            return;
+
+        }
+
+
+        if (!condition) {
+
+            alert(
+                "Please select the product condition."
+            );
+
+            return;
+
+        }
+
+
+        if (!sellingReason) {
+
+            alert(
+                "Please enter a reason for selling."
+            );
+
+            return;
+
+        }
+
+
+        if (!sellerLocation) {
+
+            alert(
+                "Please enter your location."
+            );
+
+            return;
+
+        }
+
+
+        /* =============================================
+           CREATE C2C PRODUCT
+        ============================================== */
+
+        const productId =
+            "C2C-" +
+            Date.now() +
+            "-" +
+            Math.floor(
+                Math.random() *
+                1000
+            );
+
+
+        const sku =
+            "C2C-" +
+            Date.now();
+
+
+        const product = {
+
+            id:
+                productId,
+
+
+            name:
+                name,
+
+
+            brand:
+                brand,
+
+
+            category:
+                category,
+
+
+            description:
+                description,
+
+
+            /*
+             * The normal marketplace reads
+             * retailPrice for customer pricing.
+             */
+
+            retailPrice:
+                price,
+
+
+            /*
+             * C2C products do not have a
+             * separate wholesale price.
+             */
+
+            wholesalePrice:
+                price,
+
+
+            minimumWholesaleQuantity:
+                1,
+
+
+            /*
+             * A customer listing represents
+             * one physical used item.
+             */
+
+            stock:
+                1,
+
+
+            sku:
+                sku,
+
+
+            image:
+                image,
+
+
+            /*
+             * C2C identification
+             */
+
+            sourceType:
+                "customer",
+
+
+            isUsed:
+                true,
+
+
+            isCustomerProduct:
+                true,
+
+
+            /*
+             * Used-product information
+             */
+
+            condition:
+                condition,
+
+
+            productAge:
+                productAge,
+
+
+            productAgeUnit:
+                productAgeUnit,
+
+
+            sellingReason:
+                sellingReason,
+
+
+            sellerLocation:
+                sellerLocation,
+
+
+            /*
+             * Seller information
+             */
+
+            sellerId:
+                currentUser.id,
+
+
+            sellerName:
+                currentUser.name ||
+                "Customer",
+
+
+            businessId:
+                null,
+
+
+            businessName:
+                null,
+
+
+            /*
+             * Timestamp
+             */
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        /* =============================================
+           SAVE PRODUCT
+        ============================================== */
+
+        if (
+            typeof addProduct !==
+            "function"
+        ) {
+
+            alert(
+                "Product system is unavailable. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        const savedProduct =
+            addProduct(
+                product
+            );
+
+
+        if (!savedProduct) {
+
+            alert(
+                "Unable to list the product."
+            );
+
+            return;
+
+        }
+
+
+
+        /* =============================================
+           SUCCESS
+        ============================================== */
+
+        alert(
+            "Your used product has been listed successfully!"
+        );
+
+
+        /*
+         * Open the marketplace so the customer
+         * can immediately see the listing.
+         */
+
+        window.location.href =
+            "products.html";
+
+    }
+);
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

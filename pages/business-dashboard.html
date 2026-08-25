@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Business Dashboard | TradeHub
+</title>
+
+<link rel="stylesheet"
+href="../css/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<a
+href="../index.html"
+class="logo">
+
+<span class="logo-icon">
+T
+</span>
+
+Trade<span class="logo-highlight">
+Hub
+</span>
+
+</a>
+
+
+<nav class="nav-links">
+
+<a href="../index.html">
+Home
+</a>
+
+<a href="products.html">
+Marketplace
+</a>
+
+<a href="inventory.html">
+Inventory
+</a>
+
+<a href="business-orders.html">
+Orders
+</a>
+
+<a href="messages.html">
+Messages
+</a>
+
+<a href="business-coupons.html">
+Coupons
+</a>
+
+<a href="logistics.html">
+Logistics
+</a>
+
+</nav>
+
+
+<div class="nav-actions">
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='../index.html'
+">
+
+← Home
+
+</button>
+
+
+<button
+class="login-btn"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<section class="hero">
+
+<div class="hero-content">
+
+<span class="section-label">
+
+BUSINESS DASHBOARD
+
+</span>
+
+
+<h1>
+
+Welcome,
+
+<span id="businessName">
+Business
+</span>
+
+<span id="verificationBadge">
+</span>
+
+</h1>
+
+
+<p>
+
+Manage your products, inventory,
+orders, purchases, customers and logistics
+services from one place.
+
+</p>
+
+
+<div
+style="
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:20px;
+">
+
+<button
+class="secondary-btn"
+type="button"
+onclick="
+window.location.href='logistics.html'
+">
+
+🚚 Browse Logistics
+
+</button>
+
+
+<button
+class="secondary-btn"
+type="button"
+onclick="
+window.location.href='logistics-bookings.html'
+">
+
+📋 Logistics Bookings
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="market-types">
+
+<div class="market-grid">
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+📦
+
+</div>
+
+
+<h3>
+
+Products
+
+</h3>
+
+
+<p>
+
+Add and manage your products.
+
+</p>
+
+
+<button
+class="primary-btn"
+onclick="
+window.location.href='add-product.html'
+">
+
+Add Product →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     INVENTORY
+===================================================== -->
+
+<div class="market-card featured">
+
+<div class="market-icon">
+
+📊
+
+</div>
+
+
+<h3>
+
+Inventory
+
+</h3>
+
+
+<p>
+
+Track stock levels, low-stock products
+and inventory movement.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='inventory.html'
+">
+
+Manage Inventory →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     MESSAGES
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+💬
+
+</div>
+
+
+<h3>
+
+Messages
+
+</h3>
+
+
+<p>
+
+Communicate with customers
+and other businesses.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="openMessages()">
+
+Open Messages →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     COUPONS
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+🎟️
+
+</div>
+
+
+<h3>
+
+Coupons
+
+</h3>
+
+
+<p>
+
+Create discount coupons and promotional
+offers for customers.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='business-coupons.html'
+">
+
+Manage Coupons →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     BUSINESS VERIFICATION
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+🏢
+
+</div>
+
+
+<h3>
+
+Business Verification
+
+</h3>
+
+
+<p>
+
+Verify your business to unlock
+wholesale pricing and B2B benefits.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='business-verification.html'
+">
+
+Verify Business →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     BUSINESS ORDERS
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+🛍️
+
+</div>
+
+
+<h3>
+
+Customer Orders
+
+</h3>
+
+
+<p>
+
+View incoming orders from customers
+and manage delivery status.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='business-orders.html'
+">
+
+Manage Orders →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     WISHLIST
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+♡
+
+</div>
+
+
+<h3>
+
+My Wishlist
+
+</h3>
+
+
+<p>
+
+View products this business account
+has saved for later.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='wishlist.html'
+">
+
+View Wishlist →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     PURCHASES
+===================================================== -->
+
+<div class="market-card">
+
+<div class="market-icon">
+
+🛒
+
+</div>
+
+
+<h3>
+
+My Purchases
+
+</h3>
+
+
+<p>
+
+View products this business account
+has purchased, including customer-listed
+pre-owned products.
+
+</p>
+
+
+<button
+class="secondary-btn"
+onclick="
+window.location.href='orders.html'
+">
+
+View My Purchases →
+
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     LOGISTICS
+===================================================== -->
+
+<div class="market-card featured">
+
+<div class="market-icon">
+
+🚚
+
+</div>
+
+
+<h3>
+
+Logistics
+
+</h3>
+
+
+<p>
+
+Rent transport and storage services,
+or list your own truck, container,
+warehouse or other logistics service.
+
+</p>
+
+
+<div
+style="
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:14px;
+">
+
+<button
+class="primary-btn"
+type="button"
+onclick="
+window.location.href='logistics.html'
+">
+
+Browse Logistics →
+
+</button>
+
+
+<button
+class="secondary-btn"
+type="button"
+onclick="
+window.location.href='list-logistics.html'
+">
+
+List Service
+
+</button>
+
+
+<button
+class="secondary-btn"
+type="button"
+onclick="
+window.location.href='logistics-bookings.html'
+">
+
+Manage Bookings
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="../js/logistics.js"></script>
+
+
+<script>
+
+
+/* =====================================================
+   GET CURRENT USER
+===================================================== */
+
+const currentUser =
+
+JSON.parse(
+
+localStorage.getItem(
+"tradehub_current_user"
+)
+
+);
+
+
+/* =====================================================
+   CHECK BUSINESS LOGIN
+===================================================== */
+
+if(
+
+!currentUser ||
+
+currentUser.type !== "business"
+
+){
+
+window.location.href =
+"login.html";
+
+}
+
+
+/* =====================================================
+   DISPLAY BUSINESS NAME
+===================================================== */
+
+document.getElementById(
+"businessName"
+).textContent =
+
+currentUser.businessName ||
+
+currentUser.name ||
+
+"Business";
+
+
+/* =====================================================
+   VERIFIED BADGE
+===================================================== */
+
+const verificationBadge =
+
+document.getElementById(
+"verificationBadge"
+);
+
+
+if(
+
+currentUser.verificationStatus === "verified"
+
+||
+
+currentUser.verified === true
+
+){
+
+verificationBadge.innerHTML = `
+
+<span style="
+
+margin-left:10px;
+
+padding:6px 12px;
+
+border-radius:20px;
+
+font-size:11px;
+
+background:
+rgba(0,230,118,0.1);
+
+color:#00e676;
+
+border:
+1px solid rgba(0,230,118,0.3);
+
+">
+
+✓ Verified Business
+
+</span>
+
+`;
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+localStorage.removeItem(
+
+"tradehub_current_user"
+
+);
+
+window.location.href =
+"login.html";
+
+}
+
+
+/* =====================================================
+   OPEN MESSAGES
+===================================================== */
+
+function openMessages(){
+
+window.location.href =
+"messages.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
