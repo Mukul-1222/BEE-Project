@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>List Logistics Service | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <style>
+
+        .logistics-form-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+        }
+
+        .form-header {
+            margin-bottom: 35px;
+        }
+
+        .form-header h1 {
+            margin: 8px 0 12px;
+            font-size: clamp(36px, 5vw, 56px);
+            line-height: 1;
+        }
+
+        .form-header h1 span {
+            color: var(--accent);
+        }
+
+        .form-header p {
+            color: #999;
+            max-width: 680px;
+            line-height: 1.7;
+        }
+
+        .logistics-form {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .form-section {
+            padding-bottom: 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid #242424;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .form-section h2 {
+            margin: 0 0 7px;
+            font-size: 20px;
+        }
+
+        .form-section > p {
+            color: #777;
+            font-size: 13px;
+            margin: 0 0 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #bbb;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            background: #0b0b0b;
+            color: #fff;
+            outline: none;
+            font: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent, #00e676);
+        }
+
+        .field-hint {
+            color: #666;
+            font-size: 11px;
+        }
+
+        .pricing-preview {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid rgba(0, 230, 118, .2);
+            background: rgba(0, 230, 118, .04);
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .pricing-preview strong {
+            color: var(--accent, #00e676);
+        }
+
+        .upload-box {
+            border: 1px dashed #383838;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background: #0b0b0b;
+        }
+
+        .upload-box input[type="file"] {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            color: #888;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .preview-item {
+            aspect-ratio: 1;
+            border-radius: 9px;
+            overflow: hidden;
+            background: #171717;
+            border: 1px solid #292929;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .form-error {
+            display: none;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            border: 1px solid rgba(255, 70, 70, .25);
+            background: rgba(255, 70, 70, .06);
+            color: #ff8585;
+            font-size: 13px;
+        }
+
+        .form-success {
+            display: none;
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 230, 118, .25);
+            background: rgba(0, 230, 118, .06);
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .form-success strong {
+            display: block;
+            color: var(--accent, #00e676);
+            margin-bottom: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 650px) {
+
+            .logistics-form-page {
+                padding: 45px 16px 70px;
+            }
+
+            .logistics-form {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .image-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .form-actions button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="logistics.html">
+            Logistics
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='logistics.html'">
+
+            ← Logistics
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="logistics-form-page">
+
+
+    <section class="form-header">
+
+        <span class="section-label">
+            LOGISTICS PROVIDER
+        </span>
+
+        <h1>
+            List a <span>Service</span>
+        </h1>
+
+        <p>
+            List a truck, ship, boat, train, container,
+            godown, warehouse or storage unit and set
+            your own rental pricing.
+        </p>
+
+    </section>
+
+
+
+    <form
+        id="logisticsForm"
+        class="logistics-form">
+
+
+        <div
+            id="formError"
+            class="form-error">
+        </div>
+
+
+        <div
+            id="formSuccess"
+            class="form-success">
+
+            <strong>
+                Service listed successfully.
+            </strong>
+
+            Your logistics service is now available
+            in the TradeHub marketplace.
+
+        </div>
+
+
+
+        <!-- BASIC INFORMATION -->
+
+        <section class="form-section">
+
+            <h2>
+                Basic Information
+            </h2>
+
+            <p>
+                Tell renters what you are offering.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="serviceType">
+                        Service Type *
+                    </label>
+
+                    <select
+                        id="serviceType"
+                        required>
+
+                        <option value="">
+                            Select service type
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Service Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        maxlength="100"
+                        placeholder="e.g. Tata 20ft Container"
+                        required>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="description">
+                        Description *
+                    </label>
+
+                    <textarea
+                        id="description"
+                        maxlength="1000"
+                        placeholder="Describe the service, condition, features, availability, restrictions, etc."
+                        required></textarea>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- LOCATION -->
+
+        <section class="form-section">
+
+            <h2>
+                Location & Availability
+            </h2>
+
+            <p>
+                Help renters know where the service is located.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="City / area"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="availability">
+                        Availability
+                    </label>
+
+                    <select id="availability">
+
+                        <option value="available">
+                            Available now
+                        </option>
+
+                        <option value="from_date">
+                            Available from a date
+                        </option>
+
+                        <option value="unavailable">
+                            Currently unavailable
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="availableFromGroup"
+                    class="form-group hidden">
+
+                    <label for="availableFrom">
+                        Available From
+                    </label>
+
+                    <input
+                        type="date"
+                        id="availableFrom">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="capacity">
+                        Capacity
+                    </label>
+
+                    <input
+                        type="text"
+                        id="capacity"
+                        placeholder="e.g. 10 tons / 500 sq ft">
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- VEHICLE DETAILS -->
+
+        <section
+            id="vehicleSection"
+            class="form-section hidden">
+
+            <h2>
+                Vehicle Details
+            </h2>
+
+            <p>
+                Add details renters need before booking.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="vehicleModel">
+                        Vehicle / Model
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vehicleModel"
+                        placeholder="e.g. Tata 407">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="vehicleYear">
+                        Model Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="vehicleYear"
+                        min="1900"
+                        max="2100"
+                        placeholder="e.g. 2025">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="vehicleCapacity">
+                        Load Capacity
+                    </label>
+
+                    <input
+                        type="text"
+                        id="vehicleCapacity"
+                        placeholder="e.g. 5 tons">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="vehicleFuel">
+                        Fuel Type
+                    </label>
+
+                    <select id="vehicleFuel">
+
+                        <option value="">
+                            Select fuel
+                        </option>
+
+                        <option value="diesel">
+                            Diesel
+                        </option>
+
+                        <option value="petrol">
+                            Petrol
+                        </option>
+
+                        <option value="cng">
+                            CNG
+                        </option>
+
+                        <option value="electric">
+                            Electric
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- STORAGE DETAILS -->
+
+        <section
+            id="storageSection"
+            class="form-section hidden">
+
+            <h2>
+                Storage Details
+            </h2>
+
+            <p>
+                Add information about your storage facility.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="storageArea">
+                        Storage Area
+                    </label>
+
+                    <input
+                        type="text"
+                        id="storageArea"
+                        placeholder="e.g. 500 sq ft">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="storageSecurity">
+                        Security
+                    </label>
+
+                    <select id="storageSecurity">
+
+                        <option value="">
+                            Select
+                        </option>
+
+                        <option value="basic">
+                            Basic
+                        </option>
+
+                        <option value="secure">
+                            Secure
+                        </option>
+
+                        <option value="24x7">
+                            24/7 Security
+                        </option>
+
+                        <option value="cctv">
+                            CCTV + Security
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="storageFeatures">
+                        Storage Features
+                    </label>
+
+                    <input
+                        type="text"
+                        id="storageFeatures"
+                        placeholder="e.g. CCTV, loading dock, electricity, climate control">
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- PRICING -->
+
+        <section class="form-section">
+
+            <h2>
+                Rental Pricing
+            </h2>
+
+            <p>
+                Choose how renters will be charged.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="pricingType">
+                        Pricing Unit *
+                    </label>
+
+                    <select
+                        id="pricingType"
+                        required>
+
+                        <option value="">
+                            Select pricing
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="price">
+                        Price (₹) *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="price"
+                        min="0"
+                        step="0.01"
+                        placeholder="e.g. 1500"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="minimumBooking">
+                        Minimum Booking
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minimumBooking"
+                        min="1"
+                        step="1"
+                        value="1">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="deposit">
+                        Security Deposit (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="deposit"
+                        min="0"
+                        step="0.01"
+                        value="0">
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="pricingPreview"
+                class="pricing-preview">
+
+                Select a pricing unit to preview
+                how renters will be charged.
+
+            </div>
+
+        </section>
+
+
+
+        <!-- PHOTOS -->
+
+        <section class="form-section">
+
+            <h2>
+                Photos
+            </h2>
+
+            <p>
+                Upload up to 5 photos. The first photo
+                will be used as the listing cover.
+            </p>
+
+
+            <div class="upload-box">
+
+                📷
+
+                <div>
+                    Upload service photos
+                </div>
+
+                <input
+                    type="file"
+                    id="photos"
+                    accept="image/*"
+                    multiple>
+
+                <div
+                    id="imagePreview"
+                    class="image-preview">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="form-actions">
+
+            <button
+                type="button"
+                class="secondary-btn"
+                onclick="window.location.href='logistics.html'">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="submit"
+                class="primary-btn">
+
+                Publish Service →
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+</main>
+
+
+
+<script src="../js/logistics.js"></script>
+
+
+<script>
+
+    const currentUser =
+        getLogisticsCurrentUser();
+
+
+    if (!currentUser) {
+
+        alert(
+            "Please login before listing a logistics service."
+        );
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    const form =
+        document.getElementById(
+            "logisticsForm"
+        );
+
+
+    const serviceType =
+        document.getElementById(
+            "serviceType"
+        );
+
+
+    const pricingType =
+        document.getElementById(
+            "pricingType"
+        );
+
+
+    const availability =
+        document.getElementById(
+            "availability"
+        );
+
+
+    const availableFromGroup =
+        document.getElementById(
+            "availableFromGroup"
+        );
+
+
+    const vehicleSection =
+        document.getElementById(
+            "vehicleSection"
+        );
+
+
+    const storageSection =
+        document.getElementById(
+            "storageSection"
+        );
+
+
+    const pricingPreview =
+        document.getElementById(
+            "pricingPreview"
+        );
+
+
+    const photosInput =
+        document.getElementById(
+            "photos"
+        );
+
+
+    const imagePreview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    const formError =
+        document.getElementById(
+            "formError"
+        );
+
+
+    const formSuccess =
+        document.getElementById(
+            "formSuccess"
+        );
+
+
+    /* =====================================================
+       POPULATE SELECTS
+    ====================================================== */
+
+    getLogisticsTypes().forEach(
+        function(type) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                type.value;
+
+
+            option.textContent =
+                type.label;
+
+
+            serviceType.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    getLogisticsPricingTypes().forEach(
+        function(pricing) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                pricing.value;
+
+
+            option.textContent =
+                pricing.label;
+
+
+            pricingType.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       SERVICE TYPE UI
+    ====================================================== */
+
+    serviceType.addEventListener(
+        "change",
+        function() {
+
+            const type =
+                serviceType.value;
+
+
+            const vehicleTypes = [
+                "truck",
+                "ship",
+                "boat",
+                "train"
+            ];
+
+
+            const storageTypes = [
+                "container",
+                "godown",
+                "warehouse",
+                "storage"
+            ];
+
+
+            vehicleSection.classList.toggle(
+                "hidden",
+                !vehicleTypes.includes(type)
+            );
+
+
+            storageSection.classList.toggle(
+                "hidden",
+                !storageTypes.includes(type)
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       AVAILABILITY UI
+    ====================================================== */
+
+    availability.addEventListener(
+        "change",
+        function() {
+
+            availableFromGroup.classList.toggle(
+                "hidden",
+                availability.value !== "from_date"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       PRICING PREVIEW
+    ====================================================== */
+
+    function updatePricingPreview() {
+
+        const pricing =
+            pricingType.value;
+
+
+        const price =
+            document.getElementById(
+                "price"
+            ).value || "0";
+
+
+        const unitLabels = {
+
+            per_km:
+                `₹${price} per kilometer`,
+
+            per_day:
+                `₹${price} per day`,
+
+            per_hour:
+                `₹${price} per hour`,
+
+            flat:
+                `₹${price} flat rental`
+
+        };
+
+
+        pricingPreview.innerHTML =
+            pricing
+                ? `
+                    Renters will be charged
+                    <strong>
+                        ${unitLabels[pricing]}
+                    </strong>.
+                  `
+                : `
+                    Select a pricing unit to preview
+                    how renters will be charged.
+                  `;
+
+    }
+
+
+    pricingType.addEventListener(
+        "change",
+        updatePricingPreview
+    );
+
+
+    document.getElementById(
+        "price"
+    ).addEventListener(
+        "input",
+        updatePricingPreview
+    );
+
+
+    /* =====================================================
+       IMAGE PREVIEW
+    ====================================================== */
+
+    photosInput.addEventListener(
+        "change",
+        function() {
+
+            imagePreview.innerHTML =
+                "";
+
+
+            const files =
+                Array.from(
+                    photosInput.files
+                ).slice(
+                    0,
+                    5
+                );
+
+
+            files.forEach(
+                function(file) {
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function(event) {
+
+                            const wrapper =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            wrapper.className =
+                                "preview-item";
+
+
+                            const image =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            image.src =
+                                event.target.result;
+
+
+                            image.alt =
+                                "Service preview";
+
+
+                            wrapper.appendChild(
+                                image
+                            );
+
+
+                            imagePreview.appendChild(
+                                wrapper
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       FORM SUBMIT
+    ====================================================== */
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            formError.style.display =
+                "none";
+
+
+            formSuccess.style.display =
+                "none";
+
+
+            const title =
+                document.getElementById(
+                    "title"
+                ).value.trim();
+
+
+            const description =
+                document.getElementById(
+                    "description"
+                ).value.trim();
+
+
+            const location =
+                document.getElementById(
+                    "location"
+                ).value.trim();
+
+
+            const type =
+                serviceType.value;
+
+
+            const pricing =
+                pricingType.value;
+
+
+            const price =
+                Number(
+                    document.getElementById(
+                        "price"
+                    ).value
+                );
+
+
+            if (!type) {
+
+                showError(
+                    "Please select a service type."
+                );
+
+                return;
+
+            }
+
+
+            if (!title) {
+
+                showError(
+                    "Please enter a service title."
+                );
+
+                return;
+
+            }
+
+
+            if (!description) {
+
+                showError(
+                    "Please describe your service."
+                );
+
+                return;
+
+            }
+
+
+            if (!location) {
+
+                showError(
+                    "Please enter the service location."
+                );
+
+                return;
+
+            }
+
+
+            if (!pricing) {
+
+                showError(
+                    "Please select a pricing unit."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !Number.isFinite(price) ||
+                price <= 0
+            ) {
+
+                showError(
+                    "Please enter a valid rental price."
+                );
+
+                return;
+
+            }
+
+
+            const photoFiles =
+                Array.from(
+                    photosInput.files
+                ).slice(
+                    0,
+                    5
+                );
+
+
+            try {
+
+                const photos =
+                    await readImages(
+                        photoFiles
+                    );
+
+
+                const listing = {
+
+                    id:
+                        generateLogisticsId(),
+
+                    title,
+
+                    type,
+
+                    category:
+                        getLogisticsTypeLabel(
+                            type
+                        ),
+
+                    description,
+
+                    location,
+
+                    availability:
+                        availability.value,
+
+                    availableFrom:
+                        document.getElementById(
+                            "availableFrom"
+                        ).value || null,
+
+                    capacity:
+                        document.getElementById(
+                            "capacity"
+                        ).value.trim(),
+
+                    vehicleModel:
+                        document.getElementById(
+                            "vehicleModel"
+                        ).value.trim(),
+
+                    vehicleYear:
+                        document.getElementById(
+                            "vehicleYear"
+                        ).value.trim(),
+
+                    vehicleCapacity:
+                        document.getElementById(
+                            "vehicleCapacity"
+                        ).value.trim(),
+
+                    vehicleFuel:
+                        document.getElementById(
+                            "vehicleFuel"
+                        ).value,
+
+                    storageArea:
+                        document.getElementById(
+                            "storageArea"
+                        ).value.trim(),
+
+                    storageSecurity:
+                        document.getElementById(
+                            "storageSecurity"
+                        ).value,
+
+                    storageFeatures:
+                        document.getElementById(
+                            "storageFeatures"
+                        ).value.trim(),
+
+                    pricingType:
+                        pricing,
+
+                    price,
+
+                    minimumBooking:
+                        Number(
+                            document.getElementById(
+                                "minimumBooking"
+                            ).value
+                        ) || 1,
+
+                    securityDeposit:
+                        Number(
+                            document.getElementById(
+                                "deposit"
+                            ).value
+                        ) || 0,
+
+                    photos,
+
+                    providerId:
+                        currentUser.id,
+
+                    providerType:
+                        currentUser.type,
+
+                    providerName:
+                        currentUser.businessName ||
+                        currentUser.name ||
+                        "TradeHub Provider",
+
+                    createdAt:
+                        new Date().toISOString(),
+
+                    active:
+                        true
+
+                };
+
+
+                saveLogisticsListing(
+                    listing
+                );
+
+
+                formSuccess.style.display =
+                    "block";
+
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+
+                form.reset();
+
+
+                imagePreview.innerHTML =
+                    "";
+
+
+                vehicleSection.classList.add(
+                    "hidden"
+                );
+
+
+                storageSection.classList.add(
+                    "hidden"
+                );
+
+
+                pricingPreview.textContent =
+                    "Select a pricing unit to preview how renters will be charged.";
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "logistics.html";
+
+                    },
+                    1200
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showError(
+                    "Unable to publish the service. Please try again."
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       READ IMAGE FILES
+    ====================================================== */
+
+    function readImages(
+        files
+    ) {
+
+        return Promise.all(
+
+            files.map(
+                function(file) {
+
+                    return new Promise(
+                        function(resolve, reject) {
+
+                            const reader =
+                                new FileReader();
+
+
+                            reader.onload =
+                                function(event) {
+
+                                    resolve(
+                                        event.target.result
+                                    );
+
+                                };
+
+
+                            reader.onerror =
+                                reject;
+
+
+                            reader.readAsDataURL(
+                                file
+                            );
+
+                        }
+                    );
+
+                }
+            )
+
+        );
+
+    }
+
+
+    /* =====================================================
+       ERROR
+    ====================================================== */
+
+    function showError(
+        message
+    ) {
+
+        formError.textContent =
+            message;
+
+
+        formError.style.display =
+            "block";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

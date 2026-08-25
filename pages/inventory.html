@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/inventory.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="business-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='business-dashboard.html'">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="inventory-page">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <span class="section-label">
+            BUSINESS MANAGEMENT
+        </span>
+
+        <h1>
+            Inventory <span>Management</span>
+        </h1>
+
+        <p>
+            Monitor and manage your product stock.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         INVENTORY STATISTICS
+    ================================================= -->
+
+    <div class="inventory-stats">
+
+
+        <div class="inventory-stat-card">
+
+            <div class="inventory-stat-icon">
+                📦
+            </div>
+
+            <div>
+
+                <span>
+                    Total Products
+                </span>
+
+                <strong id="totalProducts">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="inventory-stat-card">
+
+            <div class="inventory-stat-icon">
+                🟢
+            </div>
+
+            <div>
+
+                <span>
+                    In Stock
+                </span>
+
+                <strong id="inStockProducts">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="inventory-stat-card">
+
+            <div class="inventory-stat-icon">
+                🟡
+            </div>
+
+            <div>
+
+                <span>
+                    Low Stock
+                </span>
+
+                <strong id="lowStockProducts">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="inventory-stat-card">
+
+            <div class="inventory-stat-icon">
+                🔴
+            </div>
+
+            <div>
+
+                <span>
+                    Out of Stock
+                </span>
+
+                <strong id="outOfStockProducts">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================= -->
+
+    <div class="inventory-toolbar">
+
+        <input
+            type="text"
+            id="inventorySearch"
+            placeholder="Search your products..."
+        >
+
+
+        <button
+            class="primary-btn"
+            onclick="window.location.href='add-product.html'">
+
+            + Add Product
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         INVENTORY TABLE
+    ================================================= -->
+
+    <div class="inventory-table-container">
+
+        <table class="inventory-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Product
+                    </th>
+
+                    <th>
+                        SKU
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Retail Price
+                    </th>
+
+                    <th>
+                        Wholesale
+                    </th>
+
+                    <th>
+                        Stock
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody
+                id="inventoryBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</main>
+
+
+
+<script src="../js/products.js"></script>
+
+
+<script>
+
+
+// =====================================================
+// CHECK BUSINESS LOGIN
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+if (
+    !currentUser ||
+    currentUser.type !== "business"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// DOM ELEMENTS
+// =====================================================
+
+const inventoryBody =
+    document.getElementById(
+        "inventoryBody"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "inventorySearch"
+    );
+
+
+// =====================================================
+// GET BUSINESS PRODUCTS
+// =====================================================
+
+function getBusinessProducts() {
+
+    return getProducts().filter(
+        product =>
+            product.businessId ===
+            currentUser.id
+    );
+
+}
+
+
+// =====================================================
+// INVENTORY STATUS
+// =====================================================
+
+function getStockStatus(stock) {
+
+    if (stock === 0) {
+
+        return {
+
+            text: "Out of Stock",
+
+            className:
+                "status-out"
+
+        };
+
+    }
+
+
+    if (stock <= 10) {
+
+        return {
+
+            text: "Low Stock",
+
+            className:
+                "status-low"
+
+        };
+
+    }
+
+
+    return {
+
+        text: "In Stock",
+
+        className:
+            "status-good"
+
+    };
+
+}
+
+
+// =====================================================
+// UPDATE STATISTICS
+// =====================================================
+
+function updateStatistics(
+    products
+) {
+
+    const total =
+        products.length;
+
+
+    const inStock =
+        products.filter(
+            product =>
+                product.stock > 10
+        ).length;
+
+
+    const lowStock =
+        products.filter(
+            product =>
+                product.stock > 0 &&
+                product.stock <= 10
+        ).length;
+
+
+    const outOfStock =
+        products.filter(
+            product =>
+                product.stock === 0
+        ).length;
+
+
+    document.getElementById(
+        "totalProducts"
+    ).textContent = total;
+
+
+    document.getElementById(
+        "inStockProducts"
+    ).textContent = inStock;
+
+
+    document.getElementById(
+        "lowStockProducts"
+    ).textContent = lowStock;
+
+
+    document.getElementById(
+        "outOfStockProducts"
+    ).textContent = outOfStock;
+
+}
+
+
+// =====================================================
+// DISPLAY INVENTORY
+// =====================================================
+
+function displayInventory(
+    products
+) {
+
+    inventoryBody.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+        inventoryBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty-inventory">
+
+                    <div>
+
+                        <div class="empty-inventory-icon">
+                            📦
+                        </div>
+
+                        <h3>
+                            No products found
+                        </h3>
+
+                        <p>
+                            Add your first product
+                            to start managing inventory.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    products.forEach(
+        product => {
+
+
+            const status =
+                getStockStatus(
+                    product.stock
+                );
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <div class="inventory-product">
+
+                        <div class="inventory-product-image">
+
+                            ${
+                                product.image
+
+                                ?
+
+                                `<img
+                                    src="${product.image}"
+                                    alt="${product.name}">`
+
+                                :
+
+                                `📦`
+                            }
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                ${product.name}
+                            </strong>
+
+                            <span>
+                                ${product.brand}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+                    ${product.sku}
+                </td>
+
+
+                <td>
+                    ${product.category}
+                </td>
+
+
+                <td>
+                    ₹${product.retailPrice}
+                </td>
+
+
+                <td>
+                    ₹${product.wholesalePrice}
+                </td>
+
+
+                <td>
+
+                    <div class="stock-control">
+
+                        <button
+                            onclick="changeStock(
+                                ${product.id},
+                                -1
+                            )">
+
+                            −
+
+                        </button>
+
+
+                        <strong>
+                            ${product.stock}
+                        </strong>
+
+
+                        <button
+                            onclick="changeStock(
+                                ${product.id},
+                                1
+                            )">
+
+                            +
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="stock-status ${status.className}">
+
+                        ${status.text}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="inventory-actions">
+
+                        <button
+                            onclick="editProduct(
+                                ${product.id}
+                            )">
+
+                            ✏️
+
+                        </button>
+
+
+                        <button
+                            onclick="deleteProductFromInventory(
+                                ${product.id}
+                            )">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            inventoryBody.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// CHANGE STOCK
+// =====================================================
+
+function changeStock(
+    productId,
+    amount
+) {
+
+    const products =
+        getProducts();
+
+
+    const product =
+        products.find(
+            product =>
+                product.id ===
+                productId
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    const newStock =
+        product.stock +
+        amount;
+
+
+    if (newStock < 0) {
+
+        return;
+
+    }
+
+
+    product.stock =
+        newStock;
+
+
+    saveProducts(
+        products
+    );
+
+
+    refreshInventory();
+
+}
+
+
+// =====================================================
+// DELETE PRODUCT
+// =====================================================
+
+function deleteProductFromInventory(
+    productId
+) {
+
+    const product =
+        getProductById(
+            productId
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${product.name}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    deleteProduct(
+        productId
+    );
+
+
+    refreshInventory();
+
+}
+
+
+// =====================================================
+// EDIT PRODUCT
+// =====================================================
+
+function editProduct(productId) {
+
+    window.location.href =
+        `edit-product.html?id=${productId}`;
+
+}
+
+// =====================================================
+// REFRESH
+// =====================================================
+
+function refreshInventory() {
+
+    const products =
+        getBusinessProducts();
+
+
+    updateStatistics(
+        products
+    );
+
+
+    displayInventory(
+        products
+    );
+
+}
+
+
+// =====================================================
+// SEARCH
+// =====================================================
+
+searchInput.addEventListener(
+    "input",
+    function() {
+
+
+        const search =
+            this.value
+                .toLowerCase()
+                .trim();
+
+
+        const products =
+            getBusinessProducts();
+
+
+        const filtered =
+            products.filter(
+                product =>
+
+                    product.name
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    product.brand
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    product.sku
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    product.category
+                        .toLowerCase()
+                        .includes(search)
+
+            );
+
+
+        updateStatistics(
+            products
+        );
+
+
+        displayInventory(
+            filtered
+        );
+
+    }
+);
+
+
+// =====================================================
+// INITIAL LOAD
+// =====================================================
+
+refreshInventory();
+
+</script>
+
+
+</body>
+
+</html>

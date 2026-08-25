@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Logistics Details | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <style>
+
+        .details-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 65px 24px 100px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #999;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #00e676;
+        }
+
+        .details-layout {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .details-gallery,
+        .details-panel,
+        .booking-panel {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+        }
+
+        .details-gallery {
+            overflow: hidden;
+        }
+
+        .main-photo {
+            height: 430px;
+            background: #171717;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .main-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-thumbs {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            padding: 12px;
+            border-top: 1px solid #292929;
+        }
+
+        .photo-thumb {
+            height: 70px;
+            border: 1px solid #292929;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #171717;
+            cursor: pointer;
+        }
+
+        .photo-thumb.active {
+            border-color: #00e676;
+        }
+
+        .photo-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details-panel {
+            padding: 28px;
+        }
+
+        .service-badge {
+            display: inline-flex;
+            padding: 6px 10px;
+            border: 1px solid rgba(0,230,118,.25);
+            border-radius: 999px;
+            color: #00e676;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .details-panel h1 {
+            font-size: clamp(30px, 4vw, 46px);
+            margin: 14px 0 12px;
+            line-height: 1.08;
+        }
+
+        .details-description {
+            color: #999;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .provider-box {
+            padding: 15px;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .provider-box small,
+        .detail-label {
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .provider-box strong {
+            display: block;
+            margin-top: 6px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .info-item {
+            padding: 13px;
+            background: #0c0c0c;
+            border: 1px solid #242424;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-top: 6px;
+            color: #ddd;
+        }
+
+        .price-box {
+            border-top: 1px solid #292929;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .price-box .price {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .price-box .unit {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .booking-panel {
+            grid-column: 1 / -1;
+            padding: 28px;
+        }
+
+        .booking-panel h2 {
+            margin-top: 0;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .booking-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .booking-field label {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .booking-field input,
+        .booking-field select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            background: #0b0b0b;
+            color: #fff;
+            outline: none;
+        }
+
+        .booking-field input:focus,
+        .booking-field select:focus {
+            border-color: #00e676;
+        }
+
+        .calculation {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 11px;
+            background: rgba(0,230,118,.04);
+            border: 1px solid rgba(0,230,118,.18);
+        }
+
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 8px 0;
+            color: #999;
+        }
+
+        .calculation-row strong {
+            color: #ddd;
+        }
+
+        .calculation-total {
+            border-top: 1px solid #292929;
+            margin-top: 12px;
+            padding-top: 14px;
+            font-size: 20px;
+        }
+
+        .calculation-total strong {
+            color: #00e676;
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .message-box {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 9px;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .message-error {
+            color: #ff8d8d;
+            background: rgba(255,70,70,.06);
+            border: 1px solid rgba(255,70,70,.2);
+        }
+
+        .message-success {
+            color: #8dffb9;
+            background: rgba(0,230,118,.06);
+            border: 1px solid rgba(0,230,118,.2);
+        }
+
+        .not-found {
+            max-width: 700px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 50px 25px;
+            border: 1px solid #292929;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 850px) {
+
+            .details-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-panel {
+                grid-column: auto;
+            }
+
+            .booking-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 560px) {
+
+            .details-page {
+                padding: 40px 16px 70px;
+            }
+
+            .main-photo {
+                height: 300px;
+            }
+
+            .info-grid,
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-actions {
+                flex-direction: column;
+            }
+
+            .booking-actions button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="logistics.html">
+            Logistics
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='logistics-bookings.html'">
+
+            My Bookings
+
+        </button>
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='logistics.html'">
+
+            ← Logistics
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="details-page">
+
+
+    <a
+        href="logistics.html"
+        class="back-link">
+
+        ← Back to Logistics
+
+    </a>
+
+
+    <div
+        id="notFound"
+        class="not-found"
+        style="display:none;">
+
+        <div style="font-size:55px;">
+            🚚
+        </div>
+
+        <h1>
+            Service Not Found
+        </h1>
+
+        <p style="color:#777;">
+            This logistics service may have been removed
+            or is no longer available.
+        </p>
+
+        <button
+            class="primary-btn"
+            onclick="window.location.href='logistics.html'">
+
+            Browse Logistics →
+
+        </button>
+
+    </div>
+
+
+
+    <div
+        id="detailsContent"
+        class="details-layout">
+
+
+        <section class="details-gallery">
+
+            <div
+                id="mainPhoto"
+                class="main-photo">
+
+                🚚
+
+            </div>
+
+
+            <div
+                id="photoThumbs"
+                class="photo-thumbs">
+
+            </div>
+
+        </section>
+
+
+
+        <section class="details-panel">
+
+            <span
+                id="serviceType"
+                class="service-badge">
+
+            </span>
+
+
+            <h1 id="serviceTitle">
+                Logistics Service
+            </h1>
+
+
+            <p
+                id="description"
+                class="details-description">
+
+            </p>
+
+
+            <div class="provider-box">
+
+                <small>
+                    Listed By
+                </small>
+
+                <strong id="providerName">
+                    TradeHub Provider
+                </strong>
+
+            </div>
+
+
+            <div
+                id="infoGrid"
+                class="info-grid">
+
+            </div>
+
+
+            <div class="price-box">
+
+                <span class="detail-label">
+                    Rental Price
+                </span>
+
+                <div>
+
+                    <span
+                        id="price"
+                        class="price">
+
+                    </span>
+
+                    <span
+                        id="priceUnit"
+                        class="unit">
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <section class="booking-panel">
+
+            <h2>
+                Book This Service
+            </h2>
+
+            <p style="color:#777;">
+                Enter your rental requirements to
+                calculate the estimated cost.
+            </p>
+
+
+            <div
+                id="bookingFields"
+                class="booking-grid">
+
+            </div>
+
+
+            <div class="calculation">
+
+                <div class="calculation-row">
+
+                    <span>
+                        Base rental
+                    </span>
+
+                    <strong id="baseCost">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="calculation-row">
+
+                    <span>
+                        Security deposit
+                    </span>
+
+                    <strong id="depositCost">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="calculation-row calculation-total">
+
+                    <span>
+                        Estimated total
+                    </span>
+
+                    <strong id="totalCost">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="bookingError"
+                class="message-box message-error">
+            </div>
+
+
+            <div
+                id="bookingSuccess"
+                class="message-box message-success">
+            </div>
+
+
+            <div class="booking-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="window.location.href='messages.html'">
+
+                    💬 Contact Provider
+
+                </button>
+
+
+                <button
+                    id="bookButton"
+                    type="button"
+                    class="primary-btn">
+
+                    Book Service →
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<script src="../js/logistics.js"></script>
+
+
+<script>
+
+    const currentUser =
+        getLogisticsCurrentUser();
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const listingId =
+        params.get(
+            "id"
+        );
+
+
+    const listing =
+        getLogisticsListingById(
+            listingId
+        );
+
+
+    const content =
+        document.getElementById(
+            "detailsContent"
+        );
+
+
+    const notFound =
+        document.getElementById(
+            "notFound"
+        );
+
+
+    if (!listing) {
+
+        content.style.display =
+            "none";
+
+        notFound.style.display =
+            "block";
+
+    }
+    else {
+
+        initializeDetails();
+
+    }
+
+
+    function initializeDetails() {
+
+        document.getElementById(
+            "serviceType"
+        ).textContent =
+            getLogisticsTypeLabel(
+                listing.type
+            );
+
+
+        document.getElementById(
+            "serviceTitle"
+        ).textContent =
+            listing.title;
+
+
+        document.getElementById(
+            "description"
+        ).textContent =
+            listing.description ||
+            "Reliable logistics service available through TradeHub.";
+
+
+        document.getElementById(
+            "providerName"
+        ).textContent =
+            listing.providerName ||
+            "TradeHub Provider";
+
+
+        document.getElementById(
+            "price"
+        ).textContent =
+            formatLogisticsCurrency(
+                listing.price
+            );
+
+
+        document.getElementById(
+            "priceUnit"
+        ).textContent =
+            getPricingUnitText(
+                listing.pricingType
+            );
+
+
+        renderPhotos();
+
+        renderInfo();
+
+        renderBookingFields();
+
+        updateCalculation();
+
+    }
+
+
+    function getPricingUnitText(
+        pricingType
+    ) {
+
+        const units = {
+
+            per_km:
+                " / km",
+
+            per_day:
+                " / day",
+
+            per_hour:
+                " / hour",
+
+            flat:
+                " flat"
+
+        };
+
+
+        return (
+            units[pricingType] ||
+            ""
+        );
+
+    }
+
+
+    function renderPhotos() {
+
+        const mainPhoto =
+            document.getElementById(
+                "mainPhoto"
+            );
+
+
+        const thumbs =
+            document.getElementById(
+                "photoThumbs"
+            );
+
+
+        thumbs.innerHTML =
+            "";
+
+
+        const photos =
+            listing.photos || [];
+
+
+        if (
+            photos.length === 0
+        ) {
+
+            mainPhoto.textContent =
+                getLogisticsIcon(
+                    listing.type
+                );
+
+            return;
+
+        }
+
+
+        mainPhoto.innerHTML = `
+
+            <img
+                src="${photos[0]}"
+                alt="${escapeHTML(
+                    listing.title
+                )}">
+
+        `;
+
+
+        photos.forEach(
+            function(photo, index) {
+
+                const thumb =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                thumb.className =
+                    "photo-thumb" +
+                    (
+                        index === 0
+                            ? " active"
+                            : ""
+                    );
+
+
+                thumb.innerHTML = `
+
+                    <img
+                        src="${photo}"
+                        alt="Service photo">
+
+                `;
+
+
+                thumb.addEventListener(
+                    "click",
+                    function() {
+
+                        mainPhoto.innerHTML = `
+
+                            <img
+                                src="${photo}"
+                                alt="${escapeHTML(
+                                    listing.title
+                                )}">
+
+                        `;
+
+
+                        document
+                            .querySelectorAll(
+                                ".photo-thumb"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        thumb.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                thumbs.appendChild(
+                    thumb
+                );
+
+            }
+        );
+
+    }
+
+
+    function renderInfo() {
+
+        const grid =
+            document.getElementById(
+                "infoGrid"
+            );
+
+
+        const info = [];
+
+
+        if (
+            listing.location
+        ) {
+
+            info.push([
+                "Location",
+                listing.location
+            ]);
+
+        }
+
+
+        if (
+            listing.capacity
+        ) {
+
+            info.push([
+                "Capacity",
+                listing.capacity +
+                (
+                    listing.capacityUnit
+                        ? " " +
+                          listing.capacityUnit
+                        : ""
+                )
+            ]);
+
+        }
+
+
+        if (
+            listing.vehicleModel
+        ) {
+
+            info.push([
+                "Vehicle",
+                listing.vehicleModel
+            ]);
+
+        }
+
+
+        if (
+            listing.vehicleYear
+        ) {
+
+            info.push([
+                "Model Year",
+                listing.vehicleYear
+            ]);
+
+        }
+
+
+        if (
+            listing.vehicleCapacity
+        ) {
+
+            info.push([
+                "Load Capacity",
+                listing.vehicleCapacity
+            ]);
+
+        }
+
+
+        if (
+            listing.vehicleFuel
+        ) {
+
+            info.push([
+                "Fuel",
+                listing.vehicleFuel
+            ]);
+
+        }
+
+
+        if (
+            listing.storageArea
+        ) {
+
+            info.push([
+                "Storage Area",
+                listing.storageArea
+            ]);
+
+        }
+
+
+        if (
+            listing.storageSecurity
+        ) {
+
+            info.push([
+                "Security",
+                listing.storageSecurity
+            ]);
+
+        }
+
+
+        if (
+            listing.storageFeatures
+        ) {
+
+            info.push([
+                "Features",
+                listing.storageFeatures
+            ]);
+
+        }
+
+
+        if (
+            listing.availability
+        ) {
+
+            info.push([
+                "Availability",
+                listing.availability ===
+                "available"
+                    ? "Available now"
+                    : listing.availability ===
+                      "from_date"
+                        ? `From ${
+                            listing.availableFrom ||
+                            "specified date"
+                          }`
+                        : "Currently unavailable"
+            ]);
+
+        }
+
+
+        grid.innerHTML =
+            info.map(
+                function(item) {
+
+                    return `
+
+                        <div class="info-item">
+
+                            <span class="detail-label">
+                                ${escapeHTML(
+                                    item[0]
+                                )}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    item[1]
+                                )}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    function renderBookingFields() {
+
+        const fields =
+            document.getElementById(
+                "bookingFields"
+            );
+
+
+        fields.innerHTML =
+            "";
+
+
+        if (
+            listing.pricingType ===
+            "per_km"
+        ) {
+
+            fields.innerHTML = `
+
+                <div class="booking-field">
+
+                    <label for="distance">
+                        Distance (km) *
+                    </label>
+
+                    <input
+                        id="distance"
+                        type="number"
+                        min="1"
+                        step="0.1"
+                        value="1">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="bookingDate">
+                        Booking Date *
+                    </label>
+
+                    <input
+                        id="bookingDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="pickupLocation">
+                        Pickup Location
+                    </label>
+
+                    <input
+                        id="pickupLocation"
+                        type="text"
+                        placeholder="Pickup address / area">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="deliveryLocation">
+                        Delivery Location
+                    </label>
+
+                    <input
+                        id="deliveryLocation"
+                        type="text"
+                        placeholder="Destination address / area">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="notes">
+                        Delivery / Booking Notes
+                    </label>
+
+                    <input
+                        id="notes"
+                        type="text"
+                        placeholder="Special requirements">
+
+                </div>
+
+            `;
+
+        }
+        else if (
+            listing.pricingType ===
+            "per_day"
+        ) {
+
+            fields.innerHTML = `
+
+                <div class="booking-field">
+
+                    <label for="days">
+                        Number of Days *
+                    </label>
+
+                    <input
+                        id="days"
+                        type="number"
+                        min="1"
+                        step="1"
+                        value="1">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="startDate">
+                        Start Date *
+                    </label>
+
+                    <input
+                        id="startDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="endDate">
+                        End Date
+                    </label>
+
+                    <input
+                        id="endDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="notes">
+                        Booking Notes
+                    </label>
+
+                    <input
+                        id="notes"
+                        type="text"
+                        placeholder="Special requirements">
+
+                </div>
+
+            `;
+
+        }
+        else if (
+            listing.pricingType ===
+            "per_hour"
+        ) {
+
+            fields.innerHTML = `
+
+                <div class="booking-field">
+
+                    <label for="hours">
+                        Number of Hours *
+                    </label>
+
+                    <input
+                        id="hours"
+                        type="number"
+                        min="1"
+                        step="1"
+                        value="1">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="startDate">
+                        Start Date *
+                    </label>
+
+                    <input
+                        id="startDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="notes">
+                        Booking Notes
+                    </label>
+
+                    <input
+                        id="notes"
+                        type="text"
+                        placeholder="Special requirements">
+
+                </div>
+
+            `;
+
+        }
+        else {
+
+            fields.innerHTML = `
+
+                <div class="booking-field">
+
+                    <label for="quantity">
+                        Quantity *
+                    </label>
+
+                    <input
+                        id="quantity"
+                        type="number"
+                        min="1"
+                        step="1"
+                        value="1">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="bookingDate">
+                        Booking Date *
+                    </label>
+
+                    <input
+                        id="bookingDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="booking-field">
+
+                    <label for="notes">
+                        Booking Notes
+                    </label>
+
+                    <input
+                        id="notes"
+                        type="text"
+                        placeholder="Special requirements">
+
+                </div>
+
+            `;
+
+        }
+
+
+        fields
+            .querySelectorAll(
+                "input"
+            )
+            .forEach(
+                function(input) {
+
+                    input.addEventListener(
+                        "input",
+                        updateCalculation
+                    );
+
+                }
+            );
+
+
+        setMinimumDates();
+
+    }
+
+
+    function setMinimumDates() {
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+        document
+            .querySelectorAll(
+                'input[type="date"]'
+            )
+            .forEach(
+                function(input) {
+
+                    input.min =
+                        today;
+
+                }
+            );
+
+    }
+
+
+    function getRentalBaseCost() {
+
+        const price =
+            Number(
+                listing.price
+            ) || 0;
+
+
+        if (
+            listing.pricingType ===
+            "per_km"
+        ) {
+
+            const distance =
+                Number(
+                    document.getElementById(
+                        "distance"
+                    )?.value
+                ) || 0;
+
+
+            return price *
+                   distance;
+
+        }
+
+
+        if (
+            listing.pricingType ===
+            "per_day"
+        ) {
+
+            const days =
+                Number(
+                    document.getElementById(
+                        "days"
+                    )?.value
+                ) || 0;
+
+
+            return price *
+                   days;
+
+        }
+
+
+        if (
+            listing.pricingType ===
+            "per_hour"
+        ) {
+
+            const hours =
+                Number(
+                    document.getElementById(
+                        "hours"
+                    )?.value
+                ) || 0;
+
+
+            return price *
+                   hours;
+
+        }
+
+
+        const quantity =
+            Number(
+                document.getElementById(
+                    "quantity"
+                )?.value
+            ) || 0;
+
+
+        return price *
+               quantity;
+
+    }
+
+
+    function updateCalculation() {
+
+        if (!listing) {
+            return;
+        }
+
+
+        const base =
+            getRentalBaseCost();
+
+
+        const deposit =
+            Number(
+                listing.securityDeposit
+            ) || 0;
+
+
+        document.getElementById(
+            "baseCost"
+        ).textContent =
+            formatLogisticsCurrency(
+                base
+            );
+
+
+        document.getElementById(
+            "depositCost"
+        ).textContent =
+            formatLogisticsCurrency(
+                deposit
+            );
+
+
+        document.getElementById(
+            "totalCost"
+        ).textContent =
+            formatLogisticsCurrency(
+                base +
+                deposit
+            );
+
+    }
+
+
+    const contactProviderButton =
+        document.getElementById(
+            "contactProviderButton"
+        );
+
+
+    if (contactProviderButton) {
+
+        contactProviderButton.addEventListener(
+            "click",
+            function() {
+
+                if (!currentUser) {
+
+                    alert(
+                        "Please login to contact the provider."
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                if (
+                    String(
+                        currentUser.id
+                    ) ===
+                    String(
+                        listing.providerId
+                    )
+                ) {
+
+                    alert(
+                        "This is your own logistics service."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Keep the existing messages page as the destination.
+                 * The provider ID is included so a future messaging
+                 * implementation can identify the recipient.
+                 */
+
+                window.location.href =
+                    "messages.html?user=" +
+                    encodeURIComponent(
+                        listing.providerId
+                    );
+
+            }
+        );
+
+    }
+
+
+    document.getElementById(
+        "bookButton"
+    ).addEventListener(
+        "click",
+        function() {
+
+            if (!currentUser) {
+
+                showBookingError(
+                    "Please login before booking a logistics service."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Never allow a provider to book their own listing.
+             * This is checked here for immediate feedback and again
+             * inside logistics.js before the booking is saved.
+             */
+
+            if (
+                String(
+                    currentUser.id
+                ) ===
+                String(
+                    listing.providerId
+                )
+            ) {
+
+                showBookingError(
+                    "You cannot book your own logistics service."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !listing.active ||
+                String(
+                    listing.availability
+                ).toLowerCase() ===
+                "unavailable"
+            ) {
+
+                showBookingError(
+                    "This logistics service is currently unavailable."
+                );
+
+                return;
+
+            }
+
+
+            const quantity =
+                listing.pricingType === "per_km"
+                    ? Number(
+                        document.getElementById(
+                            "distance"
+                        )?.value
+                    )
+                    : listing.pricingType === "per_day"
+                        ? Number(
+                            document.getElementById(
+                                "days"
+                            )?.value
+                        )
+                        : listing.pricingType === "per_hour"
+                            ? Number(
+                                document.getElementById(
+                                    "hours"
+                                )?.value
+                            )
+                            : Number(
+                                document.getElementById(
+                                    "quantity"
+                                )?.value
+                            );
+
+
+            if (
+                !Number.isFinite(
+                    quantity
+                ) ||
+                quantity <= 0
+            ) {
+
+                showBookingError(
+                    "Please enter a valid rental requirement."
+                );
+
+                return;
+
+            }
+
+
+            const minimumBooking =
+                Number(
+                    listing.minimumBooking
+                ) || 1;
+
+
+            if (
+                quantity <
+                minimumBooking
+            ) {
+
+                showBookingError(
+                    `Minimum booking is ${minimumBooking} ${
+                        listing.pricingType === "per_km"
+                            ? "km"
+                            : listing.pricingType === "per_day"
+                                ? "day(s)"
+                                : listing.pricingType === "per_hour"
+                                    ? "hour(s)"
+                                    : "unit(s)"
+                    }.`
+                );
+
+                return;
+
+            }
+
+
+            const booking =
+                createLogisticsBooking(
+                    listing.id,
+                    {
+
+                        quantity,
+
+                        distance:
+                            document.getElementById(
+                                "distance"
+                            )?.value ||
+                            null,
+
+                        days:
+                            document.getElementById(
+                                "days"
+                            )?.value ||
+                            null,
+
+                        hours:
+                            document.getElementById(
+                                "hours"
+                            )?.value ||
+                            null,
+
+                        bookingDate:
+                            document.getElementById(
+                                "bookingDate"
+                            )?.value ||
+                            document.getElementById(
+                                "startDate"
+                            )?.value ||
+                            "",
+
+                        startDate:
+                            document.getElementById(
+                                "startDate"
+                            )?.value ||
+                            "",
+
+                        endDate:
+                            document.getElementById(
+                                "endDate"
+                            )?.value ||
+                            "",
+
+                        pickupLocation:
+                            document.getElementById(
+                                "pickupLocation"
+                            )?.value.trim() ||
+                            "",
+
+                        deliveryLocation:
+                            document.getElementById(
+                                "deliveryLocation"
+                            )?.value.trim() ||
+                            "",
+
+                        notes:
+                            document.getElementById(
+                                "notes"
+                            )?.value.trim() ||
+                            ""
+
+                    }
+                );
+
+
+            if (!booking) {
+
+                return;
+
+            }
+
+
+            showBookingSuccess(
+                `Booking request sent to ${
+                    listing.providerName ||
+                    "the provider"
+                }.`
+            );
+
+
+            document.getElementById(
+                "bookButton"
+            ).disabled =
+                true;
+
+
+            document.getElementById(
+                "bookButton"
+            ).textContent =
+                "Booking Requested ✓";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "logistics-bookings.html";
+
+                },
+                900
+            );
+
+        }
+    );
+
+
+    function showBookingError(
+        message
+    ) {
+
+        const box =
+            document.getElementById(
+                "bookingError"
+            );
+
+
+        box.textContent =
+            message;
+
+
+        box.style.display =
+            "block";
+
+
+        document.getElementById(
+            "bookingSuccess"
+        ).style.display =
+            "none";
+
+    }
+
+
+    function showBookingSuccess(
+        message
+    ) {
+
+        const box =
+            document.getElementById(
+                "bookingSuccess"
+            );
+
+
+        box.textContent =
+            message;
+
+
+        box.style.display =
+            "block";
+
+
+        document.getElementById(
+            "bookingError"
+        ).style.display =
+            "none";
+
+    }
+
+
+    function escapeHTML(
+        value
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value == null
+                ? ""
+                : String(value);
+
+
+        return div.innerHTML;
+
+    }
+
+
+    function getLogisticsIcon(
+        type
+    ) {
+
+        const icons = {
+
+            truck: "🚚",
+            ship: "🚢",
+            boat: "🚤",
+            train: "🚆",
+            container: "📦",
+            godown: "🏢",
+            warehouse: "🏢",
+            storage: "🏠"
+
+        };
+
+
+        return (
+            icons[
+                String(
+                    type || ""
+                ).toLowerCase()
+            ] ||
+            "🚚"
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

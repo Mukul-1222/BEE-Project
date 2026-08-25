@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Wishlist | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <link rel="stylesheet"
+          href="../css/products.css">
+
+
+    <style>
+
+        /* =====================================================
+           WISHLIST PAGE CARD FIX
+        ====================================================== */
+
+        #wishlistContainer {
+
+            width: 100%;
+
+        }
+
+
+        #wishlistContainer .product-card {
+
+            position: relative;
+
+            overflow: hidden;
+
+            width: 100%;
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            box-sizing: border-box;
+
+        }
+
+
+        #wishlistContainer .product-image {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 360px;
+
+            overflow: hidden;
+
+            border-radius: 12px 12px 0 0;
+
+        }
+
+
+        #wishlistContainer .product-image img {
+
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: center;
+
+        }
+
+
+        /*
+         * products.css normally styles .product-wishlist
+         * as a small floating heart icon. On the wishlist
+         * page we want a proper Remove button.
+         */
+
+        #wishlistContainer .product-wishlist {
+
+            position: absolute;
+
+            top: 16px;
+
+            right: 16px;
+
+            z-index: 5;
+
+            width: auto;
+
+            min-width: 0;
+
+            max-width: calc(100% - 32px);
+
+            height: auto;
+
+            min-height: 42px;
+
+            margin: 0;
+
+            padding: 9px 14px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            box-sizing: border-box;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.2);
+
+            border-radius: 10px;
+
+            background:
+                rgba(10, 10, 10, 0.88);
+
+            color: #ff4d67;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            line-height: 1.2;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(8px);
+
+            -webkit-backdrop-filter: blur(8px);
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        #wishlistContainer .product-wishlist:hover {
+
+            background:
+                rgba(255, 77, 103, 0.12);
+
+            border-color:
+                rgba(255, 77, 103, 0.45);
+
+            transform: translateY(-1px);
+
+        }
+
+
+        #wishlistContainer .product-info {
+
+            position: relative;
+
+            padding: 28px 26px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        #wishlistContainer .product-info h3 {
+
+            margin-top: 8px;
+
+        }
+
+
+        #wishlistContainer .product-bottom {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 18px;
+
+            flex-wrap: wrap;
+
+            margin-top: 18px;
+
+        }
+
+
+        #wishlistContainer .product-bottom strong {
+
+            font-size: 20px;
+
+        }
+
+
+        #wishlistContainer .product-bottom .primary-btn {
+
+            min-width: 115px;
+
+            min-height: 48px;
+
+            padding: 0 20px;
+
+            box-sizing: border-box;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            white-space: nowrap;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            #wishlistContainer .product-image {
+
+                height: 280px;
+
+            }
+
+
+            #wishlistContainer .product-wishlist {
+
+                top: 12px;
+
+                right: 12px;
+
+                max-width: calc(100% - 24px);
+
+                font-size: 12px;
+
+                padding: 8px 11px;
+
+            }
+
+
+            #wishlistContainer .product-info {
+
+                padding: 22px 18px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            #wishlistContainer .product-image {
+
+                height: 220px;
+
+            }
+
+
+            #wishlistContainer .product-bottom {
+
+                align-items: stretch;
+
+                flex-direction: column;
+
+            }
+
+
+            #wishlistContainer .product-bottom .primary-btn {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="icon-btn cart-nav-btn"
+            onclick="window.location.href='cart.html'"
+            title="Cart"
+            aria-label="Open cart">
+
+            🛒
+
+            <span class="cart-count">
+                0
+            </span>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="icon-btn account-nav-btn"
+            onclick="openAccountDashboard()"
+            title="My Account"
+            aria-label="Open my account">
+
+            👤
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="product-page">
+
+
+    <div class="page-header">
+
+        <span class="section-label">
+            YOUR ACCOUNT
+        </span>
+
+        <h1>
+            My <span>Wishlist</span>
+        </h1>
+
+        <p>
+            Products you've saved for later.
+        </p>
+
+    </div>
+
+
+    <div
+        id="wishlistContainer"
+        class="products-grid">
+
+    </div>
+
+
+</main>
+
+
+
+<script src="../js/products.js"></script>
+
+<script src="../js/wishlist.js"></script>
+
+<script src="../js/cart.js"></script>
+
+
+<script>
+
+
+// =====================================================
+// CURRENT USER
+// =====================================================
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem(
+            "tradehub_current_user"
+        )
+    );
+
+
+// Both customer and business accounts can use wishlist.
+
+if (!currentUser) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// CONTAINER
+// =====================================================
+
+const container =
+    document.getElementById(
+        "wishlistContainer"
+    );
+
+
+// =====================================================
+// GET PRODUCT USING STRING ID
+// =====================================================
+
+function getWishlistProductById(
+    productId
+) {
+
+    const normalizedId =
+        String(
+            productId ?? ""
+        ).trim();
+
+
+    if (!normalizedId) {
+
+        return null;
+
+    }
+
+
+    /*
+     * Prefer the global getProductById() when it
+     * supports the product ID directly.
+     */
+
+    if (
+        typeof getProductById ===
+        "function"
+    ) {
+
+        const directProduct =
+            getProductById(
+                normalizedId
+            );
+
+
+        if (directProduct) {
+
+            return directProduct;
+
+        }
+
+
+        /*
+         * Some older versions of products.js may
+         * compare IDs as numbers. Fall back to
+         * searching the product array as strings.
+         */
+
+        if (
+            typeof products !==
+            "undefined" &&
+            Array.isArray(products)
+        ) {
+
+            return products.find(
+                product =>
+                    String(
+                        product.id ?? ""
+                    ).trim() ===
+                    normalizedId
+            ) || null;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+// =====================================================
+// DISPLAY WISHLIST
+// =====================================================
+
+function displayWishlist() {
+
+    const wishlist =
+        getWishlist();
+
+
+    container.innerHTML = "";
+
+
+    if (
+        wishlist.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="empty-products"
+                style="grid-column:1/-1;">
+
+                <div
+                    style="font-size:55px;">
+
+                    ♡
+
+                </div>
+
+                <h2>
+                    Your wishlist is empty
+                </h2>
+
+                <p>
+                    Save products you want
+                    to check out later.
+                </p>
+
+                <br>
+
+                <button
+                    class="primary-btn"
+                    onclick="window.location.href='products.html'">
+
+                    Browse Products →
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let visibleProducts =
+        0;
+
+
+    wishlist.forEach(
+        productId => {
+
+            const product =
+                getWishlistProductById(
+                    productId
+                );
+
+
+            /*
+             * If a product no longer exists in the
+             * marketplace data, don't crash the page.
+             */
+
+            if (!product) {
+
+                return;
+
+            }
+
+
+            visibleProducts +=
+                1;
+
+
+            const productIdString =
+                String(
+                    product.id
+                );
+
+
+            const safeProductId =
+                JSON.stringify(
+                    productIdString
+                );
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "product-card";
+
+
+            card.innerHTML = `
+
+                <div
+                    class="product-image">
+
+                    ${
+                        product.image
+
+                        ?
+
+                        `<img
+                            src="${product.image}"
+                            alt="${product.name}">`
+
+                        :
+
+                        `📦`
+                    }
+
+
+                    <button
+                        type="button"
+                        class="product-wishlist wishlisted"
+                        data-id="${productIdString}"
+                        aria-label="Remove from wishlist"
+                        title="Remove from wishlist">
+
+                        ♥ Remove from Wishlist
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="product-info">
+
+                    <span
+                        class="product-brand">
+
+                        ${product.brand || "TradeHub"}
+
+                    </span>
+
+
+                    <h3>
+                        ${product.name || "Product"}
+                    </h3>
+
+
+                    <p>
+                        ${product.description || "No description available."}
+                    </p>
+
+
+                    <div
+                        class="product-bottom">
+
+                        <strong>
+                            ₹${product.retailPrice ?? product.price ?? 0}
+                        </strong>
+
+
+                        <button
+                            type="button"
+                            class="primary-btn wishlist-add-cart-btn"
+                            data-id="${productIdString}">
+
+                            🛒 Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    /*
+     * If old/stale wishlist IDs are stored but
+     * none of their products exist anymore, show
+     * a useful message instead of a completely
+     * blank page.
+     */
+
+    if (
+        visibleProducts ===
+        0
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="empty-products"
+                style="grid-column:1/-1;">
+
+                <div
+                    style="font-size:55px;">
+
+                    ♡
+
+                </div>
+
+                <h2>
+                    Your wishlist is empty
+                </h2>
+
+                <p>
+                    The saved products are no longer
+                    available in TradeHub's product data.
+                </p>
+
+                <br>
+
+                <button
+                    class="primary-btn"
+                    onclick="window.location.href='products.html'">
+
+                    Browse Products →
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    updateWishlistButtons();
+
+    bindWishlistPageButtons();
+
+}
+
+
+// =====================================================
+// ADD WISHLIST PRODUCT TO CART
+// =====================================================
+
+function addWishlistProductToCart(
+    productId
+) {
+
+    const normalizedId =
+        String(
+            productId ?? ""
+        ).trim();
+
+
+    if (!normalizedId) {
+
+        alert(
+            "Unable to identify this product."
+        );
+
+        return false;
+
+    }
+
+
+    /*
+     * products.js provides getProductById().
+     * It compares IDs as strings, which is required
+     * for IDs such as PROD-1787576618335-470.
+     */
+
+    if (
+        typeof getProductById !==
+        "function"
+    ) {
+
+        alert(
+            "Product system is unavailable."
+        );
+
+        console.error(
+            "getProductById() is not available."
+        );
+
+        return false;
+
+    }
+
+
+    const product =
+        getProductById(
+            normalizedId
+        );
+
+
+    if (!product) {
+
+        alert(
+            "This product is no longer available."
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        typeof addToCart !==
+        "function"
+    ) {
+
+        alert(
+            "Cart system is unavailable."
+        );
+
+        console.error(
+            "addToCart() is not available."
+        );
+
+        return false;
+
+    }
+
+
+    /*
+     * cart.js expects the COMPLETE product object:
+     *
+     * addToCart(product, quantity, price)
+     */
+
+    const result =
+        addToCart(
+            product,
+            1
+        );
+
+
+    if (
+        result !== false
+    ) {
+
+        /*
+         * Refresh the cart counter if cart.js
+         * exposes the helper.
+         */
+
+        if (
+            typeof updateCartCount ===
+            "function"
+        ) {
+
+            updateCartCount();
+
+        }
+
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+// =====================================================
+// WISHLIST PAGE BUTTON EVENTS
+// =====================================================
+
+function bindWishlistPageButtons() {
+
+    /*
+     * REMOVE BUTTONS
+     */
+
+    const removeButtons =
+        document.querySelectorAll(
+            "#wishlistContainer .product-wishlist"
+        );
+
+
+    removeButtons.forEach(
+        button => {
+
+            button.onclick =
+                function(event) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+
+                    const productId =
+                        String(
+                            button.dataset.id ??
+                            ""
+                        ).trim();
+
+
+                    if (!productId) {
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Use the dedicated remove function.
+                     * This avoids depending on the toggle
+                     * behavior of marketplace wishlist buttons.
+                     */
+
+                    if (
+                        typeof removeFromWishlist ===
+                        "function"
+                    ) {
+
+                        removeFromWishlist(
+                            productId
+                        );
+
+                    }
+
+
+                    /*
+                     * Re-render immediately.
+                     */
+
+                    displayWishlist();
+
+                };
+
+        }
+    );
+
+
+    /*
+     * ADD TO CART BUTTONS
+     */
+
+    const cartButtons =
+        document.querySelectorAll(
+            "#wishlistContainer .wishlist-add-cart-btn"
+        );
+
+
+    cartButtons.forEach(
+        button => {
+
+            button.onclick =
+                function(event) {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+
+                    const productId =
+                        String(
+                            button.dataset.id ??
+                            ""
+                        ).trim();
+
+
+                    if (!productId) {
+
+                        return;
+
+                    }
+
+
+                    addWishlistProductToCart(
+                        productId
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// OPEN ACCOUNT DASHBOARD
+// =====================================================
+
+function openAccountDashboard() {
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "tradehub_current_user"
+            )
+        );
+
+
+    if (!user) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    if (
+        user.type ===
+        "business"
+    ) {
+
+        window.location.href =
+            "business-dashboard.html";
+
+        return;
+
+    }
+
+
+    if (
+        user.type ===
+        "customer"
+    ) {
+
+        window.location.href =
+            "customer-dashboard.html";
+
+        return;
+
+    }
+
+
+    /*
+     * Fallback for an unexpected account type.
+     */
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// =====================================================
+// INITIALIZE
+// =====================================================
+
+displayWishlist();
+
+
+</script>
+
+
+</body>
+
+</html>

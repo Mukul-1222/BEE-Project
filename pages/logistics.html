@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Logistics Marketplace | TradeHub</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+    <style>
+
+        .logistics-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 70px 24px 100px;
+        }
+
+        .logistics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .logistics-header h1 {
+            margin: 8px 0 12px;
+            font-size: clamp(36px, 5vw, 58px);
+            line-height: 1;
+        }
+
+        .logistics-header h1 span {
+            color: var(--accent);
+        }
+
+        .logistics-header p {
+            color: #999;
+            max-width: 680px;
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .logistics-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .logistics-toolbar {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .logistics-toolbar input,
+        .logistics-toolbar select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border, #292929);
+            border-radius: 10px;
+            background: #111;
+            color: #fff;
+            outline: none;
+        }
+
+        .logistics-toolbar input:focus,
+        .logistics-toolbar select:focus {
+            border-color: var(--accent, #00e676);
+        }
+
+        .logistics-count {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .logistics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .logistics-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform .2s ease,
+                        border-color .2s ease;
+        }
+
+        .logistics-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 230, 118, .5);
+        }
+
+        .logistics-image {
+            height: 210px;
+            background: #171717;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 55px;
+        }
+
+        .logistics-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logistics-card-body {
+            padding: 20px;
+        }
+
+        .logistics-type {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border: 1px solid rgba(0, 230, 118, .25);
+            border-radius: 999px;
+            color: var(--accent, #00e676);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 12px;
+        }
+
+        .logistics-card h3 {
+            margin: 0 0 9px;
+            font-size: 20px;
+        }
+
+        .logistics-description {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.55;
+            min-height: 42px;
+            margin-bottom: 15px;
+        }
+
+        .logistics-meta {
+            display: grid;
+            gap: 7px;
+            margin-bottom: 18px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .logistics-meta strong {
+            color: #ddd;
+        }
+
+        .logistics-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid #242424;
+            padding-top: 15px;
+        }
+
+        .logistics-price strong {
+            color: #fff;
+            font-size: 19px;
+        }
+
+        .logistics-price span {
+            color: #777;
+            font-size: 11px;
+        }
+
+        .logistics-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 70px 20px;
+            border: 1px dashed #292929;
+            border-radius: 16px;
+            color: #777;
+        }
+
+        .logistics-empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 900px) {
+
+            .logistics-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .logistics-toolbar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .logistics-toolbar input {
+                grid-column: 1 / -1;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .logistics-page {
+                padding: 45px 16px 70px;
+            }
+
+            .logistics-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .logistics-actions {
+                width: 100%;
+            }
+
+            .logistics-actions button {
+                flex: 1;
+            }
+
+            .logistics-toolbar,
+            .logistics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logistics-toolbar input {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <span class="logo-icon">
+            T
+        </span>
+
+        Trade<span class="logo-highlight">
+            Hub
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="products.html">
+            Marketplace
+        </a>
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+        <a href="messages.html">
+            Messages
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='logistics-bookings.html'">
+
+            My Bookings
+
+        </button>
+
+        <button
+            class="secondary-btn"
+            onclick="window.location.href='list-logistics.html'">
+
+            + List Service
+
+        </button>
+
+        <button
+            class="login-btn"
+            id="accountButton">
+
+            Account
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="logistics-page">
+
+
+    <section class="logistics-header">
+
+        <div>
+
+            <span class="section-label">
+                LOGISTICS MARKETPLACE
+            </span>
+
+            <h1>
+                Move & <span>Store</span>
+            </h1>
+
+            <p>
+                Rent trucks, ships, boats, trains,
+                containers, godowns and storage units
+                from customers and businesses on TradeHub.
+            </p>
+
+        </div>
+
+
+        <div class="logistics-actions">
+
+            <button
+                class="secondary-btn"
+                onclick="window.location.href='logistics-bookings.html'">
+
+                My Bookings
+
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="window.location.href='list-logistics.html'">
+
+                List a Service →
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="logistics-toolbar">
+
+        <input
+            type="search"
+            id="logisticsSearch"
+            placeholder="Search trucks, storage, godowns, containers...">
+
+
+        <select id="logisticsType">
+
+            <option value="">
+                All Services
+            </option>
+
+        </select>
+
+
+        <select id="logisticsPricing">
+
+            <option value="">
+                Any Pricing
+            </option>
+
+            <option value="per_km">
+                Per Kilometer
+            </option>
+
+            <option value="per_day">
+                Per Day
+            </option>
+
+            <option value="per_hour">
+                Per Hour
+            </option>
+
+            <option value="flat">
+                Flat Rate
+            </option>
+
+        </select>
+
+        <input
+            type="search"
+            id="logisticsLocation"
+            placeholder="Filter by location...">
+
+    </section>
+
+
+
+    <div
+        id="logisticsCount"
+        class="logistics-count">
+
+        Loading logistics services...
+
+    </div>
+
+
+
+    <section
+        id="logisticsGrid"
+        class="logistics-grid">
+
+    </section>
+
+
+</main>
+
+
+
+<script src="../js/logistics.js"></script>
+
+
+<script>
+
+    /* =====================================================
+       CURRENT USER
+    ====================================================== */
+
+    const currentUser =
+        getLogisticsCurrentUser();
+
+
+    const accountButton =
+        document.getElementById(
+            "accountButton"
+        );
+
+
+    if (
+        currentUser
+    ) {
+
+        accountButton.textContent =
+            currentUser.businessName ||
+            currentUser.name ||
+            "Account";
+
+
+        accountButton.onclick =
+            function() {
+
+                if (
+                    currentUser.type ===
+                    "business"
+                ) {
+
+                    window.location.href =
+                        "business-dashboard.html";
+
+                }
+                else {
+
+                    window.location.href =
+                        "customer-dashboard.html";
+
+                }
+
+            };
+
+    }
+    else {
+
+        accountButton.textContent =
+            "Login";
+
+
+        accountButton.onclick =
+            function() {
+
+                window.location.href =
+                    "login.html";
+
+            };
+
+    }
+
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const grid =
+        document.getElementById(
+            "logisticsGrid"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "logisticsSearch"
+        );
+
+
+    const typeSelect =
+        document.getElementById(
+            "logisticsType"
+        );
+
+
+    const pricingSelect =
+        document.getElementById(
+            "logisticsPricing"
+        );
+
+
+    const locationInput =
+        document.getElementById(
+            "logisticsLocation"
+        );
+
+
+    const countText =
+        document.getElementById(
+            "logisticsCount"
+        );
+
+
+    /* =====================================================
+       TYPE OPTIONS
+    ====================================================== */
+
+    function populateTypes() {
+
+        const types =
+            getLogisticsTypes();
+
+
+        types.forEach(
+            function(type) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    type.value;
+
+
+                option.textContent =
+                    type.label;
+
+
+                typeSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ====================================================== */
+
+    function escapeHTML(
+        value
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value == null
+                ? ""
+                : String(value);
+
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================================
+       GET CARD ICON
+    ====================================================== */
+
+    function getLogisticsIcon(
+        type
+    ) {
+
+        const icons = {
+
+            truck: "🚚",
+            ship: "🚢",
+            boat: "🚤",
+            train: "🚆",
+            container: "📦",
+            godown: "🏢",
+            warehouse: "🏢",
+            storage: "🏠"
+
+        };
+
+
+        return (
+            icons[
+                String(
+                    type || ""
+                ).toLowerCase()
+            ] ||
+            "🚚"
+        );
+
+    }
+
+
+    /* =====================================================
+       RENDER LISTINGS
+    ====================================================== */
+
+    function renderLogisticsListings() {
+
+        let listings =
+            getAvailableLogisticsListings();
+
+
+        const search =
+            String(
+                searchInput.value || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        const selectedType =
+            typeSelect.value;
+
+
+        const selectedPricing =
+            pricingSelect.value;
+
+
+        const location =
+            String(
+                locationInput.value || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if (search) {
+
+            listings =
+                listings.filter(
+                    function(listing) {
+
+                        const text = [
+
+                            listing.title,
+
+                            listing.type,
+
+                            listing.category,
+
+                            listing.description,
+
+                            listing.location,
+
+                            listing.destination,
+
+                            listing.vehicleModel,
+
+                            listing.capacity
+
+                        ]
+                            .join(" ")
+                            .toLowerCase();
+
+
+                        return text.includes(
+                            search
+                        );
+
+                    }
+                );
+
+        }
+
+
+        if (selectedType) {
+
+            listings =
+                listings.filter(
+                    function(listing) {
+
+                        return (
+                            String(
+                                listing.type
+                            ).toLowerCase() ===
+                            selectedType.toLowerCase()
+                        );
+
+                    }
+                );
+
+        }
+
+
+        if (selectedPricing) {
+
+            listings =
+                listings.filter(
+                    function(listing) {
+
+                        return (
+                            listing.pricingType ===
+                            selectedPricing
+                        );
+
+                    }
+                );
+
+        }
+
+
+        if (location) {
+
+            listings =
+                listings.filter(
+                    function(listing) {
+
+                        const listingLocation =
+                            String(
+                                listing.location || ""
+                            )
+                            .toLowerCase();
+
+                        return listingLocation.includes(
+                            location
+                        );
+
+                    }
+                );
+
+        }
+
+
+        countText.textContent =
+            `${listings.length} service${
+                listings.length === 1
+                    ? ""
+                    : "s"
+            } available`;
+
+
+        grid.innerHTML =
+            "";
+
+
+        if (
+            listings.length === 0
+        ) {
+
+            grid.innerHTML = `
+
+                <div class="logistics-empty">
+
+                    <div class="logistics-empty-icon">
+                        🚚
+                    </div>
+
+                    <h2>
+                        No logistics services found
+                    </h2>
+
+                    <p>
+                        Try another search or
+                        list your own logistics service.
+                    </p>
+
+                    <br>
+
+                    <button
+                        class="primary-btn"
+                        onclick="
+                            window.location.href=
+                            'list-logistics.html'
+                        ">
+
+                        List a Service →
+
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        listings.forEach(
+            function(listing) {
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                card.className =
+                    "logistics-card";
+
+
+                const image =
+                    listing.photos &&
+                    listing.photos.length
+                        ? `
+
+                            <img
+                                src="${listing.photos[0]}"
+                                alt="${escapeHTML(
+                                    listing.title
+                                )}">
+
+                          `
+                        : `
+
+                            ${getLogisticsIcon(
+                                listing.type
+                            )}
+
+                          `;
+
+
+                const provider =
+                    listing.providerName ||
+                    "TradeHub Provider";
+
+
+                card.innerHTML = `
+
+                    <div class="logistics-image">
+
+                        ${image}
+
+                    </div>
+
+
+                    <div class="logistics-card-body">
+
+                        <span class="logistics-type">
+
+                            ${escapeHTML(
+                                getLogisticsTypeLabel(
+                                    listing.type
+                                )
+                            )}
+
+                        </span>
+
+
+                        <h3>
+
+                            ${escapeHTML(
+                                listing.title
+                            )}
+
+                        </h3>
+
+
+                        <p class="logistics-description">
+
+                            ${escapeHTML(
+                                listing.description ||
+                                "Reliable logistics service available through TradeHub."
+                            )}
+
+                        </p>
+
+
+                        <div class="logistics-meta">
+
+                            <div>
+                                Provider:
+                                <strong>
+                                    ${escapeHTML(
+                                        provider
+                                    )}
+                                </strong>
+                            </div>
+
+
+                            ${
+                                listing.location
+                                    ? `
+                                        <div>
+                                            Location:
+                                            <strong>
+                                                ${escapeHTML(
+                                                    listing.location
+                                                )}
+                                            </strong>
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+
+                            ${
+                                listing.capacity
+                                    ? `
+                                        <div>
+                                            Capacity:
+                                            <strong>
+                                                ${escapeHTML(
+                                                    listing.capacity
+                                                )}
+                                                ${
+                                                    listing.capacityUnit
+                                                        ? " " +
+                                                          escapeHTML(
+                                                              listing.capacityUnit
+                                                          )
+                                                        : ""
+                                                }
+                                            </strong>
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+
+                            ${
+                                listing.vehicleModel
+                                    ? `
+                                        <div>
+                                            Vehicle:
+                                            <strong>
+                                                ${escapeHTML(
+                                                    listing.vehicleModel
+                                                )}
+                                            </strong>
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div class="logistics-price">
+
+                            <div>
+
+                                <strong>
+                                    ${formatLogisticsCurrency(
+                                        listing.price
+                                    )}
+                                </strong>
+
+                                <span>
+                                    ${
+                                        listing.pricingType === "per_km"
+                                            ? "/ km"
+                                            : listing.pricingType === "per_day"
+                                                ? "/ day"
+                                                : listing.pricingType === "per_hour"
+                                                    ? "/ hour"
+                                                    : " flat"
+                                    }
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                class="primary-btn"
+                                onclick="
+                                    window.location.href=
+                                    'logistics-details.html?id=${encodeURIComponent(
+                                        listing.id
+                                    )}'
+                                ">
+
+                                View & Book →
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                grid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       EVENTS
+    ====================================================== */
+
+    searchInput.addEventListener(
+        "input",
+        renderLogisticsListings
+    );
+
+
+    typeSelect.addEventListener(
+        "change",
+        renderLogisticsListings
+    );
+
+
+    pricingSelect.addEventListener(
+        "change",
+        renderLogisticsListings
+    );
+
+
+    locationInput.addEventListener(
+        "input",
+        renderLogisticsListings
+    );
+
+
+    window.addEventListener(
+        "tradehubLogisticsUpdated",
+        renderLogisticsListings
+    );
+
+
+    /* =====================================================
+       INITIALIZE
+    ====================================================== */
+
+    populateTypes();
+
+    renderLogisticsListings();
+
+</script>
+
+
+</body>
+
+</html>
