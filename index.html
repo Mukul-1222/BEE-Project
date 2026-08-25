@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Trade Hub | Buy. Sell. Trade.</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+
+        <!-- TRADEHUB LOGO -->
+
+        <a href="index.html"
+           class="logo"
+           style="text-decoration: none; color: inherit;">
+
+            <span class="logo-icon">
+                T
+            </span>
+
+            <span>
+                Trade<span class="logo-highlight">Hub</span>
+            </span>
+
+        </a>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-links">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+            <a href="#business">
+                Business
+            </a>
+
+            <a href="pages/logistics.html">
+                Logistics
+            </a>
+
+            <a href="#market">
+                Market
+            </a>
+
+        </nav>
+
+
+
+        <!-- NAV ACTIONS -->
+
+        <div class="nav-actions">
+
+
+            <!-- SEARCH -->
+
+            <button
+                class="icon-btn"
+                id="searchBtn">
+
+                🔍
+
+            </button>
+
+
+
+            <!-- CART -->
+
+            <button
+                class="icon-btn cart-nav-btn"
+                id="cartNavBtn"
+                type="button">
+
+                🛒
+
+                <span
+                    class="cart-count"
+                    id="homepageCartCount">
+
+                    0
+
+                </span>
+
+            </button>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div
+                class="account-area"
+                id="accountArea">
+
+                <button
+                    class="login-btn"
+                    id="loginBtn"
+                    type="button">
+
+                    Login
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <main>
+
+
+        <section
+            class="hero"
+            id="home">
+
+
+            <div class="hero-content">
+
+
+                <div class="hero-badge">
+
+                    ● India's Smart Marketplace
+
+                </div>
+
+
+
+                <h1>
+
+                    Buy.
+
+                    <span>
+                        Sell.
+                    </span>
+
+                    Trade.
+
+                </h1>
+
+
+
+                <p>
+
+                    A unified marketplace connecting customers,
+                    businesses and suppliers — all in one place.
+
+                </p>
+
+                <div class="homepage-search"
+                     style="
+                        display:flex;
+                        gap:10px;
+                        width:100%;
+                        max-width:620px;
+                        margin:22px 0;
+                     ">
+
+                    <input
+                        type="search"
+                        id="homepageSearch"
+                        placeholder="Search products, brands or categories..."
+                        aria-label="Search products"
+                        style="
+                            flex:1;
+                            min-width:0;
+                            padding:14px 16px;
+                            border:1px solid var(--border);
+                            border-radius:10px;
+                            background:var(--surface);
+                            color:inherit;
+                            outline:none;
+                            font:inherit;
+                        "
+                    >
+
+                    <button
+                        type="button"
+                        class="primary-btn"
+                        id="homepageSearchButton">
+                        Search
+                    </button>
+
+                </div>
+
+
+
+                <div class="hero-buttons">
+
+
+                    <button
+                        class="primary-btn"
+                        id="exploreBtn"
+                        type="button">
+
+                        Explore Products →
+
+                    </button>
+
+
+
+                    <button
+                        class="secondary-btn"
+                        id="sellBtn"
+                        type="button">
+
+                        Start Selling
+
+                    </button>
+
+
+                </div>
+
+
+
+                <div class="hero-stats">
+
+
+                    <div>
+
+                        <strong id="homepageProductCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Products
+                        </span>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <strong id="homepageBusinessCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Businesses
+                        </span>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <strong id="homepageCustomerCount">
+                            0
+                        </strong>
+
+                        <span>
+                            Customers
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual">
+
+
+                <div class="floating-card card-one">
+
+
+                    <span>
+                        📦
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            Inventory
+                        </strong>
+
+                        <small>
+                            Live Tracking
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="floating-card card-two">
+
+
+                    <span>
+                        🚚
+                    </span>
+
+
+                    <div>
+
+                        <strong>
+                            Delivery
+                        </strong>
+
+                        <small>
+                            On the way
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="hero-circle">
+
+
+                    <div class="circle-content">
+
+                        <span>
+                            TH
+                        </span>
+
+                        <small>
+                            TRADE HUB
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= MARKET TYPES ================= -->
+
+        <section class="market-types">
+
+
+            <div class="section-heading">
+
+
+                <span class="section-label">
+
+                    MARKETPLACE
+
+                </span>
+
+
+
+                <h2>
+
+                    One platform.
+
+                    <span>
+                        Every transaction.
+                    </span>
+
+                </h2>
+
+
+
+                <p>
+
+                    Whether you're buying for yourself,
+                    supplying your store, or selling your
+                    own products — Trade Hub connects you.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="market-grid">
+
+
+                <!-- B2C -->
+
+                <div class="market-card homepage-market-link"
+                     data-market="b2c"
+                     role="link"
+                     tabindex="0"
+                     style="cursor:pointer;">
+
+
+                    <div class="market-icon">
+                        🛍️
+                    </div>
+
+
+                    <span class="market-tag">
+                        B2C
+                    </span>
+
+
+                    <h3>
+                        Business → Customer
+                    </h3>
+
+
+                    <p>
+
+                        Discover products from verified
+                        businesses and purchase them directly.
+
+                    </p>
+</div>
+
+
+
+                <!-- B2B -->
+
+                <div class="market-card featured homepage-market-link"
+                     data-market="b2b"
+                     role="link"
+                     tabindex="0"
+                     style="cursor:pointer;">
+
+
+                    <div class="market-icon">
+                        🏢
+                    </div>
+
+
+                    <span class="market-tag">
+                        B2B
+                    </span>
+
+
+                    <h3>
+                        Business → Business
+                    </h3>
+
+
+                    <p>
+
+                        Buy products in bulk at wholesale
+                        prices for your business or store.
+
+                    </p>
+</div>
+
+
+
+                <!-- C2C -->
+
+                <div class="market-card homepage-market-link"
+                     data-market="c2c"
+                     role="link"
+                     tabindex="0"
+                     style="cursor:pointer;">
+
+
+                    <div class="market-icon">
+                        🔄
+                    </div>
+
+
+                    <span class="market-tag">
+                        C2C
+                    </span>
+
+
+                    <h3>
+                        Customer → Customer
+                    </h3>
+
+
+                    <p>
+
+                        Sell products you no longer need
+                        and discover great deals from others.
+
+                    </p>
+</div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section
+            class="categories"
+            id="categories">
+
+
+            <div class="section-heading">
+
+
+                <span class="section-label">
+
+                    CATEGORIES
+
+                </span>
+
+
+
+                <h2>
+
+                    Explore by
+
+                    <span>
+                        category
+                    </span>
+
+                </h2>
+
+
+            </div>
+
+
+
+            <div class="category-grid">
+
+
+                <div class="category-card" data-category="Electronics" id="homepage-category-electronics" style="cursor:pointer;">
+
+                    <span>
+                        📱
+                    </span>
+
+                    <h3>
+                        Electronics
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-electronics-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Fashion" id="homepage-category-fashion" style="cursor:pointer;">
+
+                    <span>
+                        👕
+                    </span>
+
+                    <h3>
+                        Fashion
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-fashion-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Home & Kitchen" id="homepage-category-home-kitchen" style="cursor:pointer;">
+
+                    <span>
+                        🏠
+                    </span>
+
+                    <h3>
+                        Home & Kitchen
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-home-kitchen-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Groceries" id="homepage-category-groceries" style="cursor:pointer;">
+
+                    <span>
+                        🍎
+                    </span>
+
+                    <h3>
+                        Groceries
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-groceries-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Sports" id="homepage-category-sports" style="cursor:pointer;">
+
+                    <span>
+                        ⚽
+                    </span>
+
+                    <h3>
+                        Sports
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-sports-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Beauty" id="homepage-category-beauty" style="cursor:pointer;">
+
+                    <span>
+                        💄
+                    </span>
+
+                    <h3>
+                        Beauty
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-beauty-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Industrial" id="homepage-category-industrial" style="cursor:pointer;">
+
+                    <span>
+                        🔧
+                    </span>
+
+                    <h3>
+                        Industrial
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-industrial-count">0</span> products
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card" data-category="Wholesale" id="homepage-category-wholesale" style="cursor:pointer;">
+
+                    <span>
+                        📦
+                    </span>
+
+                    <h3>
+                        Wholesale
+                    </h3>
+
+                    <p>
+                        <span id="homepage-category-wholesale-count">0</span> products
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <section
+            class="features"
+            id="business">
+
+
+            <div class="section-heading">
+
+
+                <span class="section-label">
+
+                    WHY TRADE HUB
+
+                </span>
+
+
+
+                <h2>
+
+                    Everything you need to
+
+                    <span>
+                        trade smarter.
+                    </span>
+
+                </h2>
+
+
+            </div>
+
+
+
+            <div class="feature-grid">
+
+
+                <div class="feature-card">
+
+
+                    <div>
+                        📦
+                    </div>
+
+
+                    <h3>
+                        Smart Inventory
+                    </h3>
+
+
+                    <p>
+
+                        Track stock levels, manage products
+                        and monitor inventory in real time.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+
+                    <div>
+                        🚚
+                    </div>
+
+
+                    <h3>
+                        Live Delivery
+                    </h3>
+
+
+                    <p>
+
+                        Track your orders and deliveries
+                        directly on the map.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+
+                    <div>
+                        💬
+                    </div>
+
+
+                    <h3>
+                        Direct Messaging
+                    </h3>
+
+
+                    <p>
+
+                        Communicate directly with businesses
+                        and delivery partners.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+
+                    <div>
+                        🔐
+                    </div>
+
+
+                    <h3>
+                        Verified Businesses
+                    </h3>
+
+
+                    <p>
+
+                        Verified businesses get access to
+                        wholesale pricing and B2B deals.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= LOGISTICS ================= -->
+
+        <section
+            class="logistics"
+            id="logistics">
+
+
+            <div class="logistics-content">
+
+
+                <span class="section-label">
+
+                    LOGISTICS
+
+                </span>
+
+
+
+                <h2>
+
+                    Move your products
+
+                    <span>
+                        anywhere.
+                    </span>
+
+                </h2>
+
+
+
+                <p>
+
+                    Rent trucks, ships, boats and trains
+                    to transport products between locations.
+
+                </p>
+
+
+
+                <button
+                    class="primary-btn"
+                    type="button"
+                    id="exploreLogisticsBtn">
+
+                    Explore Logistics →
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="transport-grid">
+
+
+                <div>
+
+                    🚚
+
+                    <span>
+                        Trucks
+                    </span>
+
+                </div>
+
+
+
+                <div>
+
+                    🚢
+
+                    <span>
+                        Ships
+                    </span>
+
+                </div>
+
+
+
+                <div>
+
+                    🛥️
+
+                    <span>
+                        Boats
+                    </span>
+
+                </div>
+
+
+
+                <div>
+
+                    🚆
+
+                    <span>
+                        Trains
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= MARKET ================= -->
+
+        <section
+            class="market"
+            id="market">
+
+
+            <div class="market-content">
+
+
+                <span class="section-label">
+
+                    MARKET
+
+                </span>
+
+
+
+                <h2>
+
+                    Track the
+
+                    <span>
+                        market.
+                    </span>
+
+                </h2>
+
+
+
+                <p>
+
+                    Follow market movements and manage
+                    your investment portfolio.
+
+                </p>
+
+
+
+                <button
+                    class="secondary-btn"
+                    type="button">
+
+                    View Market →
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="market-stats">
+
+
+                <div>
+
+                    <span>
+                        NIFTY 50
+                    </span>
+
+                    <strong>
+                        25,248.35
+                    </strong>
+
+                    <small class="positive">
+                        ▲ 0.84%
+                    </small>
+
+                </div>
+
+
+
+                <div>
+
+                    <span>
+                        SENSEX
+                    </span>
+
+                    <strong>
+                        82,005.12
+                    </strong>
+
+                    <small class="positive">
+                        ▲ 0.62%
+                    </small>
+
+                </div>
+
+
+
+                <div>
+
+                    <span>
+                        RELIANCE
+                    </span>
+
+                    <strong>
+                        ₹1,421.40
+                    </strong>
+
+                    <small class="positive">
+                        ▲ 1.12%
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+
+    <!-- ================= SUPPORT MODAL ================= -->
+
+    <div
+        id="supportModal"
+        class="support-modal"
+        aria-hidden="true">
+
+        <div
+            class="support-modal-backdrop"
+            data-close-support="true">
+        </div>
+
+        <div
+            class="support-modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="supportModalTitle">
+
+            <button
+                type="button"
+                class="support-modal-close"
+                id="supportModalClose"
+                aria-label="Close">
+
+                ×
+
+            </button>
+
+            <span
+                class="section-label"
+                id="supportModalLabel">
+
+                SUPPORT
+
+            </span>
+
+            <h2 id="supportModalTitle">
+                Help Center
+            </h2>
+
+            <p id="supportModalText">
+                Trade Hub support information.
+            </p>
+
+            <div
+                id="supportModalActions"
+                class="support-modal-actions">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+
+        <div class="footer-main">
+
+
+            <div class="footer-brand">
+
+
+                <a
+                    href="index.html"
+                    class="logo"
+                    style="text-decoration: none; color: inherit;">
+
+                    <span class="logo-icon">
+                        T
+                    </span>
+
+                    Trade<span class="logo-highlight">
+                        Hub
+                    </span>
+
+                </a>
+
+
+
+                <p>
+
+                    India's unified marketplace for
+                    customers and businesses.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+
+                <h3>
+                    Marketplace
+                </h3>
+
+
+                <a href="pages/products.html?market=all">
+                    Products
+                </a>
+
+
+                <a href="pages/products.html?market=b2c">
+                    B2C
+                </a>
+
+
+                <a href="pages/products.html?market=b2b">
+                    B2B
+                </a>
+
+
+                <a href="pages/products.html?market=c2c">
+                    C2C
+                </a>
+
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+
+                <h3>
+                    <span id="footerBusinessTitle">
+                        Business
+                    </span>
+                </h3>
+
+
+                <a
+                    id="footerSellLink"
+                    href="pages/login.html">
+
+                    Sell on Trade Hub
+
+                </a>
+
+
+                <a
+                    id="footerInventoryLink"
+                    href="pages/inventory.html">
+
+                    Inventory
+
+                </a>
+
+
+                <a
+                    id="footerVerificationLink"
+                    href="pages/business-verification.html">
+
+                    Business Verification
+
+                </a>
+
+
+                <a
+                    id="footerLogisticsLink"
+                    href="pages/business-orders.html">
+
+                    Logistics
+
+                </a>
+
+
+            </div>
+
+
+
+            <div class="footer-column">
+
+
+                <h3>
+                    Support
+                </h3>
+
+
+                <a href="#help-center" data-support="help">
+                    Help Center
+                </a>
+
+
+                <a href="#returns" data-support="returns">
+                    Returns
+                </a>
+
+
+                <a href="#contact-us" data-support="contact">
+                    Contact Us
+                </a>
+
+
+                <a href="#privacy" data-support="privacy">
+                    Privacy
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="footer-bottom">
+
+
+            <p>
+                © 2026 TradeHub. All rights reserved.
+            </p>
+
+
+            <p>
+                Built for BEE Project
+            </p>
+
+
+        </div>
+
+
+    </footer>
+
+
+
+
+    <style>
+
+        /* =====================================================
+           FOOTER SUPPORT MODAL
+        ====================================================== */
+
+        .support-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .support-modal.open {
+            display: flex;
+        }
+
+        .support-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(5px);
+        }
+
+        .support-modal-card {
+            position: relative;
+            z-index: 1;
+            width: min(560px, 100%);
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        .support-modal-card h2 {
+            margin: 12px 0 10px;
+        }
+
+        .support-modal-card p {
+            margin: 0;
+            line-height: 1.7;
+            color: #aaa;
+        }
+
+        .support-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: transparent;
+            color: inherit;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .support-modal-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        .support-modal-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .support-modal-actions a.primary-support-link {
+            border-color: transparent;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+        }
+
+    </style>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/products.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+
+
+
+    <script>
+
+        /* =====================================================
+           FOOTER SUPPORT LINKS
+        ====================================================== */
+
+        const supportModal =
+            document.getElementById("supportModal");
+
+        const supportModalTitle =
+            document.getElementById("supportModalTitle");
+
+        const supportModalText =
+            document.getElementById("supportModalText");
+
+        const supportModalActions =
+            document.getElementById("supportModalActions");
+
+        const supportModalClose =
+            document.getElementById("supportModalClose");
+
+
+        /* =====================================================
+           ACCOUNT-AWARE FOOTER LINKS
+        ====================================================== */
+
+        function getHomepageCurrentUser() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(
+                        "tradehub_current_user"
+                    )
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "TradeHub current user could not be read:",
+                    error
+                );
+
+                return null;
+
+            }
+
+        }
+
+
+        function configureAccountFooter() {
+
+            const user =
+                getHomepageCurrentUser();
+
+
+            const isBusiness =
+                !!user &&
+                user.type === "business";
+
+
+            const title =
+                document.getElementById(
+                    "footerBusinessTitle"
+                );
+
+            const sellLink =
+                document.getElementById(
+                    "footerSellLink"
+                );
+
+            const inventoryLink =
+                document.getElementById(
+                    "footerInventoryLink"
+                );
+
+            const verificationLink =
+                document.getElementById(
+                    "footerVerificationLink"
+                );
+
+            const logisticsLink =
+                document.getElementById(
+                    "footerLogisticsLink"
+                );
+
+
+            if (
+                !title ||
+                !sellLink ||
+                !inventoryLink ||
+                !verificationLink ||
+                !logisticsLink
+            ) {
+
+                return;
+
+            }
+
+
+            if (isBusiness) {
+
+                /*
+                 * BUSINESS ACCOUNT
+                 */
+
+                title.textContent =
+                    "Business";
+
+
+                sellLink.textContent =
+                    "Business Dashboard";
+
+                sellLink.href =
+                    "pages/business-dashboard.html";
+
+
+                inventoryLink.textContent =
+                    "Inventory";
+
+                inventoryLink.href =
+                    "pages/inventory.html";
+
+
+                verificationLink.textContent =
+                    "Business Verification";
+
+                verificationLink.href =
+                    "pages/business-verification.html";
+
+
+                logisticsLink.textContent =
+                    "Logistics";
+
+                logisticsLink.href =
+                    "pages/logistics.html";
+
+            }
+            else {
+
+                /*
+                 * CUSTOMER ACCOUNT
+                 *
+                 * Customers do not have business inventory
+                 * or business verification pages, so the
+                 * footer switches to useful customer actions.
+                 */
+
+                title.textContent =
+                    "My Account";
+
+
+                sellLink.textContent =
+                    "Sell a Used Product";
+
+                sellLink.href =
+                    "pages/sell-used-product.html";
+
+
+                inventoryLink.textContent =
+                    "My Wishlist";
+
+                inventoryLink.href =
+                    "pages/wishlist.html";
+
+
+                verificationLink.textContent =
+                    "My Orders";
+
+                verificationLink.href =
+                    "pages/orders.html";
+
+
+                logisticsLink.textContent =
+                    "Logistics";
+
+                logisticsLink.href =
+                    "pages/logistics.html";
+
+            }
+
+        }
+
+
+        configureAccountFooter();
+
+
+        function openSupportModal(type) {
+
+            if (
+                !supportModal ||
+                !supportModalTitle ||
+                !supportModalText ||
+                !supportModalActions
+            ) {
+                return;
+            }
+
+            const content = {
+
+                help: {
+                    label: "HELP CENTER",
+                    title: "How can we help?",
+                    text:
+                        "Browse Trade Hub products, manage your orders, sell products, track deliveries and contact other users through the platform.",
+                    actions: `
+                        <a
+                            class="primary-support-link"
+                            href="pages/products.html">
+
+                            Browse Marketplace
+
+                        </a>
+
+                        ${
+                            getHomepageCurrentUser() &&
+                            getHomepageCurrentUser().type === "business"
+
+                            ?
+
+                            `<a
+                                href="pages/business-dashboard.html">
+
+                                Business Dashboard
+
+                            </a>`
+
+                            :
+
+                            `<a
+                                href="pages/orders.html">
+
+                                My Orders
+
+                            </a>`
+                        }
+                    `
+                },
+
+                returns: {
+                    label: "RETURNS",
+                    title: "Returns & Refunds",
+                    text:
+                        "For this frontend project, return requests can be handled by contacting the seller through Trade Hub messages. Keep your order ID ready when requesting help.",
+                    actions: `
+                        <a
+                            class="primary-support-link"
+                            href="${
+                                getHomepageCurrentUser() &&
+                                getHomepageCurrentUser().type === "business"
+
+                                ?
+
+                                "pages/business-orders.html"
+
+                                :
+
+                                "pages/orders.html"
+                            }">
+
+                            ${
+                                getHomepageCurrentUser() &&
+                                getHomepageCurrentUser().type === "business"
+
+                                ?
+
+                                "Manage Orders"
+
+                                :
+
+                                "View My Orders"
+                            }
+
+                        </a>
+
+                        <a
+                            href="pages/messages.html">
+
+                            Open Messages
+
+                        </a>
+                    `
+                },
+
+                contact: {
+                    label: "CONTACT US",
+                    title: "Contact Trade Hub",
+                    text:
+                        "Need help with Trade Hub? You can use the messaging system to contact sellers and businesses directly. For general project contact, use the email option below.",
+                    actions: `
+                        <a
+                            class="primary-support-link"
+                            href="mailto:support@tradehub.local">
+
+                            Email Support
+
+                        </a>
+
+                        <a
+                            href="pages/messages.html">
+
+                            Open Messages
+
+                        </a>
+                    `
+                },
+
+                privacy: {
+                    label: "PRIVACY",
+                    title: "Privacy",
+                    text:
+                        "Trade Hub stores account, product, cart, wishlist and order information in your browser's local storage for this frontend project. No external backend database is used for these demo features.",
+                    actions: `
+                        <a
+                            class="primary-support-link"
+                            href="#home"
+                            data-close-support="true">
+
+                            Back to Home
+
+                        </a>
+                    `
+                }
+
+            };
+
+            const selected =
+                content[type] ||
+                content.help;
+
+            document.getElementById(
+                "supportModalLabel"
+            ).textContent =
+                selected.label;
+
+            supportModalTitle.textContent =
+                selected.title;
+
+            supportModalText.textContent =
+                selected.text;
+
+            supportModalActions.innerHTML =
+                selected.actions;
+
+            supportModal.classList.add("open");
+
+            supportModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }
+
+
+        function closeSupportModal() {
+
+            if (!supportModal) {
+                return;
+            }
+
+            supportModal.classList.remove("open");
+
+            supportModal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+        }
+
+
+        document
+            .querySelectorAll(
+                "[data-support]"
+            )
+            .forEach(
+                function(link) {
+
+                    link.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            openSupportModal(
+                                link.dataset.support
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        if (supportModalClose) {
+
+            supportModalClose.addEventListener(
+                "click",
+                closeSupportModal
+            );
+
+        }
+
+
+        if (supportModal) {
+
+            supportModal.addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target.dataset.closeSupport ===
+                        "true"
+                    ) {
+                        closeSupportModal();
+                    }
+
+                }
+            );
+
+        }
+
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+                    closeSupportModal();
+                }
+
+            }
+        );
+
+
+        function homepageGetProducts() {
+
+            if (typeof getProducts === "function") {
+                return getProducts();
+            }
+
+            try {
+                return JSON.parse(
+                    localStorage.getItem("tradehub_products")
+                ) || [];
+            } catch (error) {
+                console.error(
+                    "TradeHub products could not be read:",
+                    error
+                );
+                return [];
+            }
+        }
+
+
+        function homepageGetUsers() {
+
+            if (typeof getUsers === "function") {
+                return getUsers();
+            }
+
+            try {
+                return JSON.parse(
+                    localStorage.getItem("tradehub_users")
+                ) || [];
+            } catch (error) {
+                console.error(
+                    "TradeHub users could not be read:",
+                    error
+                );
+                return [];
+            }
+        }
+
+
+        function homepageIsCustomerProduct(product) {
+
+            if (!product) {
+                return false;
+            }
+
+            return (
+                product.sourceType === "customer" ||
+                product.isUsed === true ||
+                product.isCustomerProduct === true
+            );
+
+        }
+
+
+        function homepageIsAvailableProduct(product) {
+
+            if (!product) {
+                return false;
+            }
+
+            if (homepageIsCustomerProduct(product)) {
+
+                return !(
+                    product.sold === true ||
+                    String(
+                        product.status || ""
+                    ).toLowerCase() === "sold" ||
+                    Number(product.stock) <= 0
+                );
+
+            }
+
+            return Number(product.stock) > 0;
+
+        }
+
+
+        function updateHomepageStatistics() {
+
+            const products =
+                homepageGetProducts().filter(
+                    function(product) {
+
+                        return homepageIsAvailableProduct(
+                            product
+                        );
+
+                    }
+                );
+            const users = homepageGetUsers();
+
+            const verifiedBusinesses =
+                users.filter(function(user) {
+
+                    return (
+                        user &&
+                        user.type === "business" &&
+                        (
+                            user.verificationStatus === "verified" ||
+                            user.verified === true ||
+                            user.businessVerified === true
+                        )
+                    );
+
+                });
+
+
+            const customers =
+                users.filter(function(user) {
+
+                    return (
+                        user &&
+                        user.type === "customer"
+                    );
+
+                });
+
+
+            const productCount =
+                document.getElementById(
+                    "homepageProductCount"
+                );
+
+            const businessCount =
+                document.getElementById(
+                    "homepageBusinessCount"
+                );
+
+            const customerCount =
+                document.getElementById(
+                    "homepageCustomerCount"
+                );
+
+
+            if (productCount) {
+                productCount.textContent =
+                    products.length;
+            }
+
+            if (businessCount) {
+                businessCount.textContent =
+                    verifiedBusinesses.length;
+            }
+
+            if (customerCount) {
+                customerCount.textContent =
+                    customers.length;
+            }
+        }
+
+
+        function getHomepageCategoryCount(
+            category
+        ) {
+
+            const target =
+                String(category)
+                    .trim()
+                    .toLowerCase();
+
+
+            return homepageGetProducts()
+                .filter(function(product) {
+
+                    return (
+                        homepageIsAvailableProduct(
+                            product
+                        ) &&
+                        String(
+                            product.category || ""
+                        )
+                        .trim()
+                        .toLowerCase() === target
+                    );
+
+                })
+                .length;
+        }
+
+
+        function updateHomepageCategoryCounts() {
+
+            const categoryMap = {
+
+                "Electronics":
+                    "homepage-category-electronics-count",
+
+                "Fashion":
+                    "homepage-category-fashion-count",
+
+                "Home & Kitchen":
+                    "homepage-category-home-kitchen-count",
+
+                "Groceries":
+                    "homepage-category-groceries-count",
+
+                "Sports":
+                    "homepage-category-sports-count",
+
+                "Beauty":
+                    "homepage-category-beauty-count",
+
+                "Industrial":
+                    "homepage-category-industrial-count",
+
+                "Wholesale":
+                    "homepage-category-wholesale-count"
+
+            };
+
+
+            Object.keys(categoryMap).forEach(
+                function(category) {
+
+                    const element =
+                        document.getElementById(
+                            categoryMap[category]
+                        );
+
+                    if (element) {
+
+                        element.textContent =
+                            getHomepageCategoryCount(
+                                category
+                            );
+
+                    }
+                }
+            );
+        }
+
+
+        function goToHomepageProducts(
+            options = {}
+        ) {
+
+            const params =
+                new URLSearchParams();
+
+
+            if (options.search) {
+
+                params.set(
+                    "search",
+                    options.search
+                );
+
+            }
+
+
+            if (options.category) {
+
+                params.set(
+                    "category",
+                    options.category
+                );
+
+            }
+
+
+            const query =
+                params.toString();
+
+
+            window.location.href =
+                query
+                    ?
+                `pages/products.html?${query}`
+                    :
+                "pages/products.html";
+        }
+
+
+        function initializeHomepageSearch() {
+
+            const input =
+                document.getElementById(
+                    "homepageSearch"
+                );
+
+            const button =
+                document.getElementById(
+                    "homepageSearchButton"
+                );
+
+
+            if (!input || !button) {
+                return;
+            }
+
+
+            function search() {
+
+                const value =
+                    input.value.trim();
+
+
+                if (!value) {
+
+                    input.focus();
+                    return;
+
+                }
+
+
+                goToHomepageProducts({
+                    search: value
+                });
+            }
+
+
+            button.addEventListener(
+                "click",
+                search
+            );
+
+
+            input.addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        event.preventDefault();
+                        search();
+
+                    }
+
+                }
+            );
+        }
+
+
+        function initializeHomepageCategories() {
+
+            document
+                .querySelectorAll(
+                    ".category-card[data-category]"
+                )
+                .forEach(
+                    function(card) {
+
+                        card.addEventListener(
+                            "click",
+                            function() {
+
+                                const category =
+                                    card.dataset.category;
+
+
+                                if (category) {
+
+                                    goToHomepageProducts({
+                                        category:
+                                            category
+                                    });
+
+                                }
+                            }
+                        );
+
+
+                        card.setAttribute(
+                            "role",
+                            "link"
+                        );
+
+                        card.setAttribute(
+                            "tabindex",
+                            "0"
+                        );
+
+
+                        card.addEventListener(
+                            "keydown",
+                            function(event) {
+
+                                if (
+                                    event.key === "Enter" ||
+                                    event.key === " "
+                                ) {
+
+                                    event.preventDefault();
+                                    card.click();
+
+                                }
+
+                            }
+                        );
+                    }
+                );
+        }
+
+
+        function updateHomepageCartCount() {
+
+            let cart = [];
+
+
+            try {
+
+                cart = JSON.parse(
+                    localStorage.getItem(
+                        "tradehub_cart"
+                    )
+                ) || [];
+
+            } catch (error) {
+
+                console.error(
+                    "TradeHub cart could not be read:",
+                    error
+                );
+
+                cart = [];
+            }
+
+
+            let totalQuantity = 0;
+
+
+            if (Array.isArray(cart)) {
+
+                cart.forEach(
+                    function(item) {
+
+                        totalQuantity +=
+                            Number(
+                                item.quantity
+                            ) || 0;
+
+                    }
+                );
+            }
+
+
+            document
+                .querySelectorAll(
+                    ".cart-count"
+                )
+                .forEach(
+                    function(counter) {
+
+                        counter.textContent =
+                            totalQuantity;
+
+                    }
+                );
+        }
+
+
+        /*
+         * ====================================================
+         * NAVBAR SEARCH BUTTON
+         * ====================================================
+         */
+
+        const searchNavButton =
+            document.getElementById(
+                "searchBtn"
+            );
+
+
+        if (searchNavButton) {
+
+            searchNavButton.addEventListener(
+                "click",
+                function() {
+
+                    const homepageSearch =
+                        document.getElementById(
+                            "homepageSearch"
+                        );
+
+
+                    if (homepageSearch) {
+
+                        homepageSearch.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+
+
+                        setTimeout(
+                            function() {
+
+                                homepageSearch.focus();
+
+                            },
+                            350
+                        );
+
+                    }
+                    else {
+
+                        window.location.href =
+                            "pages/products.html";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+         * ====================================================
+         * CART BUTTON
+         * ====================================================
+         */
+
+        const cartNavButton =
+            document.getElementById(
+                "cartNavBtn"
+            );
+
+
+        if (cartNavButton) {
+
+            cartNavButton.addEventListener(
+                "click",
+                function() {
+
+                    window.location.href =
+                        "pages/cart.html";
+
+                }
+            );
+        }
+
+
+        const loginButton =
+            document.getElementById(
+                "loginBtn"
+            );
+
+
+        let homepageCurrentUser = null;
+
+
+        try {
+
+            homepageCurrentUser =
+                JSON.parse(
+                    localStorage.getItem(
+                        "tradehub_current_user"
+                    )
+                );
+
+        } catch (error) {
+
+            homepageCurrentUser = null;
+
+        }
+
+
+        if (
+            loginButton &&
+            homepageCurrentUser
+        ) {
+
+            loginButton.textContent =
+                `👤 ${
+                    homepageCurrentUser.businessName ||
+                    homepageCurrentUser.name ||
+                    "Account"
+                }`;
+
+
+            loginButton.onclick =
+                function() {
+
+                    if (
+                        homepageCurrentUser.type ===
+                        "business"
+                    ) {
+
+                        window.location.href =
+                            "pages/business-dashboard.html";
+
+                    } else {
+
+                        window.location.href =
+                            "pages/customer-dashboard.html";
+
+                    }
+
+                };
+        }
+
+
+
+        /* =====================================================
+           LOGISTICS BUTTON
+        ====================================================== */
+
+        const exploreLogisticsButton =
+            document.getElementById(
+                "exploreLogisticsBtn"
+            );
+
+
+        if (exploreLogisticsButton) {
+
+            exploreLogisticsButton.addEventListener(
+                "click",
+                function() {
+
+                    window.location.href =
+                        "pages/logistics.html";
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           HOMEPAGE MARKETPLACE CARDS
+        ====================================================== */
+
+
+
+        function openHomepageMarketplace(
+            market
+        ) {
+
+            const allowedMarkets = [
+                "b2c",
+                "b2b",
+                "c2c"
+            ];
+
+
+            if (
+                !allowedMarkets.includes(
+                    market
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            window.location.href =
+                `pages/products.html?market=${market}`;
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".homepage-market-link[data-market]"
+            )
+            .forEach(
+                function(card) {
+
+                    card.addEventListener(
+                        "click",
+                        function() {
+
+                            openHomepageMarketplace(
+                                card.dataset.market
+                            );
+
+                        }
+                    );
+
+
+                    card.addEventListener(
+                        "keydown",
+                        function(event) {
+
+                            if (
+                                event.key === "Enter" ||
+                                event.key === " "
+                            ) {
+
+                                event.preventDefault();
+
+                                openHomepageMarketplace(
+                                    card.dataset.market
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                updateHomepageStatistics();
+
+                updateHomepageCategoryCounts();
+
+                initializeHomepageSearch();
+
+                initializeHomepageCategories();
+
+                updateHomepageCartCount();
+
+            }
+        );
+
+
+        window.addEventListener(
+            "pageshow",
+            function() {
+
+                updateHomepageStatistics();
+
+                updateHomepageCategoryCounts();
+
+                updateHomepageCartCount();
+
+            }
+        );
+
+
+        window.addEventListener(
+            "focus",
+            function() {
+
+                updateHomepageStatistics();
+
+                updateHomepageCategoryCounts();
+
+                updateHomepageCartCount();
+
+            }
+        );
+
+
+        window.addEventListener(
+            "storage",
+            function(event) {
+
+                if (
+                    event.key === "tradehub_products" ||
+                    event.key === "tradehub_users" ||
+                    event.key === "tradehub_cart"
+                ) {
+
+                    updateHomepageStatistics();
+
+                    updateHomepageCategoryCounts();
+
+                    updateHomepageCartCount();
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
